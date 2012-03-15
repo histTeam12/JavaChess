@@ -46,8 +46,11 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         setResizable(false);
         setClosable(false);
         setIconifiable(false);
-        setMaximizable(false);
-        
+        setMaximizable(false); 
+        setBorder(null);
+        setRootPaneCheckingEnabled(false);
+        javax.swing.plaf.InternalFrameUI ifu = getUI();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)ifu).setNorthPane(null);
         
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
