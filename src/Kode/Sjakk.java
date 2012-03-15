@@ -8,7 +8,6 @@ import javax.swing.*;
 
 public class Sjakk extends JFrame implements MouseListener, MouseMotionListener {
     
-    int penis;
     int tur = 2;
     JLayeredPane layeredPane;
     BrettRute chessBoard;
