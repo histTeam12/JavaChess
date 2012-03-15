@@ -1,0 +1,43 @@
+package Kode;
+
+import java.awt.Point;
+import javax.swing.Icon;
+
+public class DronningS extends Brikke {
+
+    private final int skrå = -75;
+
+    public DronningS(Icon ikon) {
+        super(ikon);
+        maksY = -75;
+        maksX = 0;
+        lag = 2;
+    }
+
+    @Override
+    public Icon getIcon() {
+        return ikon;
+    }
+
+    @Override
+    public int getLag() {
+        return lag;
+    }
+
+    @Override
+    public boolean lovligMove(int y, int x, Point start, Object brikke, int lag2) {
+        if (lag2 == lag) {
+            return false;
+        }
+        if (Math.abs((int)start.getX() - x) == (Math.abs((int)start.getY()-y))){
+                return true;
+        }
+        if (y != (int) start.getY() && x == (int) start.getX()){
+            return true;
+        }
+        if (y == (int) start.getY() && x != (int) start.getX()){
+            return true;
+        }
+        return false;
+    }
+}
