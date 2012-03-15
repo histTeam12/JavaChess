@@ -19,9 +19,9 @@ public class Sjakk extends JFrame implements MouseListener, MouseMotionListener 
     BondeS bondeS = new BondeS(new ImageIcon("src/Kode/Bilder/okayguyB.png"));
     BondeH bondeH = new BondeH(new ImageIcon("src/Kode/Bilder/okayguyW.png"));
     TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/fyeahS.png"));
+    TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/fyeahW.png"));
     TarnS tårnShø = tårnS;
-    TarnS tårnSve = tårnS;
-    TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/fyeahW.png"));    
+    TarnS tårnSve = tårnS;        
     TarnH tårnve = tårnH;
     TarnH tårnhø = tårnH;
     HestS hestS = new HestS(new ImageIcon("src/Kode/Bilder/trollfaceB.png"));
