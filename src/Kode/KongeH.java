@@ -6,6 +6,7 @@ import javax.swing.Icon;
 public class KongeH extends Brikke {
 
     private boolean flyttet = false;
+    private boolean test;
 
     public KongeH(Icon ikon) {
         super(ikon);
