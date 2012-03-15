@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
-public class Sjakk extends JFrame implements MouseListener, MouseMotionListener {
+public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
     
     int tur = 2;
     JLayeredPane layeredPane;
@@ -39,7 +39,16 @@ public class Sjakk extends JFrame implements MouseListener, MouseMotionListener 
 
     public Sjakk() {
         Dimension boardSize = new Dimension(600, 600);
-
+        
+        setVisible(true);
+        setLocation(100, 100);
+        setTitle("");
+        setResizable(false);
+        setClosable(false);
+        setIconifiable(false);
+        setMaximizable(false);
+        
+        
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
         layeredPane.setPreferredSize(boardSize);
@@ -743,11 +752,12 @@ public class Sjakk extends JFrame implements MouseListener, MouseMotionListener 
     }
 
     public static void main(String[] args) {
-        JFrame frame = new Sjakk();
+        JFrame frame = new JFrame();
+        JInternalFrame frame2 = new Sjakk();
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        frame.add(frame2);
         frame.pack();
         frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
