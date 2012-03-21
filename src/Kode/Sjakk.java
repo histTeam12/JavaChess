@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
     
+    Koordinater kord = new Koordinater();
     int tur = 2;
     JLayeredPane layeredPane;
     BrettRute chessBoard;
@@ -172,6 +173,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper brikken tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
+        System.out.println(startPos);
+        System.out.println(kord.getKoord(startPos));
         try {
             if (chessPiece == null) {
                 return;
@@ -754,15 +757,5 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     @Override
     public void mouseExited(MouseEvent e) {
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        JInternalFrame frame2 = new Sjakk();
-        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        frame.add(frame2);
-        frame.pack();
-        frame.setResizable(true);
-        frame.setVisible(true);
     }
 }
