@@ -7,7 +7,9 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
 public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
-    
+
+    Point kongeHpos;
+    Point kongeSpos;
     Koordinater kord = new Koordinater();
     int tur = 2;
     JLayeredPane layeredPane;
@@ -22,7 +24,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/fyeahS.png"));
     TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/fyeahW.png"));
     TarnS tårnShø = tårnS;
-    TarnS tårnSve = tårnS;        
+    TarnS tårnSve = tårnS;
     TarnH tårnve = tårnH;
     TarnH tårnhø = tårnH;
     HestS hestS = new HestS(new ImageIcon("src/Kode/Bilder/trollfaceB.png"));
@@ -40,19 +42,19 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     public Sjakk() {
         Dimension boardSize = new Dimension(600, 600);
-        
+
         setVisible(true);
         setLocation(100, 100);
         setTitle("");
         setResizable(false);
         setClosable(false);
         setIconifiable(false);
-        setMaximizable(false); 
+        setMaximizable(false);
         setBorder(null);
         setRootPaneCheckingEnabled(false);
         javax.swing.plaf.InternalFrameUI ifu = getUI();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)ifu).setNorthPane(null);
-        
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) ifu).setNorthPane(null);
+
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
         layeredPane.setPreferredSize(boardSize);
@@ -64,8 +66,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         chessBoard.setLayout(new GridLayout(8, 8));
         chessBoard.setPreferredSize(boardSize);
         chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
-       
-        for (int i = 0; i < 64; i++) {            
+
+        for (int i = 0; i < 64; i++) {
             JPanel square = new JPanel(new BorderLayout());
             square.setOpaque(false);
             chessBoard.add(square);
@@ -173,8 +175,6 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper brikken tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println(startPos);
-        System.out.println(kord.getKoord(startPos));
         try {
             if (chessPiece == null) {
                 return;
@@ -445,31 +445,31 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
             if (chessPiece.getIcon().equals(kongeH.getIcon())) {
-                    if((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment), 
-                    (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int)startPos.getX() + xAdjustment + 75), (int)(startPos.getY() + yAdjustment)) instanceof BrikkeLabel))){
-                            if(kongeH.flyttet() == false && tårnhø.flyttet() == false){
-                                    flytt(e);
-                                    Component c = chessBoard.findComponentAt((int)startPos.getX() +225, (int)startPos.getY());
+                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                        (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel))) {
+                    if (kongeH.flyttet() == false && tårnhø.flyttet() == false) {
+                        flytt(e);
+                        Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
                         Container parent = (Container) chessBoard.getComponent(61);
                         parent.add(c);
-                                    kongeH.setFlyttet();
-                                    chessPiece.setVisible(true);
-                                    return;
-                            }
+                        kongeH.setFlyttet();
+                        chessPiece.setVisible(true);
+                        return;
                     }
-                    if((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment), 
-                  (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int)startPos.getX() + xAdjustment - 75), (int)(startPos.getY() + yAdjustment)) instanceof BrikkeLabel) &&
-                  !(chessBoard.findComponentAt(((int)startPos.getX() + xAdjustment - 225), (int)(startPos.getY() + yAdjustment)) instanceof BrikkeLabel))){
-                            if(kongeH.flyttet() == false && tårnve.flyttet() == false){
-                                    flytt(e);
-                                       Component c = chessBoard.findComponentAt((int)startPos.getX() -300, (int)startPos.getY());
+                }
+                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                        (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel)
+                        && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel))) {
+                    if (kongeH.flyttet() == false && tårnve.flyttet() == false) {
+                        flytt(e);
+                        Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
                         Container parent = (Container) chessBoard.getComponent(59);
                         parent.add(c);
-                                    kongeH.setFlyttet();
-                                    chessPiece.setVisible(true);
-                                    return;
-                            }
+                        kongeH.setFlyttet();
+                        chessPiece.setVisible(true);
+                        return;
                     }
+                }
                 if (kongeH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
                     flytt(e);
                     kongeH.setFlyttet();
@@ -477,33 +477,33 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     flyttTilbake();
                 }
             }
-            
+
             if (chessPiece.getIcon().equals(kongeS.getIcon())) {
-                    if((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment), 
-                    (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int)startPos.getX() + xAdjustment + 75), (int)(startPos.getY() + yAdjustment)) instanceof BrikkeLabel))){
-                            if(kongeS.flyttet() == false && tårnSve.flyttet() == false){
-                                    flytt(e);                                 
-                                    Component c = chessBoard.findComponentAt((int)startPos.getX() -300, (int)startPos.getY());
+                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                        (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel))) {
+                    if (kongeS.flyttet() == false && tårnSve.flyttet() == false) {
+                        flytt(e);
+                        Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
                         Container parent = (Container) chessBoard.getComponent(3);
                         parent.add(c);
-                                    kongeS.setFlyttet();
-                                    chessPiece.setVisible(true);
-                                    return;
-                            }
+                        kongeS.setFlyttet();
+                        chessPiece.setVisible(true);
+                        return;
                     }
-                    if((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment), 
-                  (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int)startPos.getX() + xAdjustment - 75), (int)(startPos.getY() + yAdjustment)) instanceof BrikkeLabel) &&
-                  !(chessBoard.findComponentAt(((int)startPos.getX() + xAdjustment - 225), (int)(startPos.getY() + yAdjustment)) instanceof BrikkeLabel))){
-                            if(kongeS.flyttet() == false && tårnShø.flyttet() == false){
-                                    flytt(e);
-                                       Component c = chessBoard.findComponentAt((int)startPos.getX() +225, (int)startPos.getY());
+                }
+                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                        (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel)
+                        && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel))) {
+                    if (kongeS.flyttet() == false && tårnShø.flyttet() == false) {
+                        flytt(e);
+                        Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
                         Container parent = (Container) chessBoard.getComponent(5);
                         parent.add(c);
-                                    kongeS.setFlyttet();
-                                    chessPiece.setVisible(true);
-                                    return;
-                            }
+                        kongeS.setFlyttet();
+                        chessPiece.setVisible(true);
+                        return;
                     }
+                }
                 if (kongeH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
                     flytt(e);
                     kongeH.setFlyttet();
@@ -741,6 +741,51 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             chessBoard.repaint(10);
         }
         chessPiece.setVisible(true);
+    }
+
+    public void kongeSPos() {
+        for (int i = 0; i < 64; i++) {
+            if (brikkeType(kord.getPunkt(i)).equals(kongeS)) {
+                kongeSpos = kord.getPunkt(i);
+            }
+        }
+    }
+
+    public void kongeHPos() {
+        for (int i = 0; i < 64; i++) {
+            if (brikkeType(kord.getPunkt(i)).equals(kongeH)) {
+                kongeHpos = kord.getPunkt(i);
+            }
+        }
+    }
+
+    public boolean sjekkSjakkS() {
+        if (brikkeType((int) (kongeSpos.getX() - 75), (int) (kongeSpos.getY() - 150)).equals(hestH)) {
+           
+        }
+        return true;
+    }
+
+    public boolean sjekkSjakkH() {
+        return true;
+    }
+
+    public Brikke brikkeType(Point a) {
+        Component c = chessBoard.findComponentAt(a);
+        if (c instanceof BrikkeLabel) {
+            BrikkeLabel b = (BrikkeLabel) c;
+            return b.getBrikke();
+        }
+        return null;
+    }
+    public Brikke brikkeType(int x, int y) {
+        Point a = new Point(x,y);
+        Component c = chessBoard.findComponentAt(a);
+        if (c instanceof BrikkeLabel) {
+            BrikkeLabel b = (BrikkeLabel) c;
+            return b.getBrikke();
+        }
+        return null;
     }
 
     @Override
