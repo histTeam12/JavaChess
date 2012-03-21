@@ -215,6 +215,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     if (e.getY() + yAdjustment == 525) {
                         JOptionPane.showMessageDialog(null, "Dronning");
                         chessPiece = (new BrikkeLabel(dronningS.getIcon(), dronningS));
+                        return;
                     }
                 } else {
                     flyttTilbake();
@@ -233,6 +234,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     if (e.getY() + yAdjustment == 0) {
                         JOptionPane.showMessageDialog(null, "Dronning");
                         chessPiece = (new BrikkeLabel(dronningH.getIcon(), dronningH));
+                        return;
                     }
                 } else {
                     flyttTilbake();
