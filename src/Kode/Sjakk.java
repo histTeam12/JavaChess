@@ -19,22 +19,22 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     int lag;
     Icon lolW = new ImageIcon("src/Kode/Bilder/lolW.png");
     Icon lolB = new ImageIcon("src/Kode/Bilder/lolB.png");
-    BondeS bondeS = new BondeS(new ImageIcon("src/Kode/Bilder/okayguyB.png"));
-    BondeH bondeH = new BondeH(new ImageIcon("src/Kode/Bilder/okayguyW.png"));
-    TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/fyeahS.png"));
-    TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/fyeahW.png"));
+    BondeS bondeS = new BondeS(new ImageIcon("src/Kode/Bilder/BondeS.png"));
+    BondeH bondeH = new BondeH(new ImageIcon("src/Kode/Bilder/BondeH.png"));
+    TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/TarnS.png"));
+    TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/TarnH.png"));
     TarnS tårnShø = tårnS;
     TarnS tårnSve = tårnS;
     TarnH tårnve = tårnH;
     TarnH tårnhø = tårnH;
-    HestS hestS = new HestS(new ImageIcon("src/Kode/Bilder/trollfaceB.png"));
-    HestH hestH = new HestH(new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
-    LoperS løperS = new LoperS(new ImageIcon("src/Kode/Bilder/badassB.png"));
-    LoperH løperH = new LoperH(new ImageIcon("src/Kode/Bilder/badassW.png"));
-    DronningS dronningS = new DronningS(new ImageIcon("src/Kode/Bilder/fmercuryB.png"));
-    DronningH dronningH = new DronningH(new ImageIcon("src/Kode/Bilder/fmercuryW.png"));
-    KongeS kongeS = new KongeS(new ImageIcon("src/Kode/Bilder/yaomingB.png"));
-    KongeH kongeH = new KongeH(new ImageIcon("src/Kode/Bilder/yaomingW.png"));
+    HestS hestS = new HestS(new ImageIcon("src/Kode/Bilder/HestS.png"));
+    HestH hestH = new HestH(new ImageIcon("src/Kode/Bilder/HestH.png"));
+    LoperS løperS = new LoperS(new ImageIcon("src/Kode/Bilder/LoperS.png"));
+    LoperH løperH = new LoperH(new ImageIcon("src/Kode/Bilder/LoperH.png"));
+    DronningS dronningS = new DronningS(new ImageIcon("src/Kode/Bilder/DronningS.png"));
+    DronningH dronningH = new DronningH(new ImageIcon("src/Kode/Bilder/DronningH.png"));
+    KongeS kongeS = new KongeS(new ImageIcon("src/Kode/Bilder/KongeS.png"));
+    KongeH kongeH = new KongeH(new ImageIcon("src/Kode/Bilder/KongeH.png"));
     Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
     Point startPos;
     int xAdjustment;
@@ -164,12 +164,12 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         }
         chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
         //Setter Midlertidig ikon mens brikken blir flyttet
-        if (chessPiece.getBrikke().getLag() == 1) {
-            chessPiece.setIcon(lolW);
-        }
-        if (chessPiece.getBrikke().getLag() == 2) {
-            chessPiece.setIcon(lolB);
-        }
+//        if (chessPiece.getBrikke().getLag() == 1) {
+//            chessPiece.setIcon(lolW);
+//        }
+//        if (chessPiece.getBrikke().getLag() == 2) {
+//            chessPiece.setIcon(lolB);
+//        }
     }
 
     //Slipper brikken tilbake på brettet
@@ -182,10 +182,10 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             //Sjekker om det er hvit eller svart sin tur:
             if ((chessPiece.getBrikke().getLag() == 2 && tur % 2 == 0) || (chessPiece.getBrikke().getLag() == 1 && tur % 2 == 1)) {
                 flyttTilbake();
-                chessPiece.setIcon(hjelpIkon);
+                //chessPiece.setIcon(hjelpIkon);
                 return;
             }
-            chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
+            //chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
             Component m = chessBoard.findComponentAt(e.getX(), e.getY());
             Point b;
             if (m instanceof JPanel) {
@@ -206,44 +206,50 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 lag = 0;
             }
             //Sjekker hva slags brikke som blir flyttet og deretter om det er et lovlig flytt
-            if (chessPiece.getIcon().equals(bondeS.getIcon())) {
+            if (chessPiece.getBrikke().equals(bondeS)) {
                 if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
                     if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + 75) instanceof BrikkeLabel) {
                         flyttTilbake();
                     }
                 }
-                if (bondeS.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
-                    flytt(e);
+                if (bondeS.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {                    
                     //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
                     if (e.getY() + yAdjustment == 525) {
+                        chessPiece.setVisible(false);
                         JOptionPane.showMessageDialog(null, "Dronning");
-                        chessPiece = (new BrikkeLabel(dronningS.getIcon(), dronningS));
+                        chessPiece = new BrikkeLabel(dronningS.getIcon(), dronningS);
+                        chessPiece.setVisible(true);
+                        flytt(e);
                         return;
                     }
+                    flytt(e);
                 } else {
                     flyttTilbake();
                 }
 
             }
-            if (chessPiece.getIcon().equals(bondeH.getIcon())) {
+            if (chessPiece.getBrikke().equals(bondeH)) {
                 if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
                     if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() - 75) instanceof BrikkeLabel) {
                         flyttTilbake();
                     }
                 }
-                if (bondeH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
-                    flytt(e);
+                if (bondeH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {                    
                     //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
                     if (e.getY() + yAdjustment == 0) {
+                        chessPiece.setVisible(false);
                         JOptionPane.showMessageDialog(null, "Dronning");
-                        chessPiece = (new BrikkeLabel(dronningH.getIcon(), dronningH));
+                        chessPiece = new BrikkeLabel(dronningH.getIcon(), dronningH);
+                        chessPiece.setVisible(true);
+                        flytt(e);
                         return;
                     }
+                    flytt(e);
                 } else {
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(dronningH.getIcon())) {
+            if (chessPiece.getBrikke().equals(dronningH)) {
                 int ruter;
                 if (dronningH.lovligMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, lag)) {
                     if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
@@ -337,7 +343,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
 
-            if (chessPiece.getIcon().equals(dronningS.getIcon())) {
+            if (chessPiece.getBrikke().equals(dronningS)) {
                 int ruter;
                 if (dronningS.lovligMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, lag)) {
                     if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
@@ -430,21 +436,21 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(hestS.getIcon())) {
+            if (chessPiece.getBrikke().equals(hestS)) {
                 if (hestS.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
                     flytt(e);
                 } else {
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(hestH.getIcon())) {
+            if (chessPiece.getBrikke().equals(hestH)) {
                 if (hestH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
                     flytt(e);
                 } else {
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(kongeH.getIcon())) {
+            if (chessPiece.getBrikke().equals(kongeH)) {
                 if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
                         (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel))) {
                     if (kongeH.flyttet() == false && tårnhø.flyttet() == false) {
@@ -478,7 +484,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
 
-            if (chessPiece.getIcon().equals(kongeS.getIcon())) {
+            if (chessPiece.getBrikke().equals(kongeS)) {
                 if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
                         (e.getY() + yAdjustment)) instanceof BrikkeLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof BrikkeLabel))) {
                     if (kongeS.flyttet() == false && tårnSve.flyttet() == false) {
@@ -511,7 +517,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(løperH.getIcon())) {
+            if (chessPiece.getBrikke().equals(løperH)) {
                 //Ned venstre
                 int ruter;
                 if (løperH.lovligMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, lag)) {
@@ -559,7 +565,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(løperS.getIcon())) {
+            if (chessPiece.getBrikke().equals(løperS)) {
                 //Ned venstre
                 int ruter;
                 if (løperS.lovligMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, lag)) {
@@ -607,7 +613,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(tårnH.getIcon())) {
+            if (chessPiece.getBrikke().equals(tårnH)) {
                 int ruter;
                 if (tårnH.lovligMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, lag)) {
                     //Y-Retning
@@ -653,7 +659,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                     flyttTilbake();
                 }
             }
-            if (chessPiece.getIcon().equals(tårnS.getIcon())) {
+            if (chessPiece.getBrikke().equals(tårnS)) {
                 int ruter;
                 if (tårnS.lovligMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, lag)) {
                     //Y-Retning
