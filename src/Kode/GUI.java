@@ -23,6 +23,8 @@ public class GUI extends JFrame{
         frame.add(knapp, BorderLayout.NORTH);
         frame.pack();
         frame.setLocationRelativeTo(null);
+        JMenuBar menuBar = Menybar.createMenybar();
+        frame.setJMenuBar(menuBar);
         frame.setVisible(true);
     }
     public static void main(String[] args){
