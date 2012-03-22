@@ -13,4 +13,9 @@ public static JScrollPane CreateScrollPane(){
     
     return liste;
 }
+//public static JScrollPane CreateCreditsPane(){
+  //  String tekst = "Hei";
+    //JScrollPane liste = new JScrollPane(tekst);
+    //liste.setPreferredSize(new Dimension(200,100));
 }
+
