@@ -14,6 +14,8 @@ public class GUI extends JFrame{
         setTitle(tittel);
         setLayout(new BorderLayout());
         JFrame frame = new JFrame();
+        JMenuBar menuBar = Menybar.createMenybar();
+        frame.setJMenuBar(menuBar);
         JInternalFrame a = new Sjakk();
         frame.add(a);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,8 +25,6 @@ public class GUI extends JFrame{
         frame.add(knapp, BorderLayout.NORTH);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        JMenuBar menuBar = Menybar.createMenybar();
-        frame.setJMenuBar(menuBar);
         frame.setVisible(true);
     }
     public static void main(String[] args){
