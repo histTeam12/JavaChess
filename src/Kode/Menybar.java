@@ -11,6 +11,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 class Menybar {
@@ -28,8 +29,10 @@ public static JMenuBar createMenybar(){
     //Lager knapper til Filmenyen
     JMenuItem Item1 = new JMenuItem("Nytt Spill", 
             new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
-            
-    JMenuItem Item2 = new JMenuItem("Avslutt");
+                Item1.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
+    JMenuItem Item2 = new JMenuItem("Avslutt", 
+            new ImageIcon("src/Kode/Bilder/avslutt.png"));
     file.add(Item1);
     file.add(Item2);
     
