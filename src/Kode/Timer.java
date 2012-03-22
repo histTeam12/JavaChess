@@ -1,7 +1,7 @@
 package Kode;
 
-import javax.swing.*;
-import java.util.*;
+import java.util.TimerTask;
+import javax.swing.JLabel;
 
 class Timer extends JLabel{
     private int s;
