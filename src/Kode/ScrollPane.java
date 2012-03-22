@@ -5,7 +5,7 @@ import javax.swing.JTextArea;
 
 class ScrollPane {
 
-public static JScrollPane CreatScrollPane(){
+public static JScrollPane CreateScrollPane(){
     JTextArea textArea = new JTextArea(5, 5);
     JScrollPane liste = new JScrollPane(textArea);
     liste.setPreferredSize(new Dimension(200, 100));
