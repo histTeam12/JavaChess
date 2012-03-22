@@ -14,15 +14,20 @@ public class GUI extends JFrame{
         setTitle(tittel);
         setLayout(new BorderLayout());
         JFrame frame = new JFrame();
+        JScrollPane scrollpane = ScrollPane.CreatScrollPane();
         JMenuBar menuBar = Menybar.createMenybar();
+        frame.add(scrollpane, BorderLayout.EAST);
         frame.setJMenuBar(menuBar);
         JInternalFrame a = new Sjakk();
         frame.add(a);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*
         frame.add(knapp4, BorderLayout.SOUTH);
         frame.add(knapp3, BorderLayout.WEST);
         frame.add(knapp2, BorderLayout.EAST);
         frame.add(knapp, BorderLayout.NORTH);
+        * 
+        */
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
