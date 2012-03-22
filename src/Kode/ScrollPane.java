@@ -1,4 +1,4 @@
-package øving.pkg8;
+package Kode;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
