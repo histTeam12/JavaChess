@@ -9,17 +9,17 @@ public class GUI extends JFrame{
     private JLabel knapp2 = new JLabel(new ImageIcon("src/Kode/Bilder/east.png"));
     private JLabel knapp3 = new JLabel(new ImageIcon("src/Kode/Bilder/west.png"));
     private JLabel knapp4 = new JLabel(new ImageIcon("src/Kode/Bilder/south.png"));
+    JFrame frame = new JFrame();
     
     public GUI(String tittel) {
         setTitle(tittel);
         setLayout(new BorderLayout());
-        JFrame frame = new JFrame();
+        JInternalFrame sjakk = new Sjakk();
         JScrollPane scrollpane = ScrollPane.CreatScrollPane();
         JMenuBar menuBar = Menybar.createMenybar();
         frame.add(scrollpane, BorderLayout.EAST);
         frame.setJMenuBar(menuBar);
-        JInternalFrame a = new Sjakk();
-        frame.add(a);
+        frame.add(sjakk);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
         frame.add(knapp4, BorderLayout.SOUTH);
