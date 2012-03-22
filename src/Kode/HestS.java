@@ -10,6 +10,7 @@ public class HestS extends Brikke {
         maksY = 75;
         maksX = 75;
         lag = 2;
+        navn = "Hest";
     }
 
     @Override

@@ -10,9 +10,13 @@ abstract class Brikke {
     int maksX;
     int maksY;
     int lag;
+    String navn;
 
     public Brikke(Icon ikon) {
         this.ikon = ikon;
+    }
+    public String getNavn(){
+        return navn;
     }
 
     abstract boolean lovligMove(int y, int x, Point start, Object brikke, int lag2);

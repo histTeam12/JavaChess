@@ -11,6 +11,7 @@ public class BondeS extends Brikke {
         maksY = 75;
         maksX = 0;
         lag = 2;
+        navn = "Bonde";
     }
 
     @Override

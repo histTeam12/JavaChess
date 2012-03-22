@@ -10,6 +10,7 @@ public class LoperS extends Brikke {
         maksY = -75;
         maksX = 0;
         lag = 2;
+        navn = "Løper";
     }
 
     @Override

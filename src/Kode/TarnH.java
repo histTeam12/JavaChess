@@ -9,6 +9,7 @@ public class TarnH extends Brikke {
     public TarnH(Icon ikon) {
         super(ikon);
         lag = 1;
+        navn = "Tårn";
     }
 
     @Override

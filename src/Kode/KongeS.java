@@ -12,6 +12,7 @@ public class KongeS extends Brikke {
         maksY = 75;
         maksX = 75;
         lag = 2;
+        navn = "Konge";
     }
 
     @Override

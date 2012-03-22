@@ -5,10 +5,12 @@ import javax.swing.Icon;
 
 public class TarnS extends Brikke {
     private boolean flyttet = false;
+    
 
     public TarnS(Icon ikon) {
         super(ikon);
         lag = 2;
+        navn = "Tårn";
     }
 
     @Override

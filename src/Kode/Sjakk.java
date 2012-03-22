@@ -10,6 +10,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     Point kongeHpos;
     Point kongeSpos;
+    Logg svartLogg = new Logg();
+    Logg hvitLogg = new Logg();
     Koordinater kord = new Koordinater();
     int tur = 2;
     JLayeredPane layeredPane;
@@ -175,6 +177,12 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper brikken tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
+        flyttBrikke(e);
+        System.out.println("hvit\n"+getHvitLogg());
+        System.out.println("svart\n"+getSvartLogg());
+    }
+
+    public void flyttBrikke(MouseEvent e) {
         try {
             if (chessPiece == null) {
                 return;
@@ -212,7 +220,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                         flyttTilbake();
                     }
                 }
-                if (bondeS.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {                    
+                if (bondeS.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
                     //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
                     if (e.getY() + yAdjustment == 525) {
                         chessPiece.setVisible(false);
@@ -234,7 +242,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                         flyttTilbake();
                     }
                 }
-                if (bondeH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {                    
+                if (bondeH.lovligMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, lag)) {
                     //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
                     if (e.getY() + yAdjustment == 0) {
                         chessPiece.setVisible(false);
@@ -727,6 +735,12 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             parent.add(chessPiece);
             chessBoard.repaint(10);
         }
+        if (chessPiece.getBrikke().getLag() == 1) {
+            hvitLogg.leggTilLogg(chessPiece.getBrikke().getNavn() + " fra " + kord.getKoord(startPos) + " til " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));            
+        }
+        if (chessPiece.getBrikke().getLag() == 2) {
+            svartLogg.leggTilLogg(chessPiece.getBrikke().getNavn() + " fra " + kord.getKoord(startPos) + " til " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));            
+        }
         tur++;
         chessPiece.setVisible(true);
     }
@@ -767,7 +781,6 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     public boolean sjekkSjakkS() {
         if (brikkeType((int) (kongeSpos.getX() - 75), (int) (kongeSpos.getY() - 150)).equals(hestH)) {
-           
         }
         return true;
     }
@@ -784,14 +797,23 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         }
         return null;
     }
+
     public Brikke brikkeType(int x, int y) {
-        Point a = new Point(x,y);
+        Point a = new Point(x, y);
         Component c = chessBoard.findComponentAt(a);
         if (c instanceof BrikkeLabel) {
             BrikkeLabel b = (BrikkeLabel) c;
             return b.getBrikke();
         }
         return null;
+    }
+
+    public String getSvartLogg() {
+        return svartLogg.toString();
+    }
+
+    public String getHvitLogg() {
+        return hvitLogg.toString();
     }
 
     @Override

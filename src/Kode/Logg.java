@@ -10,10 +10,11 @@ public class Logg {
         logg.add(tekst);
     }
 
+    @Override
     public String toString() {
         String res = "";
-        for (int i = 0; i > logg.size(); i++) {
-            res += logg.get(i) + "\n";
+        for (int i = 0; i < logg.size(); i++) {
+            res += logg.get(i)+"\n";
         }
         return res;
     }

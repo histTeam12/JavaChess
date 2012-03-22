@@ -8,6 +8,7 @@ public class LoperH extends Brikke {
     public LoperH(Icon ikon) {
         super(ikon);
         lag = 1;
+        navn = "Løper";
     }
 
     @Override

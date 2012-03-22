@@ -12,6 +12,7 @@ public class DronningS extends Brikke {
         maksY = -75;
         maksX = 0;
         lag = 2;
+        navn = "Dronning";
     }
 
     @Override
