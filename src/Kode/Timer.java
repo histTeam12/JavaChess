@@ -8,7 +8,7 @@ class Timer extends JLabel {
     private int s;
     private int m;
     private int h;
-    private boolean pause = false;
+    private boolean pause = true;
 
     public Timer() {
 
