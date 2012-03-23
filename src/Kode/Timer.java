@@ -8,10 +8,10 @@ class Timer extends JLabel {
     private int s;
     private int m;
     private int h;
+    private String tekst = "";
     private boolean pause = true;
 
     public Timer() {
-
         start();
     }
 
@@ -19,6 +19,9 @@ class Timer extends JLabel {
         s = 0;
         m = 0;
         h = 0;
+    }
+    public void setTekst(String text){
+        tekst = text;
     }
 
     public void pause() {
@@ -57,7 +60,7 @@ class Timer extends JLabel {
 
                     
                 }
-                setText(h + ":" + m + ":" + s);
+                setText(tekst + h + ":" + m + ":" + s);
             }
         }, 0, 1000);
     }

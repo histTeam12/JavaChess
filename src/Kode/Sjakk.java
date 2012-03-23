@@ -4,10 +4,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.*;
 
 public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
-
+    
+    private java.util.List _listeners = new ArrayList();
     Point kongeHpos;
     Point kongeSpos;
     Logg svartLogg = new Logg();
@@ -140,22 +143,25 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     @Override
     public void mousePressed(MouseEvent e) {
-        chessPiece = null;
-        Component c = chessBoard.findComponentAt(e.getX(), e.getY());
+        try {
+            chessPiece = null;
+            Component c = chessBoard.findComponentAt(e.getX(), e.getY());
 
-        if (c instanceof JPanel) {
-            return;
+            if (c instanceof JPanel) {
+                return;
+            }
+
+            Point parentLocation = c.getParent().getLocation();
+            xAdjustment = parentLocation.x - e.getX();
+            yAdjustment = parentLocation.y - e.getY();
+            chessPiece = (BrikkeLabel) c;
+            chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+            chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+            layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+            hjelpIkon = chessPiece.getBrikke().getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
+            startPos = chessPiece.getLocation();
+        } catch (NullPointerException npe) {
         }
-
-        Point parentLocation = c.getParent().getLocation();
-        xAdjustment = parentLocation.x - e.getX();
-        yAdjustment = parentLocation.y - e.getY();
-        chessPiece = (BrikkeLabel) c;
-        chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-        chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-        layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
-        hjelpIkon = chessPiece.getBrikke().getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
-        startPos = chessPiece.getLocation();
     }
 
     //Flytter brikken rundt
@@ -176,10 +182,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     //Slipper brikken tilbake på brettet
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {        
         flyttBrikke(e);
-        System.out.println("hvit\n"+getHvitLogg());
-        System.out.println("svart\n"+getSvartLogg());
     }
 
     public void flyttBrikke(MouseEvent e) {
@@ -736,11 +740,12 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             chessBoard.repaint(10);
         }
         if (chessPiece.getBrikke().getLag() == 1) {
-            hvitLogg.leggTilLogg(chessPiece.getBrikke().getNavn() + " fra " + kord.getKoord(startPos) + " til " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));            
+            hvitLogg.leggTilLogg(chessPiece.getBrikke().getNavn() + " fra " + kord.getKoord(startPos) + " til " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
         }
         if (chessPiece.getBrikke().getLag() == 2) {
-            svartLogg.leggTilLogg(chessPiece.getBrikke().getNavn() + " fra " + kord.getKoord(startPos) + " til " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));            
+            svartLogg.leggTilLogg(chessPiece.getBrikke().getNavn() + " fra " + kord.getKoord(startPos) + " til " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
         }
+        _fireSjakkEvent();
         tur++;
         chessPiece.setVisible(true);
     }
@@ -830,5 +835,21 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    public synchronized void addSjakkListener(SjakkListener l) {
+        _listeners.add(l);
+    }
+
+    public synchronized void removeSjakkListener(SjakkListener l) {
+        _listeners.remove(l);
+    }
+
+    private synchronized void _fireSjakkEvent() {
+        SjakkEvent sjakkEvent = new SjakkEvent(this, chessPiece.getBrikke().getLag());
+        Iterator listeners = _listeners.iterator();
+        while (listeners.hasNext()) {
+            ((SjakkListener) listeners.next()).sjakkReceived(sjakkEvent);
+        }
     }
 }

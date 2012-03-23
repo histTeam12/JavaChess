@@ -20,8 +20,8 @@ public class GUI extends JFrame {
     BrettRute bakgrunn = new BrettRute("src/Kode/Bilder/ramme.png");
     JMenuBar menuBar = new JMenuBar();
     Sjakk sjakk = new Sjakk();
-    Timer timerS = new Timer();
-    Timer timerH = new Timer();
+    Timer timerS;
+    Timer timerH;
     Logg logg = new Logg();
     JTextArea textarea = new JTextArea(5, 30);
     JScrollPane scrollpane = new JScrollPane(textarea);
@@ -29,41 +29,31 @@ public class GUI extends JFrame {
 
     public GUI(String tittel) {
         //Ramme
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setTitle(tittel);
         setLayout(new BorderLayout());
         setJMenuBar(menuBar);
-        layeredpane = new JLayeredPane();
-        getContentPane().add(layeredpane);
-        layeredpane.setPreferredSize(new Dimension(700,700));
-
-        layeredpane.add(bakgrunn, JLayeredPane.DEFAULT_LAYER);
-        bakgrunn.setLayout(new GridLayout(8, 8));
-        bakgrunn.setPreferredSize(new Dimension(700,700));
-        bakgrunn.setBounds(0, 0, 700, 700);
-        layeredpane = new JLayeredPane();
-        getContentPane().add(layeredpane);
-        layeredpane.setPreferredSize(new Dimension(700,700));
-        layeredpane.add(bakgrunn, JLayeredPane.FRAME_CONTENT_LAYER);
-        layeredpane.add(sjakk);
-        layeredpane.add(scrollpane, BorderLayout.EAST);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sjakk = new Sjakk();
+        timerS = new Timer();
+        timerH = new Timer();
+        scrollpane = new JScrollPane(textarea);
+        add(sjakk);
+        menuBar.add(timerS);
+        menuBar.add(timerH);
+        add(scrollpane, BorderLayout.EAST);
 
         //Menybar
         JMenu file = new JMenu("Fil");
         JMenu settings = new JMenu("Innstillinger");
         JMenu credits = new JMenu("Credits");
         JMenu help = new JMenu("Hjelp");
-        JButton knapp = new JButton("Hvit");
-        JButton knapp2 = new JButton("Svart");
         menuBar.add(file);
         menuBar.add(settings);
         menuBar.add(credits);
         menuBar.add(help);
         menuBar.add(timerS);
         menuBar.add(timerH);
-        menuBar.add(knapp);
-        menuBar.add(knapp2);
 
         //Knapper til menybar
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
@@ -84,7 +74,7 @@ public class GUI extends JFrame {
 
         //Logg
         textarea.setEditable(false);
-        textarea.setText("LOOOOL");
+        textarea.setText("");
 
 
         //Lyttere
@@ -114,27 +104,26 @@ public class GUI extends JFrame {
             }
         });
         Utviklere.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Andreas\n Henrik\n Michael\n Lars\n");
             }
         });
-        knapp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                timerS.pause();
-                timerH.resume();
+        sjakk.addSjakkListener(new SjakkListener() {
+
+            @Override
+            public void sjakkReceived(SjakkEvent event) {
+                if (event.lag() == 1) {
+                    timerS.resume();
+                    timerH.pause();
+                    textarea.setText(sjakk.getHvitLogg());
+                } else if (event.lag() == 2) {
+                    timerS.pause();
+                    timerH.resume();
+                    textarea.setText(sjakk.getSvartLogg());
+                } 
             }
         });
-        knapp2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                timerS.resume();
-                timerH.pause();
-            }
-        });
-//        sjakk.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                
-//            }
-//        });
 
 
         pack();
