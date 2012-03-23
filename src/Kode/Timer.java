@@ -22,12 +22,10 @@ class Timer extends JLabel {
     }
 
     public void pause() {
-        if (pause) {
-            pause = false;
-        }
-        if (!pause) {
-            pause = true;
-        }
+       pause = true;
+    }
+    public void resume(){
+        pause = false;
     }
 
     public void start() {
@@ -36,7 +34,7 @@ class Timer extends JLabel {
         timer.scheduleAtFixedRate(new TimerTask() {
 
             public void run() {
-                if (pause) {
+                if (!pause) {
 
                     if (s <= 59) {
                         s++;
@@ -57,8 +55,9 @@ class Timer extends JLabel {
                         s = 0;
                     }
 
-                    setText(h + ":" + m + ":" + s);
+                    
                 }
+                setText(h + ":" + m + ":" + s);
             }
         }, 0, 1000);
     }
