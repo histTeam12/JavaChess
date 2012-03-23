@@ -15,16 +15,25 @@ import java.awt.event.KeyEvent;
 
 public class GUI extends JFrame {
 
+    //Alle komponenter
     JFrame frame = new JFrame();
     JMenuBar menuBar = new JMenuBar();
     Sjakk sjakk = new Sjakk();
     Timer timer = new Timer();
     Logg logg = new Logg();
-    JScrollPane scrollpane = ScrollPane.CreateScrollPane();
-    
+    JTextArea textArea = new JTextArea(5, 30);
+    JScrollPane scrollpane = new JScrollPane(textArea);
+
     public GUI(String tittel) {
+        //Ramme
         setTitle(tittel);
         setLayout(new BorderLayout());
+        frame.setJMenuBar(menuBar);
+        frame.add(sjakk);
+        frame.add(scrollpane, BorderLayout.EAST);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Menybar
         JMenu file = new JMenu("Fil");
         JMenu settings = new JMenu("Innstillinger");
         JMenu credits = new JMenu("Credits");
@@ -38,22 +47,16 @@ public class GUI extends JFrame {
         menuBar.add(timer);
         menuBar.add(knapp);
         menuBar.add(knapp2);
-        
-        frame.setJMenuBar(menuBar);
-        frame.add(sjakk);
-        frame.add(scrollpane, BorderLayout.EAST);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Lager knapper til Filmenyen
-        JMenuItem Nyttspill = new JMenuItem("Nytt Spill",
-                new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
-        Nyttspill.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
-        JMenuItem Avslutt = new JMenuItem("Avslutt",
-                new ImageIcon("src/Kode/Bilder/avslutt.png"));
+
+        //Knapper til menybar
+        JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
+        Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
+        JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
         JMenuItem Utviklere = new JMenuItem("Utviklere");
         ButtonGroup bg = new ButtonGroup();
+
         bg.add(Meme);
         bg.add(Vanlig);
         file.add(Nyttspill);
@@ -61,20 +64,25 @@ public class GUI extends JFrame {
         settings.add(Meme);
         settings.add(Vanlig);
         credits.add(Utviklere);
+
+        //Logg
+        textArea.setEditable(false);
+        textArea.setText("LOOOOL");
+
+
+        //Lyttere
         Nyttspill.addActionListener(new ActionListener() {
-            
-        //Lyttere til knappene i menyen
 
             public void actionPerformed(ActionEvent e) {
                 frame.remove(sjakk);
-                frame.remove(timer);
                 frame.remove(scrollpane);
                 frame.repaint();
+                menuBar.remove(timer);
                 sjakk = new Sjakk();
                 timer = new Timer();
-                scrollpane = ScrollPane.CreateScrollPane();
+                scrollpane = new JScrollPane(textArea);
                 frame.add(sjakk);
-                frame.add(timer, BorderLayout.WEST);
+                menuBar.add(timer);
                 frame.add(scrollpane, BorderLayout.EAST);
                 frame.setVisible(true);
             }
@@ -103,6 +111,7 @@ public class GUI extends JFrame {
                 timer.resume();
             }
         });
+
 
         frame.pack();
         frame.setLocationRelativeTo(null);

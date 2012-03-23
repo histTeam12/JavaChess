@@ -15,7 +15,7 @@ class Timer extends JLabel {
         start();
     }
 
-    private void reset() {
+    public void reset() {
         s = 0;
         m = 0;
         h = 0;
