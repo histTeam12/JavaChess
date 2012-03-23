@@ -17,11 +17,15 @@ public class GUI extends JFrame{
         setTitle(tittel);
         setLayout(new BorderLayout());
         Sjakk sjakk = new Sjakk();
+        Timer timer = new Timer();
+        Logg logg = new Logg();
         JScrollPane scrollpane = ScrollPane.CreateScrollPane();
         frame.add(scrollpane, BorderLayout.EAST);
         frame.setJMenuBar(menuBar);
         frame.add(sjakk);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
         /*
         frame.add(knapp4, BorderLayout.SOUTH);
         frame.add(knapp3, BorderLayout.WEST);
@@ -37,26 +41,5 @@ public class GUI extends JFrame{
         GUI gui = new GUI("Sjakk");
         gui.setSize(1280, 700);
         
-    }
-    public void Reset(){
-        frame.setVisible(false);
-        frame.removeAll();
-        setLayout(new BorderLayout());
-        Sjakk sjakk = new Sjakk();
-        JScrollPane scrollpane = ScrollPane.CreateScrollPane();
-        frame.add(scrollpane, BorderLayout.EAST);
-        frame.setJMenuBar(menuBar);
-        frame.add(sjakk);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*
-        frame.add(knapp4, BorderLayout.SOUTH);
-        frame.add(knapp3, BorderLayout.WEST);
-        frame.add(knapp2, BorderLayout.EAST);
-        frame.add(knapp, BorderLayout.NORTH);
-        * 
-        */
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
     }
 }

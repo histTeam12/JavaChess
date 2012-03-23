@@ -51,7 +51,7 @@ public Menybar(){
     });
     Utviklere.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent e){
-        
+        JOptionPane.showMessageDialog(null, "Andreas\n Henrik\n Michael\n Lars\n");
         }
     });
 }
