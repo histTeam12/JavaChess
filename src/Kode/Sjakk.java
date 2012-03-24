@@ -9,7 +9,8 @@ import java.util.Iterator;
 import javax.swing.*;
 
 public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
-    
+
+    SjakkTabell sjakkTabell = new SjakkTabell();
     private java.util.List _listeners = new ArrayList();
     Point kongeHpos;
     Point kongeSpos;
@@ -182,7 +183,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     //Slipper brikken tilbake på brettet
     @Override
-    public void mouseReleased(MouseEvent e) {        
+    public void mouseReleased(MouseEvent e) {
         flyttBrikke(e);
     }
 
@@ -812,6 +813,12 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         }
         return null;
     }
+    public void refresh(){
+        layeredPane.remove(chessBoard);
+        layeredPane.add(chessBoard);
+        layeredPane.revalidate();
+        layeredPane.repaint();
+    }
 
     public String getSvartLogg() {
         return svartLogg.toString();
@@ -824,6 +831,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     @Override
     public void mouseClicked(MouseEvent e) {
     }
+        
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -835,6 +843,23 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    public void tilTabell() {
+        for (int i = 0; i < 64; i++) {
+            if(chessBoard.findComponentAt(kord.getPunkt(i)) instanceof BrikkeLabel ){
+                sjakkTabell.oppdaterTabell((BrikkeLabel)chessBoard.findComponentAt(kord.getPunkt(i)), i);
+            }
+        }
+    }
+    public void fraTabell(){
+        for (int i = 0; i < 64; i++) {
+            Component c = sjakkTabell.hentFraTabell(i);
+            if (c instanceof BrikkeLabel){
+            JPanel panel = (JPanel) chessBoard.getComponent(i);
+            panel.add(c);
+            } 
+        }
     }
 
     public synchronized void addSjakkListener(SjakkListener l) {

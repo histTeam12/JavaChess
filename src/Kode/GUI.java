@@ -26,6 +26,21 @@ public class GUI extends JFrame {
     JTextArea textarea = new JTextArea(5, 30);
     JScrollPane scrollpane = new JScrollPane(textarea);
     JLayeredPane layeredpane;
+    SjakkListener sjakkL = new SjakkListener() {
+
+            @Override
+            public void sjakkReceived(SjakkEvent event) {
+                if (event.lag() == 1) {
+                    timerS.resume();
+                    timerH.pause();
+                    textarea.setText(sjakk.getHvitLogg());
+                } else if (event.lag() == 2) {
+                    timerS.pause();
+                    timerH.resume();
+                    textarea.setText(sjakk.getSvartLogg());
+                } 
+            }
+        };
 
     public GUI(String tittel) {
         //Ramme
@@ -35,6 +50,7 @@ public class GUI extends JFrame {
         setLayout(new BorderLayout());
         setJMenuBar(menuBar);
         sjakk = new Sjakk();
+        sjakk.addSjakkListener(sjakkL);
         timerS = new Timer();
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
@@ -90,7 +106,9 @@ public class GUI extends JFrame {
                 timerS = new Timer();
                 timerH = new Timer();
                 scrollpane = new JScrollPane(textarea);
+                textarea.setText("");
                 add(sjakk);
+                sjakk.addSjakkListener(sjakkL);
                 menuBar.add(timerS);
                 menuBar.add(timerH);
                 add(scrollpane, BorderLayout.EAST);
@@ -109,21 +127,7 @@ public class GUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Andreas\n Henrik\n Michael\n Lars\n");
             }
         });
-        sjakk.addSjakkListener(new SjakkListener() {
-
-            @Override
-            public void sjakkReceived(SjakkEvent event) {
-                if (event.lag() == 1) {
-                    timerS.resume();
-                    timerH.pause();
-                    textarea.setText(sjakk.getHvitLogg());
-                } else if (event.lag() == 2) {
-                    timerS.pause();
-                    timerH.resume();
-                    textarea.setText(sjakk.getSvartLogg());
-                } 
-            }
-        });
+        
 
 
         pack();
