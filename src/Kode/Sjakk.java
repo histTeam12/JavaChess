@@ -848,9 +848,11 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     public void tilTabell() {
         for (int i = 0; i < 64; i++) {
             if(chessBoard.findComponentAt(kord.getPunkt(i)) instanceof BrikkeLabel ){
-                sjakkTabell.oppdaterTabell((BrikkeLabel)chessBoard.findComponentAt(kord.getPunkt(i)), i);
+                sjakkTabell.oppdaterTabell((BrikkeLabel)chessBoard.findComponentAt(kord.getPunkt(i)), i);                
             }
         }
+        sjakkTabell.oppdaterLogg(getHvitLogg(), 0);
+        sjakkTabell.oppdaterLogg(getSvartLogg(), 1);
     }
     public void fraTabell(){
         for (int i = 0; i < 64; i++) {
@@ -860,6 +862,10 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             panel.add(c);
             } 
         }
+        hvitLogg.clearLogg();
+        svartLogg.clearLogg();
+        hvitLogg.leggTilLogg(sjakkTabell.getLogg(1));
+        svartLogg.leggTilLogg(sjakkTabell.getLogg(2));
     }
 
     public synchronized void addSjakkListener(SjakkListener l) {

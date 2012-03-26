@@ -9,7 +9,10 @@ public class Logg {
     public void leggTilLogg(String tekst) {
         logg.add(tekst);
     }
-
+    
+    public void clearLogg(){
+        logg.removeAll(logg);
+    }
     @Override
     public String toString() {
         String res = "";
@@ -18,4 +21,5 @@ public class Logg {
         }
         return res;
     }
+    
 }
