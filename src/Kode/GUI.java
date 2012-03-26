@@ -79,8 +79,8 @@ public class GUI extends JFrame {
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
         Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
         JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
-        JMenuItem Save = new JMenuItem("Åpne spill");
-        JMenuItem Load = new JMenuItem("Lagre spill");
+        JMenuItem Save = new JMenuItem("Lagre spill");
+        JMenuItem Load = new JMenuItem("Åpne spill");
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
         JMenuItem Utviklere = new JMenuItem("Utviklere");
@@ -106,26 +106,7 @@ public class GUI extends JFrame {
         //Lyttere
         Nyttspill.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                remove(sjakk);
-                remove(scrollpane);
-                remove(scrollpane2);
-                textarea.setText("");
-                textarea2.setText("");
-                repaint();
-                menuBar.remove(timerS);
-                menuBar.remove(timerH);
-                sjakk = new Sjakk();
-                timerS = new Timer();
-                timerH = new Timer();
-                scrollpane = new JScrollPane(textarea);
-                scrollpane2 = new JScrollPane(textarea2);
-                add(sjakk);
-                sjakk.addSjakkListener(sjakkL);
-                menuBar.add(timerS);
-                menuBar.add(timerH);
-                add(scrollpane, BorderLayout.EAST);
-                add(scrollpane2, BorderLayout.WEST);
-                setVisible(true);
+                reset();
             }
         });
         Avslutt.addActionListener(new ActionListener() {
@@ -146,6 +127,7 @@ public class GUI extends JFrame {
          Load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sjakk.fraTabell();
+                sjakk.refresh();
             }
         });
 
@@ -153,6 +135,28 @@ public class GUI extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    public void reset(){
+        remove(sjakk);
+        remove(scrollpane);
+        remove(scrollpane2);
+        textarea.setText("");
+        textarea2.setText("");
+        repaint();
+        menuBar.remove(timerS);
+        menuBar.remove(timerH);
+        sjakk = new Sjakk();
+        timerS = new Timer();
+        timerH = new Timer();
+        scrollpane = new JScrollPane(textarea);
+        scrollpane2 = new JScrollPane(textarea2);
+        add(sjakk);
+        sjakk.addSjakkListener(sjakkL);
+        menuBar.add(timerS);
+        menuBar.add(timerH);
+        add(scrollpane, BorderLayout.EAST);
+        add(scrollpane2, BorderLayout.WEST);
         setVisible(true);
     }
 }
