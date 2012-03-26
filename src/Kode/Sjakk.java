@@ -864,8 +864,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         }
         hvitLogg.clearLogg();
         svartLogg.clearLogg();
-        hvitLogg.leggTilLogg(sjakkTabell.getLogg(1));
-        svartLogg.leggTilLogg(sjakkTabell.getLogg(2));
+        hvitLogg.leggTilLogg(sjakkTabell.getLogg(0));
+        svartLogg.leggTilLogg(sjakkTabell.getLogg(1));
     }
 
     public synchronized void addSjakkListener(SjakkListener l) {
