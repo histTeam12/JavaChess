@@ -24,23 +24,25 @@ public class GUI extends JFrame {
     Timer timerH;
     Logg logg = new Logg();
     JTextArea textarea = new JTextArea(5, 30);
+    JTextArea textarea2 = new JTextArea(5, 30);
     JScrollPane scrollpane = new JScrollPane(textarea);
+    JScrollPane scrollpane2 = new JScrollPane(textarea2);
     JLayeredPane layeredpane;
     SjakkListener sjakkL = new SjakkListener() {
 
-            @Override
-            public void sjakkReceived(SjakkEvent event) {
-                if (event.lag() == 1) {
-                    timerS.resume();
-                    timerH.pause();
-                    textarea.setText(sjakk.getHvitLogg());
-                } else if (event.lag() == 2) {
-                    timerS.pause();
-                    timerH.resume();
-                    textarea.setText(sjakk.getSvartLogg());
-                } 
+        @Override
+        public void sjakkReceived(SjakkEvent event) {
+            if (event.lag() == 1) {
+                timerS.resume();
+                timerH.pause();
+                textarea.setText(sjakk.getHvitLogg());
+            } else if (event.lag() == 2) {
+                timerS.pause();
+                timerH.resume();
+                textarea2.setText(sjakk.getSvartLogg());
             }
-        };
+        }
+    };
 
     public GUI(String tittel) {
         //Ramme
@@ -54,10 +56,12 @@ public class GUI extends JFrame {
         timerS = new Timer();
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
+        scrollpane2 = new JScrollPane(textarea2);
         add(sjakk);
         menuBar.add(timerS);
         menuBar.add(timerH);
         add(scrollpane, BorderLayout.EAST);
+        add(scrollpane2, BorderLayout.WEST);
 
         //Menybar
         JMenu file = new JMenu("Fil");
@@ -75,6 +79,8 @@ public class GUI extends JFrame {
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
         Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
         JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
+        JMenuItem Save = new JMenuItem("Åpne spill");
+        JMenuItem Load = new JMenuItem("Lagre spill");
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
         JMenuItem Utviklere = new JMenuItem("Utviklere");
@@ -84,21 +90,27 @@ public class GUI extends JFrame {
         bg.add(Vanlig);
         file.add(Nyttspill);
         file.add(Avslutt);
+        file.add(Save);
+        file.add(Load);
         settings.add(Meme);
         settings.add(Vanlig);
         credits.add(Utviklere);
 
         //Logg
         textarea.setEditable(false);
-        textarea.setText("");
+        textarea2.setEditable(false);
+        scrollpane.setSize(100, 100);
+        scrollpane2.setSize(100, 100);
 
 
         //Lyttere
         Nyttspill.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 remove(sjakk);
                 remove(scrollpane);
+                remove(scrollpane2);
+                textarea.setText("");
+                textarea2.setText("");
                 repaint();
                 menuBar.remove(timerS);
                 menuBar.remove(timerH);
@@ -106,28 +118,37 @@ public class GUI extends JFrame {
                 timerS = new Timer();
                 timerH = new Timer();
                 scrollpane = new JScrollPane(textarea);
-                textarea.setText("");
+                scrollpane2 = new JScrollPane(textarea2);
                 add(sjakk);
                 sjakk.addSjakkListener(sjakkL);
                 menuBar.add(timerS);
                 menuBar.add(timerH);
                 add(scrollpane, BorderLayout.EAST);
+                add(scrollpane2, BorderLayout.WEST);
                 setVisible(true);
             }
         });
         Avslutt.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
         Utviklere.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Andreas\n Henrik\n Michael\n Lars\n");
             }
         });
-        
+         Save.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sjakk.tilTabell();
+            }
+        });
+         Load.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sjakk.fraTabell();
+            }
+        });
+
 
 
         pack();
