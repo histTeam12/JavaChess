@@ -187,6 +187,10 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper brikken tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(chessBoard.findComponentAt(e.getX(), e.getY()) instanceof BrikkeLabel){
+            brikke = (BrikkeLabel)chessBoard.findComponentAt(e.getX(), e.getY());
+        }
+        else brikke = null;
         flyttBrikke(e);
     }
 
@@ -726,6 +730,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
             chessPiece.setVisible(true);
         } catch (NullPointerException npe) {
+            System.out.println("LOL");
             flyttTilbake();
         }
     }
@@ -884,10 +889,18 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     private synchronized void _fireSjakkEvent() {
-        SjakkEvent sjakkEvent = new SjakkEvent(this, chessPiece.getBrikke().getLag());
-        Iterator listeners = _listeners.iterator();
-        while (listeners.hasNext()) {
-            ((SjakkListener) listeners.next()).sjakkReceived(sjakkEvent);
+        if (brikke != null) {
+            SjakkEvent sjakkEvent = new SjakkEvent(this, chessPiece.getBrikke().getLag(), brikke.getBrikke());
+            Iterator listeners = _listeners.iterator();
+            while (listeners.hasNext()) {
+                ((SjakkListener) listeners.next()).sjakkReceived(sjakkEvent);
+            }
+        } else {
+            SjakkEvent sjakkEvent = new SjakkEvent(this, chessPiece.getBrikke().getLag());
+            Iterator listeners = _listeners.iterator();
+            while (listeners.hasNext()) {
+                ((SjakkListener) listeners.next()).sjakkReceived(sjakkEvent);
+            }
         }
     }
 
