@@ -1,5 +1,6 @@
 package Kode;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.TimerTask;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ class Timer extends JLabel {
     public Timer() {
         start();
         setFont(new Font("SansSerif", 4, 20));
+        setForeground(Color.white);
     }
 
     public void reset() {

@@ -22,10 +22,14 @@ public class GUI extends JFrame {
     private Sjakk sjakk = new Sjakk();
     private Timer timerS;
     private Timer timerH;
+    private int[] tellerH = new int[6];
+    private int[] tellerS = new int[6];
     private JTextArea textarea = new JTextArea(10, 12);
     private JTextArea textarea2 = new JTextArea(10, 12);
+    private JTextArea textarea3 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
+    private JScrollPane scrollpane3 = new JScrollPane(textarea3);
     private Container contentPane = getContentPane();
     private SpringLayout layout = new SpringLayout();
     SjakkListener sjakkL = new SjakkListener() {
@@ -33,13 +37,21 @@ public class GUI extends JFrame {
         @Override
         public void sjakkReceived(SjakkEvent event) {
             if (event.lag() == 1) {
+                if (event.brikke() != -1) {
+                    tellerH[event.brikke()]++;
+                }
                 timerS.resume();
                 timerH.pause();
                 textarea.setText(sjakk.getHvitLogg());
+                utslagsTabellH();
             } else if (event.lag() == 2) {
+                if (event.brikke() != -1) {
+                    tellerS[event.brikke()]++;
+                }
                 timerS.pause();
                 timerH.resume();
                 textarea2.setText(sjakk.getSvartLogg());
+                utslagsTabellS();
             }
         }
     };
@@ -64,19 +76,19 @@ public class GUI extends JFrame {
         add(timerS);
         add(timerH);
         //add(bakgrunn);
-        layout.putConstraint(SpringLayout.WEST, scrollpane, 23, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.WEST, scrollpane2, 927, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 920, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, sjakk, 840, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, sjakk, 30, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerS, 190, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerS, 64, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerH, 190, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerH, 970, SpringLayout.WEST, contentPane);
-        
-        
-        
+        layout.putConstraint(SpringLayout.NORTH, timerS, 223, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerS, 79, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerH, 960, SpringLayout.WEST, contentPane);
+
+
+
 
         //Menybar
         JMenu file = new JMenu("Fil");
@@ -118,61 +130,80 @@ public class GUI extends JFrame {
         //Logg
         textarea.setEditable(false);
         textarea2.setEditable(false);
-        //textarea.setOpaque(false);
-        //scrollpane.setOpaque(false);
-        //scrollpane.getViewport().setOpaque(false);
+        textarea.setOpaque(false);
+        scrollpane.setOpaque(false);
+        scrollpane.getViewport().setOpaque(false);
         scrollpane.setBorder(null);
-        //textarea2.setOpaque(false);
-        //scrollpane2.setOpaque(false);
-        //scrollpane2.getViewport().setOpaque(false);
+        textarea2.setOpaque(false);
+        scrollpane2.setOpaque(false);
+        scrollpane2.getViewport().setOpaque(false);
         scrollpane2.setBorder(null);
-
+        textarea.setForeground(Color.white);
+        textarea2.setForeground(Color.white);
 
         //Lyttere
         Nyttspill.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 reset();
             }
         });
         Avslutt.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
         Utviklere.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Copyright © 2003–2011 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess",3, new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
+                JOptionPane.showMessageDialog(null, "Copyright © 2003–2011 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess", 3, new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
             }
         });
-         Save.addActionListener(new ActionListener() {
+        Save.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 sjakk.tilTabell();
             }
         });
-         Load.addActionListener(new ActionListener() {
+        Load.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 sjakk.fraTabell();
                 sjakk.refresh();
             }
         });
-         Meme.addActionListener(new ActionListener() {
+        Meme.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 sjakk.endreUI(1);
             }
         });
-         Vanlig.addActionListener(new ActionListener() {
+        Vanlig.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 sjakk.endreUI(2);
             }
         });
 
-
-
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    public void reset(){
+
+    public void utslagsTabellH() {
+        for (int i = 0; i < tellerH.length; i++) {
+            System.out.println(tellerH[i]);
+        }
+    }
+
+    public void utslagsTabellS() {
+        for (int i = 0; i < tellerS.length; i++) {
+            System.out.println(tellerS[i]);
+        }
+    }
+
+    public void reset() {
         remove(sjakk);
         remove(scrollpane);
         remove(scrollpane2);
