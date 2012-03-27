@@ -160,7 +160,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
             chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
             layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
-            hjelpIkon = chessPiece.getBrikke().getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
+            hjelpIkon = chessPiece.getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
             startPos = chessPiece.getLocation();
         } catch (NullPointerException npe) {
         }
@@ -201,7 +201,9 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 //chessPiece.setIcon(hjelpIkon);
                 return;
             }
+            if (meme){
             chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
+            }
             Component m = chessBoard.findComponentAt(e.getX(), e.getY());
             Point b;
             if (m instanceof JPanel) {
@@ -757,6 +759,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     public void flyttTilbake() {
         //Flytter brikken tilbake dit den ble plukket opp
         chessPiece.setVisible(false);
+        chessPiece.setIcon(hjelpIkon);
         Component c = chessBoard.findComponentAt(startPos);
 
         if (c instanceof BrikkeLabel) {
@@ -889,15 +892,17 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public void endreUI(int i) {
-        if (meme) {
-            meme = false;
-        } else {
+        if (i == 1) {
             meme = true;
+        }
+        if (i == 2){
+            meme = false;
         }
         sjakkTabell.nullstill();
         tilTabell();
         sjakkTabell.endreUI(i);
         fraTabell();
         refresh();
+        System.out.println(meme);
     }
 }
