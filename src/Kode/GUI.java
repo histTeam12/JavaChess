@@ -16,19 +16,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.SpringLayout;
 import java.awt.Container;
+import javax.swing.JLabel;
 
 public class GUI extends JFrame {
 
     //Alle komponenter
-    BrettRute bakgrunn = new BrettRute("src/Kode/Bilder/ramme.png");
+    JLabel bakgrunn = new JLabel("src/Kode/Bilder/GUIbakgrunn.png");
     JMenuBar menuBar = new JMenuBar();
     Sjakk sjakk = new Sjakk();
     Timer timerS;
     Timer timerH;
     JMenu blank = new JMenu("     ");
     Logg logg = new Logg();
-    JTextArea textarea = new JTextArea(2, 12);
-    JTextArea textarea2 = new JTextArea(2, 12);
+    JTextArea textarea = new JTextArea(10, 12);
+    JTextArea textarea2 = new JTextArea(10, 12);
     JScrollPane scrollpane = new JScrollPane(textarea);
     JScrollPane scrollpane2 = new JScrollPane(textarea2);
     JLayeredPane layeredpane;
@@ -71,6 +72,7 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.WEST, sjakk, 152, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.WEST, scrollpane2, 755, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, bakgrunn, 0, SpringLayout.WEST, contentPane);
         
 
         //Menybar
