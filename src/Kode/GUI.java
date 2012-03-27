@@ -91,8 +91,8 @@ public class GUI extends JFrame {
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
         Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
         JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
-        JMenuItem Save = new JMenuItem("Lagre spill");
-        JMenuItem Load = new JMenuItem("Åpne spill");
+        JMenuItem Save = new JMenuItem("Lagre spill", new ImageIcon("src/Kode/Bilder/mac.gif"));
+        JMenuItem Load = new JMenuItem("Åpne spill", new ImageIcon("src/Kode/Bilder/Load Icon.jpg"));
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
         JMenuItem Utviklere = new JMenuItem("Utviklere");
@@ -101,9 +101,9 @@ public class GUI extends JFrame {
         bg.add(Meme);
         bg.add(Vanlig);
         file.add(Nyttspill);
-        file.add(Avslutt);
         file.add(Save);
         file.add(Load);
+        file.add(Avslutt);
         settings.add(Meme);
         settings.add(Vanlig);
         credits.add(Utviklere);
@@ -128,7 +128,7 @@ public class GUI extends JFrame {
         });
         Utviklere.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Andreas\n Henrik\n Michael\n Lars\n");
+                JOptionPane.showMessageDialog(null, "Copyright © 2003–2011 Andreas Henrik Michael Lars. \nAll rights reserved.", "MemeChess",3, new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
             }
         });
          Save.addActionListener(new ActionListener() {
