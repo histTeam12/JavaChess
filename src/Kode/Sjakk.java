@@ -183,7 +183,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             }
         }
     }
-    
+
     //Slipper brikken tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -201,8 +201,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 //chessPiece.setIcon(hjelpIkon);
                 return;
             }
-            if (meme){
-            chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
+            if (meme) {
+                chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
             }
             Component m = chessBoard.findComponentAt(e.getX(), e.getY());
             Point b;
@@ -895,7 +895,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         if (i == 1) {
             meme = true;
         }
-        if (i == 2){
+        if (i == 2) {
             meme = false;
         }
         sjakkTabell.nullstill();
