@@ -10,6 +10,7 @@ import javax.swing.*;
 
 public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
 
+    private boolean meme = false;
     private SjakkTabell sjakkTabell = new SjakkTabell();
     private java.util.List _listeners = new ArrayList();
     private Point kongeHpos;
@@ -172,15 +173,17 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             return;
         }
         chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
-        //Setter Midlertidig ikon mens brikken blir flyttet
-//        if (chessPiece.getBrikke().getLag() == 1) {
-//            chessPiece.setIcon(lolW);
-//        }
-//        if (chessPiece.getBrikke().getLag() == 2) {
-//            chessPiece.setIcon(lolB);
-//        }
+//        Setter Midlertidig ikon mens brikken blir flyttet
+        if (meme) {
+            if (chessPiece.getBrikke().getLag() == 1) {
+                chessPiece.setIcon(lolW);
+            }
+            if (chessPiece.getBrikke().getLag() == 2) {
+                chessPiece.setIcon(lolB);
+            }
+        }
     }
-
+    
     //Slipper brikken tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -198,7 +201,7 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
                 //chessPiece.setIcon(hjelpIkon);
                 return;
             }
-            //chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
+            chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
             Component m = chessBoard.findComponentAt(e.getX(), e.getY());
             Point b;
             if (m instanceof JPanel) {
@@ -813,7 +816,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         }
         return null;
     }
-    public void refresh(){
+
+    public void refresh() {
         layeredPane.remove(chessBoard);
         layeredPane.add(chessBoard);
         layeredPane.revalidate();
@@ -831,7 +835,6 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-        
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -847,20 +850,21 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
 
     public void tilTabell() {
         for (int i = 0; i < 64; i++) {
-            if(chessBoard.findComponentAt(kord.getPunkt(i)) instanceof BrikkeLabel ){
-                sjakkTabell.oppdaterTabell((BrikkeLabel)chessBoard.findComponentAt(kord.getPunkt(i)), i);                
+            if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof BrikkeLabel) {
+                sjakkTabell.oppdaterTabell((BrikkeLabel) chessBoard.findComponentAt(kord.getPunkt(i)), i);
             }
         }
         sjakkTabell.oppdaterLogg(getHvitLogg(), 0);
         sjakkTabell.oppdaterLogg(getSvartLogg(), 1);
     }
-    public void fraTabell(){
+
+    public void fraTabell() {
         for (int i = 0; i < 64; i++) {
             Component c = sjakkTabell.hentFraTabell(i);
-            if (c instanceof BrikkeLabel){
+            if (c instanceof BrikkeLabel) {
                 JPanel panel = (JPanel) chessBoard.getComponent(i);
                 panel.add(c);
-            } 
+            }
         }
         hvitLogg.clearLogg();
         svartLogg.clearLogg();
@@ -883,7 +887,13 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
             ((SjakkListener) listeners.next()).sjakkReceived(sjakkEvent);
         }
     }
-    public void endreUI(int i){
+
+    public void endreUI(int i) {
+        if (meme) {
+            meme = false;
+        } else {
+            meme = true;
+        }
         sjakkTabell.nullstill();
         tilTabell();
         sjakkTabell.endreUI(i);
