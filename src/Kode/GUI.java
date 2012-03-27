@@ -2,6 +2,7 @@ package Kode;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.*;
 import javax.swing.JMenuBar;
@@ -13,6 +14,8 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.SpringLayout;
+import java.awt.Container;
 
 public class GUI extends JFrame {
 
@@ -22,9 +25,10 @@ public class GUI extends JFrame {
     Sjakk sjakk = new Sjakk();
     Timer timerS;
     Timer timerH;
+    JMenu blank = new JMenu("     ");
     Logg logg = new Logg();
-    JTextArea textarea = new JTextArea(5, 30);
-    JTextArea textarea2 = new JTextArea(5, 30);
+    JTextArea textarea = new JTextArea(10, 12);
+    JTextArea textarea2 = new JTextArea(10, 12);
     JScrollPane scrollpane = new JScrollPane(textarea);
     JScrollPane scrollpane2 = new JScrollPane(textarea2);
     JLayeredPane layeredpane;
@@ -49,7 +53,9 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setTitle(tittel);
-        setLayout(new BorderLayout());
+        Container contentPane = getContentPane();
+        SpringLayout layout = new SpringLayout();
+        contentPane.setLayout(layout);
         setJMenuBar(menuBar);
         sjakk = new Sjakk();
         sjakk.addSjakkListener(sjakkL);
@@ -57,11 +63,15 @@ public class GUI extends JFrame {
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
-        add(sjakk);
         menuBar.add(timerS);
         menuBar.add(timerH);
-        add(scrollpane, BorderLayout.EAST);
-        add(scrollpane2, BorderLayout.WEST);
+        add(scrollpane);
+        add(sjakk);
+        add(scrollpane2);
+        layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, sjakk, 135, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 736, SpringLayout.WEST, contentPane);
+        
 
         //Menybar
         JMenu file = new JMenu("Fil");
@@ -72,7 +82,9 @@ public class GUI extends JFrame {
         menuBar.add(settings);
         menuBar.add(credits);
         menuBar.add(help);
+        menuBar.add(blank);
         menuBar.add(timerS);
+        menuBar.add(blank);
         menuBar.add(timerH);
 
         //Knapper til menybar
@@ -163,7 +175,9 @@ public class GUI extends JFrame {
         scrollpane2 = new JScrollPane(textarea2);
         add(sjakk);
         sjakk.addSjakkListener(sjakkL);
+        menuBar.add(blank);
         menuBar.add(timerS);
+        menuBar.add(blank);
         menuBar.add(timerH);
         add(scrollpane, BorderLayout.EAST);
         add(scrollpane2, BorderLayout.WEST);
