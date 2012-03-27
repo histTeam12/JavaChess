@@ -67,7 +67,7 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.WEST, scrollpane, 23, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.WEST, scrollpane2, 920, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 927, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, sjakk, 840, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, sjakk, 30, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.NORTH, timerS, 190, SpringLayout.WEST, contentPane);
