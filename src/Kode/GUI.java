@@ -22,7 +22,6 @@ public class GUI extends JFrame {
     private Sjakk sjakk = new Sjakk();
     private Timer timerS;
     private Timer timerH;
-    private JMenu blank = new JMenu("     ");
     private JTextArea textarea = new JTextArea(10, 12);
     private JTextArea textarea2 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
