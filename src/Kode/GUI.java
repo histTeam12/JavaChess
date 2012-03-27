@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 public class GUI extends JFrame {
 
     //Alle komponenter
-    private BrettRute bakgrunn = new BrettRute("src/Kode/Bilder/ramme.png");
+    private BrettRute bakgrunn = new BrettRute("src/Kode/Bilder/bakgrunn.png");
     private JMenuBar menuBar = new JMenuBar();
     private Sjakk sjakk = new Sjakk();
     private Timer timerS;
@@ -69,13 +69,13 @@ public class GUI extends JFrame {
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
-        bakgrunn.setPreferredSize(new Dimension(920, 650));
+        bakgrunn.setPreferredSize(new Dimension(1084, 661));
         add(scrollpane);
         add(sjakk);
         add(scrollpane2);
         add(timerS);
         add(timerH);
-        //add(bakgrunn);
+        add(bakgrunn);
         layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
@@ -140,6 +140,8 @@ public class GUI extends JFrame {
         scrollpane2.setBorder(null);
         textarea.setForeground(Color.white);
         textarea2.setForeground(Color.white);
+        scrollpane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+        scrollpane2.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 
         //Lyttere
         Nyttspill.addActionListener(new ActionListener() {
