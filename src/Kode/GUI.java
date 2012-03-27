@@ -27,8 +27,8 @@ public class GUI extends JFrame {
     Timer timerH;
     JMenu blank = new JMenu("     ");
     Logg logg = new Logg();
-    JTextArea textarea = new JTextArea(10, 12);
-    JTextArea textarea2 = new JTextArea(10, 12);
+    JTextArea textarea = new JTextArea(2, 12);
+    JTextArea textarea2 = new JTextArea(2, 12);
     JScrollPane scrollpane = new JScrollPane(textarea);
     JScrollPane scrollpane2 = new JScrollPane(textarea2);
     JLayeredPane layeredpane;
@@ -69,8 +69,8 @@ public class GUI extends JFrame {
         add(sjakk);
         add(scrollpane2);
         layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, sjakk, 135, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, scrollpane2, 736, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, sjakk, 152, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 755, SpringLayout.WEST, contentPane);
         
 
         //Menybar
