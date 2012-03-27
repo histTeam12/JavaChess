@@ -21,18 +21,20 @@ import javax.swing.JLabel;
 public class GUI extends JFrame {
 
     //Alle komponenter
-    JLabel bakgrunn = new JLabel("src/Kode/Bilder/GUIbakgrunn.png");
-    JMenuBar menuBar = new JMenuBar();
-    Sjakk sjakk = new Sjakk();
-    Timer timerS;
-    Timer timerH;
-    JMenu blank = new JMenu("     ");
-    Logg logg = new Logg();
-    JTextArea textarea = new JTextArea(10, 12);
-    JTextArea textarea2 = new JTextArea(10, 12);
-    JScrollPane scrollpane = new JScrollPane(textarea);
-    JScrollPane scrollpane2 = new JScrollPane(textarea2);
-    JLayeredPane layeredpane;
+    private BrettRute bakgrunn = new BrettRute("src/Kode/Bilder/ramme.png");
+    private JMenuBar menuBar = new JMenuBar();
+    private Sjakk sjakk = new Sjakk();
+    private Timer timerS;
+    private Timer timerH;
+    private JMenu blank = new JMenu("     ");
+    private Logg logg = new Logg();
+    private JTextArea textarea = new JTextArea(10, 12);
+    private JTextArea textarea2 = new JTextArea(10, 12);
+    private JScrollPane scrollpane = new JScrollPane(textarea);
+    private JScrollPane scrollpane2 = new JScrollPane(textarea2);
+    private JLayeredPane layeredpane;
+    private Container contentPane = getContentPane();
+    private SpringLayout layout = new SpringLayout();
     SjakkListener sjakkL = new SjakkListener() {
 
         @Override
@@ -54,8 +56,6 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setTitle(tittel);
-        Container contentPane = getContentPane();
-        SpringLayout layout = new SpringLayout();
         contentPane.setLayout(layout);
         setJMenuBar(menuBar);
         sjakk = new Sjakk();
@@ -93,8 +93,8 @@ public class GUI extends JFrame {
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
         Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
         JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
-        JMenuItem Save = new JMenuItem("Lagre spill");
-        JMenuItem Load = new JMenuItem("Åpne spill");
+        JMenuItem Save = new JMenuItem("Lagre spill", new ImageIcon("src/Kode/Bilder/mac.gif"));
+        JMenuItem Load = new JMenuItem("Åpne spill", new ImageIcon("src/Kode/Bilder/Load Icon.jpg"));
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
         JMenuItem Utviklere = new JMenuItem("Utviklere");
@@ -103,9 +103,9 @@ public class GUI extends JFrame {
         bg.add(Meme);
         bg.add(Vanlig);
         file.add(Nyttspill);
-        file.add(Avslutt);
         file.add(Save);
         file.add(Load);
+        file.add(Avslutt);
         settings.add(Meme);
         settings.add(Vanlig);
         credits.add(Utviklere);
@@ -130,7 +130,7 @@ public class GUI extends JFrame {
         });
         Utviklere.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Andreas\n Henrik\n Michael\n Lars\n");
+                JOptionPane.showMessageDialog(null, "Copyright © 2003–2011 Andreas Henrik Michael Lars. \nAll rights reserved.", "MemeChess",3, new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
             }
         });
          Save.addActionListener(new ActionListener() {
@@ -181,8 +181,11 @@ public class GUI extends JFrame {
         menuBar.add(timerS);
         menuBar.add(blank);
         menuBar.add(timerH);
-        add(scrollpane, BorderLayout.EAST);
-        add(scrollpane2, BorderLayout.WEST);
+        add(scrollpane, SpringLayout.WEST);
+        add(scrollpane2, SpringLayout.EAST);
+        layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, sjakk, 152, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 755, SpringLayout.WEST, contentPane);
         setVisible(true);
     }
 }
