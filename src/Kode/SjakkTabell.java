@@ -14,12 +14,20 @@ import javax.swing.JPanel;
  */
 public class SjakkTabell {
     private BrikkeLabel[] tabell;
+    private String[] logg;
     
     public SjakkTabell(){
         this.tabell = new BrikkeLabel[64];
+        this.logg = new String[2];
     }
     public void oppdaterTabell(BrikkeLabel brikke, int indeks){
         tabell[indeks] = brikke;        
+    }
+    public void oppdaterLogg(String logg2, int indeks){
+        logg[indeks] = logg2;
+    }
+    public String getLogg(int indeks){
+        return logg[indeks];
     }
     public Component hentFraTabell(int indeks){
         if(tabell[indeks] instanceof BrikkeLabel){            
