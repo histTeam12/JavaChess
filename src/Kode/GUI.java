@@ -141,7 +141,7 @@ public class GUI extends JFrame {
         });
         Utviklere.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Copyright © 2003–2011 Andreas Henrik Michael Lars. \nAll rights reserved.", "MemeChess",3, new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
+                JOptionPane.showMessageDialog(null, "Copyright © 2003–2011 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess",3, new ImageIcon("src/Kode/Bilder/trollfaceW.png"));
             }
         });
          Save.addActionListener(new ActionListener() {
