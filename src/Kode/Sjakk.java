@@ -10,41 +10,41 @@ import javax.swing.*;
 
 public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionListener {
 
-    SjakkTabell sjakkTabell = new SjakkTabell();
+    private SjakkTabell sjakkTabell = new SjakkTabell();
     private java.util.List _listeners = new ArrayList();
-    Point kongeHpos;
-    Point kongeSpos;
-    Logg svartLogg = new Logg();
-    Logg hvitLogg = new Logg();
-    Koordinater kord = new Koordinater();
-    int tur = 2;
-    JLayeredPane layeredPane;
-    BrettRute chessBoard;
-    BrikkeLabel chessPiece;
-    BrikkeLabel brikke;
-    int lag;
-    Icon lolW = new ImageIcon("src/Kode/Bilder/lolW.png");
-    Icon lolB = new ImageIcon("src/Kode/Bilder/lolB.png");
-    BondeS bondeS = new BondeS(new ImageIcon("src/Kode/Bilder/BondeS.png"));
-    BondeH bondeH = new BondeH(new ImageIcon("src/Kode/Bilder/BondeH.png"));
-    TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/TarnS.png"));
-    TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/TarnH.png"));
-    TarnS tårnShø = tårnS;
-    TarnS tårnSve = tårnS;
-    TarnH tårnve = tårnH;
-    TarnH tårnhø = tårnH;
-    HestS hestS = new HestS(new ImageIcon("src/Kode/Bilder/HestS.png"));
-    HestH hestH = new HestH(new ImageIcon("src/Kode/Bilder/HestH.png"));
-    LoperS løperS = new LoperS(new ImageIcon("src/Kode/Bilder/LoperS.png"));
-    LoperH løperH = new LoperH(new ImageIcon("src/Kode/Bilder/LoperH.png"));
-    DronningS dronningS = new DronningS(new ImageIcon("src/Kode/Bilder/DronningS.png"));
-    DronningH dronningH = new DronningH(new ImageIcon("src/Kode/Bilder/DronningH.png"));
-    KongeS kongeS = new KongeS(new ImageIcon("src/Kode/Bilder/KongeS.png"));
-    KongeH kongeH = new KongeH(new ImageIcon("src/Kode/Bilder/KongeH.png"));
-    Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
-    Point startPos;
-    int xAdjustment;
-    int yAdjustment;
+    private Point kongeHpos;
+    private Point kongeSpos;
+    private Logg svartLogg = new Logg();
+    private Logg hvitLogg = new Logg();
+    private Koordinater kord = new Koordinater();
+    private int tur = 2;
+    private JLayeredPane layeredPane;
+    private BrettRute chessBoard;
+    private BrikkeLabel chessPiece;
+    private BrikkeLabel brikke;
+    private int lag;
+    private Icon lolW = new ImageIcon("src/Kode/Bilder/lolW.png");
+    private Icon lolB = new ImageIcon("src/Kode/Bilder/lolB.png");
+    private BondeS bondeS = new BondeS(new ImageIcon("src/Kode/Bilder/BondeS.png"));
+    private BondeH bondeH = new BondeH(new ImageIcon("src/Kode/Bilder/BondeH.png"));
+    private TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/TarnS.png"));
+    private TarnH tårnH = new TarnH(new ImageIcon("src/Kode/Bilder/TarnH.png"));
+    private TarnS tårnShø = tårnS;
+    private TarnS tårnSve = tårnS;
+    private TarnH tårnve = tårnH;
+    private TarnH tårnhø = tårnH;
+    private HestS hestS = new HestS(new ImageIcon("src/Kode/Bilder/HestS.png"));
+    private HestH hestH = new HestH(new ImageIcon("src/Kode/Bilder/HestH.png"));
+    private LoperS løperS = new LoperS(new ImageIcon("src/Kode/Bilder/LoperS.png"));
+    private LoperH løperH = new LoperH(new ImageIcon("src/Kode/Bilder/LoperH.png"));
+    private DronningS dronningS = new DronningS(new ImageIcon("src/Kode/Bilder/DronningS.png"));
+    private DronningH dronningH = new DronningH(new ImageIcon("src/Kode/Bilder/DronningH.png"));
+    private KongeS kongeS = new KongeS(new ImageIcon("src/Kode/Bilder/KongeS.png"));
+    private KongeH kongeH = new KongeH(new ImageIcon("src/Kode/Bilder/KongeH.png"));
+    private Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
+    private Point startPos;
+    private int xAdjustment;
+    private int yAdjustment;
 
     public Sjakk() {
         Dimension boardSize = new Dimension(600, 600);
@@ -858,8 +858,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         for (int i = 0; i < 64; i++) {
             Component c = sjakkTabell.hentFraTabell(i);
             if (c instanceof BrikkeLabel){
-            JPanel panel = (JPanel) chessBoard.getComponent(i);
-            panel.add(c);
+                JPanel panel = (JPanel) chessBoard.getComponent(i);
+                panel.add(c);
             } 
         }
         hvitLogg.clearLogg();
@@ -882,5 +882,12 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         while (listeners.hasNext()) {
             ((SjakkListener) listeners.next()).sjakkReceived(sjakkEvent);
         }
+    }
+    public void endreUI(int i){
+        sjakkTabell.nullstill();
+        tilTabell();
+        sjakkTabell.endreUI(i);
+        fraTabell();
+        refresh();
     }
 }

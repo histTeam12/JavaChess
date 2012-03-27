@@ -18,6 +18,10 @@ abstract class Brikke {
     public String getNavn(){
         return navn;
     }
+    
+    public void setIcon(Icon ikon){
+        this.ikon = ikon;
+    }
 
     abstract boolean lovligMove(int y, int x, Point start, Object brikke, int lag2);
     

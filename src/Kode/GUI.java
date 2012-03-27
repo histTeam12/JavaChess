@@ -130,6 +130,16 @@ public class GUI extends JFrame {
                 sjakk.refresh();
             }
         });
+         Meme.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sjakk.endreUI(1);
+            }
+        });
+         Vanlig.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sjakk.endreUI(2);
+            }
+        });
 
 
 
