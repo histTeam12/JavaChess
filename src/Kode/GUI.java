@@ -64,15 +64,19 @@ public class GUI extends JFrame {
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
-        menuBar.add(timerS);
-        menuBar.add(timerH);
         add(scrollpane);
         add(sjakk);
         add(scrollpane2);
+        add(timerS);
+        add(timerH);
         layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.WEST, sjakk, 152, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.WEST, scrollpane2, 755, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, bakgrunn, 0, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerS, 170, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerS, 45, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerH, 170, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.EAST, timerH, 850, SpringLayout.WEST, contentPane);
+        
         
 
         //Menybar
@@ -84,17 +88,13 @@ public class GUI extends JFrame {
         menuBar.add(settings);
         menuBar.add(credits);
         menuBar.add(help);
-        menuBar.add(blank);
-        menuBar.add(timerS);
-        menuBar.add(blank);
-        menuBar.add(timerH);
 
         //Knapper til menybar
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
         Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
         JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
-        JMenuItem Save = new JMenuItem("Lagre spill", new ImageIcon("src/Kode/Bilder/mac.gif"));
-        JMenuItem Load = new JMenuItem("Åpne spill", new ImageIcon("src/Kode/Bilder/Load Icon.jpg"));
+        JMenuItem Save = new JMenuItem("Lagre spill", new ImageIcon("src/Kode/Bilder/mac.png"));
+        JMenuItem Load = new JMenuItem("Åpne spill", new ImageIcon("src/Kode/Bilder/Load Icon.png"));
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
         JMenuItem Utviklere = new JMenuItem("Utviklere");
