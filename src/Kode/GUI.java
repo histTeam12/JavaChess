@@ -1,9 +1,6 @@
 package Kode;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -15,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.SpringLayout;
-import java.awt.Container;
 import javax.swing.JLabel;
 
 public class GUI extends JFrame {
@@ -27,12 +23,10 @@ public class GUI extends JFrame {
     private Timer timerS;
     private Timer timerH;
     private JMenu blank = new JMenu("     ");
-    private Logg logg = new Logg();
     private JTextArea textarea = new JTextArea(10, 12);
     private JTextArea textarea2 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
-    private JLayeredPane layeredpane;
     private Container contentPane = getContentPane();
     private SpringLayout layout = new SpringLayout();
     SjakkListener sjakkL = new SjakkListener() {
@@ -64,18 +58,24 @@ public class GUI extends JFrame {
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
+        bakgrunn.setPreferredSize(new Dimension(920, 650));
         add(scrollpane);
         add(sjakk);
         add(scrollpane2);
         add(timerS);
         add(timerH);
-        layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, sjakk, 152, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, scrollpane2, 755, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerS, 170, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerS, 45, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerH, 170, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.EAST, timerH, 850, SpringLayout.WEST, contentPane);
+        //add(bakgrunn);
+        layout.putConstraint(SpringLayout.WEST, scrollpane, 23, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 920, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.EAST, sjakk, 840, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, sjakk, 30, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerS, 190, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerS, 64, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerH, 190, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerH, 970, SpringLayout.WEST, contentPane);
+        
         
         
 
@@ -88,6 +88,7 @@ public class GUI extends JFrame {
         menuBar.add(settings);
         menuBar.add(credits);
         menuBar.add(help);
+        menuBar.setBorder(null);
 
         //Knapper til menybar
         JMenuItem Nyttspill = new JMenuItem("Nytt Spill", new ImageIcon("src/Kode/Bilder/nyttspill1.png"));
@@ -95,8 +96,13 @@ public class GUI extends JFrame {
         JMenuItem Avslutt = new JMenuItem("Avslutt", new ImageIcon("src/Kode/Bilder/avslutt.png"));
         JMenuItem Save = new JMenuItem("Lagre spill", new ImageIcon("src/Kode/Bilder/mac.png"));
         JMenuItem Load = new JMenuItem("Åpne spill", new ImageIcon("src/Kode/Bilder/Load Icon.png"));
+        Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
         JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
+        Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
+        Vanlig.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
+        Avslutt.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
         JMenuItem Utviklere = new JMenuItem("Utviklere");
         ButtonGroup bg = new ButtonGroup();
 
@@ -113,8 +119,14 @@ public class GUI extends JFrame {
         //Logg
         textarea.setEditable(false);
         textarea2.setEditable(false);
-        scrollpane.setSize(100, 100);
-        scrollpane2.setSize(100, 100);
+        //textarea.setOpaque(false);
+        //scrollpane.setOpaque(false);
+        //scrollpane.getViewport().setOpaque(false);
+        scrollpane.setBorder(null);
+        //textarea2.setOpaque(false);
+        //scrollpane2.setOpaque(false);
+        //scrollpane2.getViewport().setOpaque(false);
+        scrollpane2.setBorder(null);
 
 
         //Lyttere
@@ -177,10 +189,6 @@ public class GUI extends JFrame {
         scrollpane2 = new JScrollPane(textarea2);
         add(sjakk);
         sjakk.addSjakkListener(sjakkL);
-        menuBar.add(blank);
-        menuBar.add(timerS);
-        menuBar.add(blank);
-        menuBar.add(timerH);
         add(scrollpane, SpringLayout.WEST);
         add(scrollpane2, SpringLayout.EAST);
         layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);

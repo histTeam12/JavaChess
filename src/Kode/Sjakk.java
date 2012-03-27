@@ -24,8 +24,8 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
     private BrikkeLabel chessPiece;
     private BrikkeLabel brikke;
     private int lag;
-    private Icon lolW = new ImageIcon("src/Kode/Bilder/lolW.png");
-    private Icon lolB = new ImageIcon("src/Kode/Bilder/lolB.png");
+    private Icon lolW = new ImageIcon("src/Kode/Bilder/nyancat2.gif");
+    private Icon lolB = new ImageIcon("src/Kode/Bilder/nyancat3.gif");
     private BondeS bondeS = new BondeS(new ImageIcon("src/Kode/Bilder/BondeS.png"));
     private BondeH bondeH = new BondeH(new ImageIcon("src/Kode/Bilder/BondeH.png"));
     private TarnS tårnS = new TarnS(new ImageIcon("src/Kode/Bilder/TarnS.png"));
@@ -903,6 +903,5 @@ public class Sjakk extends JInternalFrame implements MouseListener, MouseMotionL
         sjakkTabell.endreUI(i);
         fraTabell();
         refresh();
-        System.out.println(meme);
     }
 }
