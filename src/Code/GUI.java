@@ -30,6 +30,8 @@ public class GUI extends JFrame {
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
     private JLabel lostPieceWLabel = new JLabel(new ImageIcon("src/pictures/lostPieceWNormal.png"));
     private JLabel lostPieceBLabel = new JLabel(new ImageIcon("src/pictures/lostPieceBNormal.png"));
+    private JLabel whitegif = new JLabel(new ImageIcon("src/pictures/WhiteGIF.gif"));
+    private JLabel blackgif = new JLabel(new ImageIcon("src/pictures/BlackGIF.gif"));
     private JTextArea lostPieceW = new JTextArea(15,5);
     private JTextArea lostPieceB = new JTextArea(15,5);
     private Container contentPane = getContentPane();
@@ -42,18 +44,22 @@ public class GUI extends JFrame {
                 if (event.brikke() != -1) {
                     counterH[event.brikke()]++;
                 }
-                timerS.resume();
-                timerH.pause();
+                timerH.resume();
+                timerS.pause();
                 textarea.setText(chess.getWhiteLog());
                 utslagsTabellS();
+                whitegif.setVisible(false);
+                blackgif.setVisible(true);
             } else if (event.lag() == 2) {
                 if (event.brikke() != -1) {
                     counterS[event.brikke()]++;
                 }
-                timerS.pause();
-                timerH.resume();
+                timerH.pause();
+                timerS.resume();
                 textarea2.setText(chess.getBlackLog());
                 utslagsTabellH();
+                blackgif.setVisible(false);
+                whitegif.setVisible(true);
             }
         }
     };
@@ -82,6 +88,8 @@ public class GUI extends JFrame {
         add(lostPieceBLabel);
         add(lostPieceB);
         add(lostPieceW);
+        add(whitegif);
+        add(blackgif);
         add(background);
         setConstraints();
 
@@ -240,6 +248,7 @@ public class GUI extends JFrame {
         lostPieceB.setEditable(false);
         lostPieceB.setFont(new Font("SansSerif", 4, 31));
         lostPieceB.setForeground(Color.white);
+        blackgif.setVisible(false);
     }
     
     public void setConstraints(){
@@ -261,6 +270,10 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, lostPieceB, 385, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceBLabel, 1010, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, lostPieceBLabel, 360, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, whitegif, 268, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.WEST, whitegif, 1, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, blackgif, 267, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.WEST, blackgif, 881, SpringLayout.WEST, contentPane);
     }
     
 }
