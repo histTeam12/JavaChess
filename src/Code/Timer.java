@@ -10,6 +10,9 @@ class Timer extends JLabel {
     private int s;
     private int m;
     private int h;
+    private int s2;
+    private int m2;
+    private int h2;
     private String tekst = "";
     private boolean pause = true;
 
@@ -23,15 +26,21 @@ class Timer extends JLabel {
         s = 0;
         m = 0;
         h = 0;
+        s2 = 0;
+        m2 = 0;
+        h2 = 0;
+        pause();
     }
-    public void setTekst(String text){
+
+    public void setTekst(String text) {
         tekst = text;
     }
 
     public void pause() {
-       pause = true;
+        pause = true;
     }
-    public void resume(){
+
+    public void resume() {
         pause = false;
     }
 
@@ -42,29 +51,39 @@ class Timer extends JLabel {
 
             public void run() {
                 if (!pause) {
-
-                    if (s <= 59) {
+                    if (s <= 10) {
                         s++;
                     }
-                    if (s == 60 && m < 59) {
-                        m++;
+                    if (s == 10) {
+                        s2++;
                     }
-                    if (s == 60 && m == 59) {
-                        h++;
-                    }
-                    if (s == 60 && m == 60 && h == 60) {
+                    if (h == 10) {
+                        h2++;
                         h = 0;
                     }
-                    if (s == 60 && m == 59) {
+                    if (s == 10 && s2 == 6 && m < 9) {
+                        m++;
+                        s2 = 0;
+                    }
+                    if (m == 9 && s2 == 6 && s == 10) {
+                        m2++;
                         m = 0;
                     }
-                    if (s == 60) {
+                    if (s == 10 && s2 == 6 && m2 == 6) {
+                        h++;
+                        m2 = 0;
+                    }
+                    if (s == 10 && m == 10) {
+                        m = 0;
+                    }
+                    if (s == 9 && s2 == 6) {
+                        s2 = 0;
+                    }
+                    if (s == 10) {
                         s = 0;
                     }
-
-                    
                 }
-                setText(tekst + h + ":" + m + ":" + s);
+                setText(tekst + h2 + h + ":" + m2 + m + ":" + s2 + s);
             }
         }, 0, 1000);
     }

@@ -24,7 +24,7 @@ public class BishopW extends Piece {
     @Override
     public boolean legalMove(int y, int x, Point start, Object brikke, int team2) {
         if (team2 == team) return false;
-        if (Math.abs((int)start.getX() - x) == (Math.abs((int)start.getY()-y))){
+        if ((Math.abs((int)start.getX() - x) == (Math.abs((int)start.getY()-y))) && (Math.abs((int)start.getY()-y) == 75)){
                 return true;
         }
         return false;

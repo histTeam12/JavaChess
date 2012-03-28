@@ -530,9 +530,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         return;
                     }
                 }
-                if (kingW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+                if (kingB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
                     move(e);
-                    kingW.setMove();
+                    kingB.setMove();
                 } else {
                     moveBack();
                 }

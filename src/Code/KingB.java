@@ -38,7 +38,13 @@ public class KingB extends Piece {
         if (team2 == team) {
             return false;
         }
-        if (Math.abs(y - start.getY()) <= maxY && Math.abs(x - start.getX()) <= maxX) {
+        if (Math.abs(y - start.getY()) == maxY && Math.abs(x - start.getX()) == maxX) {
+            return true;
+        }
+        if (Math.abs(y - start.getY()) == maxY && Math.abs(x - start.getX()) == 0) {
+            return true;
+        }
+        if (Math.abs(y - start.getY()) == 0 && Math.abs(x - start.getX()) == maxX) {
             return true;
         }
         return false;

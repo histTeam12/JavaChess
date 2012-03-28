@@ -166,13 +166,13 @@ public class GUI extends JFrame {
 
     public void utslagsTabellH() {
         for (int i = 0; i < counterH.length; i++) {
-            System.out.println(counterH[i]);
+            
         }
     }
 
     public void utslagsTabellS() {
         for (int i = 0; i < counterS.length; i++) {
-            System.out.println(counterS[i]);
+            
         }
     }
 
@@ -184,8 +184,8 @@ public class GUI extends JFrame {
         textarea.setText("");
         textarea2.setText("");
         chess = new Chess();
-        timerS = new Timer();
-        timerH = new Timer();
+        timerS.reset();
+        timerH.reset();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
         chess.addChessListener(chessL);
@@ -224,9 +224,9 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.EAST, chess, 840, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, chess, 30, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.NORTH, timerS, 223, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerS, 79, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerS, 102, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerH, 960, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerH, 982, SpringLayout.WEST, contentPane);
     }
     
 }
