@@ -30,7 +30,7 @@ public class QueenW extends Piece {
         if (team2 == team) {
             return false;
         }
-        if ((Math.abs((int)start.getX() - x) == (Math.abs((int)start.getY()-y))) && (Math.abs((int)start.getY()-y) == 75)){
+        if ((Math.abs((int)start.getX() - x) == (Math.abs((int)start.getY()-y))) && (Math.abs((int)start.getY()-y) >= 75)){
                 return true;
         }
         if (y != (int) start.getY() && x == (int) start.getX()){
