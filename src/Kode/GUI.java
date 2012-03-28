@@ -17,40 +17,38 @@ import javax.swing.JLabel;
 public class GUI extends JFrame {
 
     //Alle komponenter
-    private BrettRute bakgrunn = new BrettRute("src/Kode/Bilder/bakgrunn.png");
+    private BoardPane background = new BoardPane("src/Kode/Bilder/bakgrunn.png");
     private JMenuBar menuBar = new JMenuBar();
-    private Sjakk sjakk = new Sjakk();
+    private Chess chess = new Chess();
     private Timer timerS;
     private Timer timerH;
-    private int[] tellerH = new int[6];
-    private int[] tellerS = new int[6];
+    private int[] counterH = new int[6];
+    private int[] counterS = new int[6];
     private JTextArea textarea = new JTextArea(10, 12);
     private JTextArea textarea2 = new JTextArea(10, 12);
-    private JTextArea textarea3 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
-    private JScrollPane scrollpane3 = new JScrollPane(textarea3);
     private Container contentPane = getContentPane();
     private SpringLayout layout = new SpringLayout();
-    SjakkListener sjakkL = new SjakkListener() {
+    ChessListener chessL = new ChessListener() {
 
         @Override
-        public void sjakkReceived(SjakkEvent event) {
+        public void chessReceived(ChessEvent event) {
             if (event.lag() == 1) {
                 if (event.brikke() != -1) {
-                    tellerH[event.brikke()]++;
+                    counterH[event.brikke()]++;
                 }
                 timerS.resume();
                 timerH.pause();
-                textarea.setText(sjakk.getHvitLogg());
+                textarea.setText(chess.getWhiteLog());
                 utslagsTabellH();
             } else if (event.lag() == 2) {
                 if (event.brikke() != -1) {
-                    tellerS[event.brikke()]++;
+                    counterS[event.brikke()]++;
                 }
                 timerS.pause();
                 timerH.resume();
-                textarea2.setText(sjakk.getSvartLogg());
+                textarea2.setText(chess.getBlackLog());
                 utslagsTabellS();
             }
         }
@@ -59,36 +57,23 @@ public class GUI extends JFrame {
     public GUI(String tittel) {
         //Ramme
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
         setTitle(tittel);
         contentPane.setLayout(layout);
         setJMenuBar(menuBar);
-        sjakk = new Sjakk();
-        sjakk.addSjakkListener(sjakkL);
+        chess = new Chess();
+        chess.addChessListener(chessL);
         timerS = new Timer();
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
-        bakgrunn.setPreferredSize(new Dimension(1084, 661));
+        background.setPreferredSize(new Dimension(1084, 661));
         add(scrollpane);
-        add(sjakk);
+        add(chess);
         add(scrollpane2);
         add(timerS);
         add(timerH);
-        add(bakgrunn);
-        layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.WEST, scrollpane2, 920, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.EAST, sjakk, 840, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, sjakk, 30, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerS, 223, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerS, 79, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, timerH, 960, SpringLayout.WEST, contentPane);
-
-
-
+        add(background);
+        setConstraints();
 
         //Menybar
         JMenu file = new JMenu("Fil");
@@ -109,8 +94,8 @@ public class GUI extends JFrame {
         JMenuItem Load = new JMenuItem("Åpne spill", new ImageIcon("src/Kode/Bilder/Load Icon.png"));
         Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
-        JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-sjakk");
-        JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig sjakk");
+        JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-chess");
+        JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Vanlig chess");
         Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
         Vanlig.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
         Avslutt.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
@@ -128,20 +113,7 @@ public class GUI extends JFrame {
         credits.add(Utviklere);
 
         //Logg
-        textarea.setEditable(false);
-        textarea2.setEditable(false);
-        textarea.setOpaque(false);
-        scrollpane.setOpaque(false);
-        scrollpane.getViewport().setOpaque(false);
-        scrollpane.setBorder(null);
-        textarea2.setOpaque(false);
-        scrollpane2.setOpaque(false);
-        scrollpane2.getViewport().setOpaque(false);
-        scrollpane2.setBorder(null);
-        textarea.setForeground(Color.white);
-        textarea2.setForeground(Color.white);
-        scrollpane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-        scrollpane2.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+        settings();
 
         //Lyttere
         Nyttspill.addActionListener(new ActionListener() {
@@ -165,67 +137,96 @@ public class GUI extends JFrame {
         Save.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                sjakk.tilTabell();
+                chess.toTable();
             }
         });
         Load.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                sjakk.fraTabell();
-                sjakk.refresh();
+                chess.fromTable();
+                chess.refresh();
             }
         });
         Meme.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                sjakk.endreUI(1);
+                chess.changeUI(1);
             }
         });
         Vanlig.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                sjakk.endreUI(2);
+                chess.changeUI(2);
             }
         });
 
         pack();
-        setLocationRelativeTo(null);
         setVisible(true);
     }
 
     public void utslagsTabellH() {
-        for (int i = 0; i < tellerH.length; i++) {
-            System.out.println(tellerH[i]);
+        for (int i = 0; i < counterH.length; i++) {
+            System.out.println(counterH[i]);
         }
     }
 
     public void utslagsTabellS() {
-        for (int i = 0; i < tellerS.length; i++) {
-            System.out.println(tellerS[i]);
+        for (int i = 0; i < counterS.length; i++) {
+            System.out.println(counterS[i]);
         }
     }
 
     public void reset() {
-        remove(sjakk);
+        remove(chess);
         remove(scrollpane);
         remove(scrollpane2);
+        remove(background);
         textarea.setText("");
         textarea2.setText("");
-        repaint();
-        menuBar.remove(timerS);
-        menuBar.remove(timerH);
-        sjakk = new Sjakk();
+        chess = new Chess();
         timerS = new Timer();
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
-        add(sjakk);
-        sjakk.addSjakkListener(sjakkL);
+        chess.addChessListener(chessL);
+        setConstraints();
+        add(chess);
         add(scrollpane, SpringLayout.WEST);
         add(scrollpane2, SpringLayout.EAST);
-        layout.putConstraint(SpringLayout.WEST, scrollpane, 0, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, sjakk, 152, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.WEST, scrollpane2, 755, SpringLayout.WEST, contentPane);
+        settings();
+        add(background);
+        repaint();
         setVisible(true);
     }
+    
+    public void settings(){
+        textarea.setEditable(false);
+        textarea2.setEditable(false);
+        textarea.setOpaque(false);
+        scrollpane.setOpaque(false);
+        scrollpane.getViewport().setOpaque(false);
+        scrollpane.setBorder(null);
+        textarea2.setOpaque(false);
+        scrollpane2.setOpaque(false);
+        scrollpane2.getViewport().setOpaque(false);
+        scrollpane2.setBorder(null);
+        textarea.setForeground(Color.white);
+        textarea2.setForeground(Color.white);
+        scrollpane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+        scrollpane2.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+    }
+    
+    public void setConstraints(){
+        layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.WEST, scrollpane2, 920, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.EAST, chess, 840, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, chess, 30, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerS, 223, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerS, 79, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.WEST, timerH, 960, SpringLayout.WEST, contentPane);
+    }
+    
 }
