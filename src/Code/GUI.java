@@ -195,6 +195,10 @@ public class GUI extends JFrame {
         remove(scrollpane);
         remove(scrollpane2);
         remove(background);
+        counterH = new int[6];
+        counterS = new int[6];
+        utslagsTabellH();
+        utslagsTabellS();
         textarea.setText("");
         textarea2.setText("");
         chess = new Chess();
