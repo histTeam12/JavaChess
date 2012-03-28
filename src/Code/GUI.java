@@ -28,6 +28,10 @@ public class GUI extends JFrame {
     private JTextArea textarea2 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
+    private JLabel lostPieceWLabel = new JLabel(new ImageIcon("src/pictures/lostPieceWNormal.png"));
+    private JLabel lostPieceBLabel = new JLabel(new ImageIcon("src/pictures/lostPieceBNormal.png"));
+    private JTextArea lostPieceW = new JTextArea(15,5);
+    private JTextArea lostPieceB = new JTextArea(15,5);
     private Container contentPane = getContentPane();
     private SpringLayout layout = new SpringLayout();
     ChessListener chessL = new ChessListener() {
@@ -41,7 +45,7 @@ public class GUI extends JFrame {
                 timerS.resume();
                 timerH.pause();
                 textarea.setText(chess.getWhiteLog());
-                utslagsTabellH();
+                utslagsTabellS();
             } else if (event.lag() == 2) {
                 if (event.brikke() != -1) {
                     counterS[event.brikke()]++;
@@ -49,7 +53,7 @@ public class GUI extends JFrame {
                 timerS.pause();
                 timerH.resume();
                 textarea2.setText(chess.getBlackLog());
-                utslagsTabellS();
+                utslagsTabellH();
             }
         }
     };
@@ -67,11 +71,17 @@ public class GUI extends JFrame {
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
         background.setPreferredSize(new Dimension(1084, 661));
+        utslagsTabellH();
+        utslagsTabellS();
         add(scrollpane);
         add(chess);
         add(scrollpane2);
         add(timerS);
         add(timerH);
+        add(lostPieceWLabel);
+        add(lostPieceBLabel);
+        add(lostPieceB);
+        add(lostPieceW);
         add(background);
         setConstraints();
 
@@ -165,15 +175,19 @@ public class GUI extends JFrame {
     }
 
     public void utslagsTabellH() {
-        for (int i = 0; i < counterH.length; i++) {
-            
+        String res = "";
+        for (int i = 0; i < counterS.length; i++) {
+            res+=": "+counterS[i]+"\n";
         }
+        lostPieceW.setText(res);
     }
 
     public void utslagsTabellS() {
-        for (int i = 0; i < counterS.length; i++) {
-            
+        String res = "";
+        for (int i = 0; i < counterH.length; i++) {
+            res+=": "+counterH[i]+"\n";
         }
+        lostPieceB.setText(res);
     }
 
     public void reset() {
@@ -214,6 +228,14 @@ public class GUI extends JFrame {
         textarea2.setForeground(Color.white);
         scrollpane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
         scrollpane2.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+        lostPieceW.setOpaque(false);
+        lostPieceW.setEditable(false);
+        lostPieceW.setFont(new Font("SansSerif", 4, 31));
+        lostPieceW.setForeground(Color.white);
+        lostPieceB.setOpaque(false);
+        lostPieceB.setEditable(false);
+        lostPieceB.setFont(new Font("SansSerif", 4, 31));
+        lostPieceB.setForeground(Color.white);
     }
     
     public void setConstraints(){
@@ -227,6 +249,14 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerS, 102, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerH, 982, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceW, 165, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, lostPieceW, 385, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceWLabel, 130, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, lostPieceWLabel, 360, SpringLayout.NORTH, contentPane);        
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceB, 1045, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, lostPieceB, 385, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceBLabel, 1010, SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, lostPieceBLabel, 360, SpringLayout.NORTH, contentPane);
     }
     
 }

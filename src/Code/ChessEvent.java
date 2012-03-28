@@ -30,24 +30,24 @@ public class ChessEvent extends EventObject {
     }
 
     public int brikke() {
+        if (brikke instanceof PawnW || brikke instanceof PawnB) {
+            return 0;
+        }
         if (brikke instanceof KnightW || brikke instanceof KnightB) {
             return 1;
         }
-        if (brikke instanceof BishopW || brikke instanceof BishopB) {
+        if (brikke instanceof RookW || brikke instanceof RookB) {
             return 2;
         }
-        if (brikke instanceof RookW || brikke instanceof RookB) {
+        if (brikke instanceof QueenW || brikke instanceof QueenB) {
             return 3;
         }
-        if (brikke instanceof QueenW || brikke instanceof QueenB) {
+        if (brikke instanceof BishopW || brikke instanceof BishopB) {
             return 4;
         }
         if (brikke instanceof KingW || brikke instanceof KingB) {
             return 5;
-        }
-        if (brikke instanceof PawnW || brikke instanceof PawnB) {
-            return 0;
-        }
+        }        
         return -1;
     }
 }
