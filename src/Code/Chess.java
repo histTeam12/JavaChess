@@ -1,12 +1,11 @@
 package Code;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
+import static javax.swing.JOptionPane.*;
 
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
 
@@ -26,7 +25,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private int team;
     private Icon lolW = new ImageIcon("src/Pictures/nyancat2.gif");
     private Icon lolB = new ImageIcon("src/Pictures/nyancat3.gif");
-    private PawnB pawnS = new PawnB(new ImageIcon("src/Pictures/PawnB.png"));
+    private PawnB pawnB = new PawnB(new ImageIcon("src/Pictures/PawnB.png"));
     private PawnW pawnW = new PawnW(new ImageIcon("src/Pictures/PawnW.png"));
     private RookB rookB = new RookB(new ImageIcon("src/Pictures/RookB.png"));
     private RookW rookW = new RookW(new ImageIcon("src/Pictures/RookW.png"));
@@ -82,7 +81,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
         //Legger til brikker
         for (int i = 0; i < 8; i++) {
-            PieceLabel test = new PieceLabel(pawnS.getIcon(), pawnS);
+            PieceLabel test = new PieceLabel(pawnB.getIcon(), pawnB);
             JPanel panel = (JPanel) chessBoard.getComponent(8 + i);
             panel.add(test);
         }
@@ -186,10 +185,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper piecen tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel){
-            piece = (PieceLabel)chessBoard.findComponentAt(e.getX(), e.getY());
+        if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
+            piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+        } else {
+            piece = null;
         }
-        else piece = null;
         movepiece(e);
     }
 
@@ -227,18 +227,17 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 team = 0;
             }
             //Sjekker hva steams brikke som blir move og deretter om det er et lovlig move
-            if (chessPiece.getPiece().equals(pawnS)) {
+            if (chessPiece.getPiece().equals(pawnB)) {
                 if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
                     if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + 75) instanceof PieceLabel) {
                         moveBack();
                     }
                 }
-                if (pawnS.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+                if (pawnB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
                     //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
                     if (e.getY() + yAdjustment == 525) {
                         chessPiece.setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Queen");
-                        chessPiece = new PieceLabel(queenB.getIcon(), queenB);
+                        optionDialog(chessPiece.getPiece().getTeam());
                         chessPiece.setVisible(true);
                         move(e);
                         return;
@@ -258,8 +257,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri piece)
                     if (e.getY() + yAdjustment == 0) {
                         chessPiece.setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Queen");
-                        chessPiece = new PieceLabel(queenW.getIcon(), queenW);
+                        optionDialog(chessPiece.getPiece().getTeam());
                         chessPiece.setVisible(true);
                         move(e);
                         return;
@@ -909,5 +907,46 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessTable.changeUI(i);
         fromTable();
         refresh();
+    }
+
+    public void optionDialog(int lag) {
+        JButton button1 = new JButton(knightB.getIcon());
+        JButton button2 = new JButton(knightW.getIcon());
+        JButton button3 = new JButton(queenB.getIcon());
+        JButton button4 = new JButton(queenW.getIcon());
+        button1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                chessPiece = new PieceLabel(knightB.getIcon(), knightB);
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                chessPiece = new PieceLabel(knightW.getIcon(), knightW);
+            }
+        });
+        button3.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                chessPiece = new PieceLabel(queenB.getIcon(), queenB);
+            }
+        });
+        button4.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                chessPiece = new PieceLabel(queenW.getIcon(), queenW);
+            }
+        });
+        
+        if (chessPiece.getPiece().getTeam() == 1) { 
+            Object[] group = {button2, button4};
+            showConfirmDialog(null, group, "Choose piece", OK_OPTION, QUESTION_MESSAGE, pawnW.getIcon());
+        }
+        if (chessPiece.getPiece().getTeam() == 2) {
+            Object[] group = {button1, button3};
+            showConfirmDialog(null, group, "Choose piece", OK_OPTION, QUESTION_MESSAGE, pawnB.getIcon());
+        }
+
     }
 }
