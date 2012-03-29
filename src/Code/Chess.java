@@ -224,7 +224,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessTable.reset();
         toTable();
 //        chessTable.testTwoTable();
-        System.out.println(kingWpos());
         System.out.println(chessTable.checkW(kingWpos()));
     }
 
