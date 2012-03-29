@@ -9,22 +9,35 @@ import static javax.swing.JOptionPane.*;
 
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
 
-    private boolean meme = false;
-    private ChessTable chessTable = new ChessTable();
+    
+    
     private java.util.List _listeners = new ArrayList();
+    
     private Point kingWpos;
     private Point kingBpos;
+    private Point startPos;
+    private int xAdjustment;
+    private int yAdjustment;
+    private int turn = 2;
+    private int team;
+    
     private Log blackLog = new Log();
     private Log whiteLog = new Log();
+    
     private Coordinates kord = new Coordinates();
-    private int turn = 2;
+    
+    private ChessTable chessTable = new ChessTable();
     private JLayeredPane layeredPane;
     private BoardPane chessBoard;
     private PieceLabel chessPiece;
     private PieceLabel piece;
-    private int team;
+    
+    private boolean meme = false;
+    
+    private Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
     private Icon lolW = new ImageIcon("src/Pictures/nyancat2.gif");
     private Icon lolB = new ImageIcon("src/Pictures/nyancat3.gif");
+    
     private PawnB pawnB = new PawnB(new ImageIcon("src/Pictures/PawnB.png"));
     private PawnW pawnW = new PawnW(new ImageIcon("src/Pictures/PawnW.png"));
     private RookB rookB = new RookB(new ImageIcon("src/Pictures/RookB.png"));
@@ -40,12 +53,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private QueenB queenB = new QueenB(new ImageIcon("src/Pictures/QueenB.png"));
     private QueenW queenW = new QueenW(new ImageIcon("src/Pictures/QueenW.png"));
     private KingB kingB = new KingB(new ImageIcon("src/Pictures/KingB.png"));
-    private KingW kingW = new KingW(new ImageIcon("src/Pictures/KingW.png"));
-    private Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
-    private Point startPos;
-    private int xAdjustment;
-    private int yAdjustment;
-
+    private KingW kingW = new KingW(new ImageIcon("src/Pictures/KingW.png"));  
+   
     public Chess() {
         Dimension boardSize = new Dimension(600, 600);
 
@@ -228,500 +237,42 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             }
             //Sjekker hva steams brikke som blir move og deretter om det er et lovlig move
             if (chessPiece.getPiece().equals(pawnB)) {
-                if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
-                    if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + 75) instanceof PieceLabel) {
-                        moveBack();
-                    }
-                }
-                if (pawnB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
-                    //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
-                    if (e.getY() + yAdjustment == 525) {
-                        chessPiece.setVisible(false);
-                        optionDialog(chessPiece.getPiece().getTeam());
-                        chessPiece.setVisible(true);
-                        move(e);
-                        return;
-                    }
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                movePawnB(e, m);
             }
             if (chessPiece.getPiece().equals(pawnW)) {
-                if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
-                    if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() - 75) instanceof PieceLabel) {
-                        moveBack();
-                    }
-                }
-                if (pawnW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
-                    //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri piece)
-                    if (e.getY() + yAdjustment == 0) {
-                        chessPiece.setVisible(false);
-                        optionDialog(chessPiece.getPiece().getTeam());
-                        chessPiece.setVisible(true);
-                        move(e);
-                        return;
-                    }
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                movePawnW(e, m);
             }
             if (chessPiece.getPiece().equals(queenW)) {
-                int ruter;
-                if (queenW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
-                    if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
-                        //Ned venstre
-                        if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                        //Opp venstre
-                        if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                        // Opp høyre
-                        if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                        // Ned høyre
-                        if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-
-                        move(e);
-                    }
-
-                    if (((int) e.getY() + yAdjustment) != (int) startPos.getY() && ((int) e.getX() + xAdjustment) == (int) startPos.getX() || (((int) e.getY() + yAdjustment) == (int) startPos.getY() && ((int) e.getX() + xAdjustment) != (int) startPos.getX())) { //if "tårn"
-                        //Y-Retning
-                        if (((int) startPos.getX() == e.getX() + xAdjustment) && (((int) e.getY() + yAdjustment) != (int) startPos.getY())) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            } else {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                        //X-Retning
-                        if (((int) startPos.getY() == e.getY() + yAdjustment) && (((int) e.getX() + xAdjustment) != (int) startPos.getX())) {
-                            ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                            if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            } else {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                        move(e);
-                    }
-                } else {
-                    moveBack();
-                }
+                moveQueenW(e, m);
             }
 
             if (chessPiece.getPiece().equals(queenB)) {
-                int ruter;
-                if (queenB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
-                    if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
-                        //Ned venstre
-                        if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                        //Opp venstre
-                        if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                        // Opp høyre
-                        if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                        // Ned høyre
-                        if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                            ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-
-                        move(e);
-                    }
-
-                    if (((int) e.getY() + yAdjustment) != (int) startPos.getY() && ((int) e.getX() + xAdjustment) == (int) startPos.getX() || (((int) e.getY() + yAdjustment) == (int) startPos.getY() && ((int) e.getX() + xAdjustment) != (int) startPos.getX())) { //if "tårn"
-                        //Y-Retning
-                        if (((int) startPos.getX() == e.getX() + xAdjustment) && (((int) e.getY() + yAdjustment) != (int) startPos.getY())) {
-                            ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                            if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            } else {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                        //X-Retning
-                        if (((int) startPos.getY() == e.getY() + yAdjustment) && (((int) e.getX() + xAdjustment) != (int) startPos.getX())) {
-                            ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                            if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            } else {
-                                for (int i = 0; i < ruter; i++) {
-                                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
-                                        moveBack();
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                        move(e);
-                    }
-                } else {
-                    moveBack();
-                }
+                moveQueenB(e, m);
             }
             if (chessPiece.getPiece().equals(knightB)) {
-                if (knightB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                moveKnightB(e, m);
             }
             if (chessPiece.getPiece().equals(knightW)) {
-                if (knightW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                moveKnightW(e, m);
             }
             if (chessPiece.getPiece().equals(kingW)) {
-                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                        (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
-                    if (kingW.move() == false && rookWright.move() == false) {
-                        move(e);
-                        Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
-                        Container parent = (Container) chessBoard.getComponent(61);
-                        parent.add(c);
-                        kingW.setMove();
-                        chessPiece.setVisible(true);
-                        return;
-                    }
-                }
-                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                        (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel)
-                        && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
-                    if (kingW.move() == false && rookWleft.move() == false) {
-                        move(e);
-                        Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
-                        Container parent = (Container) chessBoard.getComponent(59);
-                        parent.add(c);
-                        kingW.setMove();
-                        chessPiece.setVisible(true);
-                        return;
-                    }
-                }
-                if (kingW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
-                    move(e);
-                    kingW.setMove();
-                } else {
-                    moveBack();
-                }
+                moveKingW(e, m);
             }
 
             if (chessPiece.getPiece().equals(kingB)) {
-                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                        (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
-                    if (kingB.move() == false && rookBleft.move() == false) {
-                        move(e);
-                        Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
-                        Container parent = (Container) chessBoard.getComponent(3);
-                        parent.add(c);
-                        kingB.setMove();
-                        chessPiece.setVisible(true);
-                        return;
-                    }
-                }
-                if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                        (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel)
-                        && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
-                    if (kingB.move() == false && rookBright.move() == false) {
-                        move(e);
-                        Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
-                        Container parent = (Container) chessBoard.getComponent(5);
-                        parent.add(c);
-                        kingB.setMove();
-                        chessPiece.setVisible(true);
-                        return;
-                    }
-                }
-                if (kingB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
-                    move(e);
-                    kingB.setMove();
-                } else {
-                    moveBack();
-                }
+                moveKingB(e, m);
             }
             if (chessPiece.getPiece().equals(bishopW)) {
-                //Ned venstre
-                int ruter;
-                if (bishopW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
-                    if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    //Opp venstre
-                    if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    // Opp høyre
-                    if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    // Ned høyre
-                    if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                moveBishopW(e, m);
             }
             if (chessPiece.getPiece().equals(bishopB)) {
-                //Ned venstre
-                int ruter;
-                if (bishopB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
-                    if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    //Opp venstre
-                    if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    // Opp høyre
-                    if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    // Ned høyre
-                    if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                        for (int i = 0; i < ruter; i++) {
-                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                moveBack();
-                                return;
-                            }
-                        }
-                    }
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                moveBishopB(e, m);
             }
             if (chessPiece.getPiece().equals(rookW)) {
-                int ruter;
-                if (rookW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
-                    //Y-Retning
-                    if ((int) startPos.getX() == e.getX() + xAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        } else {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    //X-Retning
-                    if ((int) startPos.getY() == e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                        if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        } else {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                moveRookW(e, m);
             }
             if (chessPiece.getPiece().equals(rookB)) {
-                int ruter;
-                if (rookB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
-                    //Y-Retning
-                    if ((int) startPos.getX() == e.getX() + xAdjustment) {
-                        ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
-                        if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        } else {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    //X-Retning
-                    if ((int) startPos.getY() == e.getY() + yAdjustment) {
-                        ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
-                        if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        } else {
-                            for (int i = 0; i < ruter; i++) {
-                                if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
-                                    moveBack();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    move(e);
-                } else {
-                    moveBack();
-                }
+                moveRookB(e, m);
             }
 
             chessPiece.setVisible(true);
@@ -938,8 +489,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 chessPiece = new PieceLabel(queenW.getIcon(), queenW);
             }
         });
-        
-        if (chessPiece.getPiece().getTeam() == 1) { 
+
+        if (chessPiece.getPiece().getTeam() == 1) {
             Object[] group = {button2, button4};
             showConfirmDialog(null, group, "Choose piece", OK_OPTION, QUESTION_MESSAGE, pawnW.getIcon());
         }
@@ -948,5 +499,513 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             showConfirmDialog(null, group, "Choose piece", OK_OPTION, QUESTION_MESSAGE, pawnB.getIcon());
         }
 
+    }
+
+    public void movePawnB(MouseEvent e, Component m) {
+        if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
+            if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + 75) instanceof PieceLabel) {
+                moveBack();
+            }
+        }
+        if (pawnB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+            //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri brikke)
+            if (e.getY() + yAdjustment == 525) {
+                chessPiece.setVisible(false);
+                optionDialog(chessPiece.getPiece().getTeam());
+                chessPiece.setVisible(true);
+                move(e);
+                return;
+            }
+            move(e);
+        } else {
+            moveBack();
+        }
+    }
+
+    public void movePawnW(MouseEvent e, Component m) {
+
+        if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
+            if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() - 75) instanceof PieceLabel) {
+                moveBack();
+            }
+        }
+        if (pawnW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+            //Bytter til dronning når bonde kommer helt over brettet (skal skiftes til valgfri piece)
+            if (e.getY() + yAdjustment == 0) {
+                chessPiece.setVisible(false);
+                optionDialog(chessPiece.getPiece().getTeam());
+                chessPiece.setVisible(true);
+                move(e);
+                return;
+            }
+            move(e);
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveQueenW(MouseEvent e, Component m) {
+        int ruter;
+        if (queenW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
+            if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
+                //Ned venstre
+                if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+                //Opp venstre
+                if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+                // Opp høyre
+                if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+                // Ned høyre
+                if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+
+                move(e);
+            }
+
+            if (((int) e.getY() + yAdjustment) != (int) startPos.getY() && ((int) e.getX() + xAdjustment) == (int) startPos.getX() || (((int) e.getY() + yAdjustment) == (int) startPos.getY() && ((int) e.getX() + xAdjustment) != (int) startPos.getX())) { //if "tårn"
+                //Y-Retning
+                if (((int) startPos.getX() == e.getX() + xAdjustment) && (((int) e.getY() + yAdjustment) != (int) startPos.getY())) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    }
+                }
+                //X-Retning
+                if (((int) startPos.getY() == e.getY() + yAdjustment) && (((int) e.getX() + xAdjustment) != (int) startPos.getX())) {
+                    ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                    if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    }
+                }
+                move(e);
+            }
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveQueenB(MouseEvent e, Component m) {
+        int ruter;
+        if (queenB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
+            if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
+                //Ned venstre
+                if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+                //Opp venstre
+                if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+                // Opp høyre
+                if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+                // Ned høyre
+                if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                    ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+
+                move(e);
+            }
+
+            if (((int) e.getY() + yAdjustment) != (int) startPos.getY() && ((int) e.getX() + xAdjustment) == (int) startPos.getX() || (((int) e.getY() + yAdjustment) == (int) startPos.getY() && ((int) e.getX() + xAdjustment) != (int) startPos.getX())) { //if "tårn"
+                //Y-Retning
+                if (((int) startPos.getX() == e.getX() + xAdjustment) && (((int) e.getY() + yAdjustment) != (int) startPos.getY())) {
+                    ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                    if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    }
+                }
+                //X-Retning
+                if (((int) startPos.getY() == e.getY() + yAdjustment) && (((int) e.getX() + xAdjustment) != (int) startPos.getX())) {
+                    ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                    if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < ruter; i++) {
+                            if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
+                                moveBack();
+                                return;
+                            }
+                        }
+                    }
+                }
+                move(e);
+            }
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveKnightB(MouseEvent e, Component m) {
+        if (knightB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+            move(e);
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveKnightW(MouseEvent e, Component m) {
+        if (knightW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+            move(e);
+        } else {
+            moveBack();
+        }
+
+    }
+
+    public void moveKingW(MouseEvent e, Component m) {
+        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+            if (kingW.move() == false && rookWright.move() == false) {
+                move(e);
+                Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
+                Container parent = (Container) chessBoard.getComponent(61);
+                parent.add(c);
+                kingW.setMove();
+                chessPiece.setVisible(true);
+                return;
+            }
+        }
+        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+            if (kingW.move() == false && rookWleft.move() == false) {
+                move(e);
+                Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
+                Container parent = (Container) chessBoard.getComponent(59);
+                parent.add(c);
+                kingW.setMove();
+                chessPiece.setVisible(true);
+                return;
+            }
+        }
+        if (kingW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+            move(e);
+            kingW.setMove();
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveKingB(MouseEvent e, Component m) {
+        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+            if (kingB.move() == false && rookBleft.move() == false) {
+                move(e);
+                Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
+                Container parent = (Container) chessBoard.getComponent(3);
+                parent.add(c);
+                kingB.setMove();
+                chessPiece.setVisible(true);
+                return;
+            }
+        }
+        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+            if (kingB.move() == false && rookBright.move() == false) {
+                move(e);
+                Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
+                Container parent = (Container) chessBoard.getComponent(5);
+                parent.add(c);
+                kingB.setMove();
+                chessPiece.setVisible(true);
+                return;
+            }
+        }
+        if (kingB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
+            move(e);
+            kingB.setMove();
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveBishopW(MouseEvent e, Component m) {
+        //Ned venstre
+        int ruter;
+        if (bishopW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
+            if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            //Opp venstre
+            if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            // Opp høyre
+            if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            // Ned høyre
+            if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            move(e);
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveBishopB(MouseEvent e, Component m) {
+        //Ned venstre
+        int ruter;
+        if (bishopB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
+            if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            //Opp venstre
+            if ((int) startPos.getX() > e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            // Opp høyre
+            if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() > e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            // Ned høyre
+            if ((int) startPos.getX() < e.getX() + xAdjustment && (int) startPos.getY() < e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                for (int i = 0; i < ruter; i++) {
+                    if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                        moveBack();
+                        return;
+                    }
+                }
+            }
+            move(e);
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveRookW(MouseEvent e, Component m) {
+        int ruter;
+        if (rookW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
+            //Y-Retning
+            if ((int) startPos.getX() == e.getX() + xAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+            }
+            //X-Retning
+            if ((int) startPos.getY() == e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+            }
+            move(e);
+        } else {
+            moveBack();
+        }
+    }
+
+    public void moveRookB(MouseEvent e, Component m) {
+        int ruter;
+        if (rookB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
+            //Y-Retning
+            if ((int) startPos.getX() == e.getX() + xAdjustment) {
+                ruter = Math.abs(((int) startPos.getY() - (e.getY() + yAdjustment)) / 75);
+                if ((int) e.getY() + yAdjustment > (int) startPos.getY()) {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+            }
+            //X-Retning
+            if ((int) startPos.getY() == e.getY() + yAdjustment) {
+                ruter = Math.abs(((int) startPos.getX() - (e.getX() + xAdjustment)) / 75);
+                if ((int) e.getX() + xAdjustment > (int) startPos.getX()) {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < ruter; i++) {
+                        if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
+                            moveBack();
+                            return;
+                        }
+                    }
+                }
+            }
+            move(e);
+        } else {
+            moveBack();
+        }
     }
 }
