@@ -24,12 +24,12 @@ public class ChessTable {
         this.log = new String[2];
     }
 
-    public void updateTable(PieceLabel brikke, int indeks) {
-        table[indeks] = brikke;
+    public void updateTable(PieceLabel piece, int indeks) {
+        table[indeks] = piece;
     }
 
-    public void updateLog(String logg2, int indeks) {
-        log[indeks] = logg2;
+    public void updateLog(String log2, int indeks) {
+        log[indeks] = log2;
     }
 
     public String getLog(int index) {
@@ -45,9 +45,9 @@ public class ChessTable {
             return square;
         }
     }
-    
-    public void reset(){
-        for(int i = 0; i<table.length; i++){
+
+    public void reset() {
+        for (int i = 0; i < table.length; i++) {
             table[i] = null;
         }
     }
@@ -139,5 +139,66 @@ public class ChessTable {
                 }
                 break;
         }
+    }
+
+    public boolean checkW(int i) {
+        if (checkKnightW(i)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkKnightW(int i) {
+        if ((i + 15) <= 63 && (i+15) >= 0) {
+            if (table[i + 15] instanceof PieceLabel) {
+                if (table[i + 15].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i + 6) <= 63&& (i+6) >= 0) {
+            if (table[i + 6] instanceof PieceLabel) {
+                if (table[i + 6].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i -10) <= 63&& (i+-10) >= 0) {
+            if (table[i -10] instanceof PieceLabel) {
+                if (table[i -10].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i -17) <= 63&& (i-17) >= 0) {
+            if (table[i -17] instanceof PieceLabel) {
+                if (table[i -17].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i -15) <= 63&& (i-15) >= 0) {
+            if (table[i -15] instanceof PieceLabel) {
+                if (table[i -15].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i + 10) <= 63&& (i+10) >= 0) {
+            if (table[i + 10] instanceof PieceLabel) {
+                if (table[i + 10].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i + 17) <= 63&& (i+17) >= 0) {
+            if (table[i + 17] instanceof PieceLabel) {
+                if (table[i + 17].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

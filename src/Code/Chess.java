@@ -9,35 +9,24 @@ import static javax.swing.JOptionPane.*;
 
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
 
-    
-    
     private java.util.List _listeners = new ArrayList();
-    
-    private Point kingWpos;
-    private Point kingBpos;
     private Point startPos;
     private int xAdjustment;
     private int yAdjustment;
     private int turn = 2;
     private int team;
-    
     private Log blackLog = new Log();
     private Log whiteLog = new Log();
-    
     private Coordinates kord = new Coordinates();
-    
     private ChessTable chessTable = new ChessTable();
     private JLayeredPane layeredPane;
     private BoardPane chessBoard;
     private PieceLabel chessPiece;
     private PieceLabel piece;
-    
     private boolean meme = false;
-    
     private Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
     private Icon lolW = new ImageIcon("src/Pictures/nyancat2.gif");
     private Icon lolB = new ImageIcon("src/Pictures/nyancat3.gif");
-    
     private PawnB pawnB = new PawnB(new ImageIcon("src/Pictures/PawnB.png"));
     private PawnW pawnW = new PawnW(new ImageIcon("src/Pictures/PawnW.png"));
     private RookB rookB = new RookB(new ImageIcon("src/Pictures/RookB.png"));
@@ -53,8 +42,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private QueenB queenB = new QueenB(new ImageIcon("src/Pictures/QueenB.png"));
     private QueenW queenW = new QueenW(new ImageIcon("src/Pictures/QueenW.png"));
     private KingB kingB = new KingB(new ImageIcon("src/Pictures/KingB.png"));
-    private KingW kingW = new KingW(new ImageIcon("src/Pictures/KingW.png"));  
-   
+    private KingW kingW = new KingW(new ImageIcon("src/Pictures/KingW.png"));
+
     public Chess() {
         Dimension boardSize = new Dimension(600, 600);
 
@@ -199,42 +188,47 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         } else {
             piece = null;
         }
-        movepiece(e);
+        if (chessPiece == null) {
+            return;
+        }
+        //Sjekker om det er hvit eller svart sin tur:
+        if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
+            moveBack();
+            //chessPiece.setIcon(hjelpIkon);
+            return;
+        }
+        if (meme) {
+            chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
+        }
+        Component m = chessBoard.findComponentAt(e.getX(), e.getY());
+        Point b;
+        if (m instanceof JPanel) {
+            b = m.getLocation();
+        } else {
+            b = m.getParent().getLocation();
+        }
+        if (m instanceof PieceLabel) {
+            piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+        }
+        xAdjustment = b.x - e.getX();
+        yAdjustment = b.y - e.getY();
+        //Sjekker om piecen slippes på en annen piece(og i så fall hvilken farge), eller blank rute
+        if (m instanceof PieceLabel) {
+            team = piece.getPiece().getTeam();
+        }
+        if (m instanceof JPanel) {
+            team = 0;
+        }
+        movepiece(e, m);
+        refresh();
+        toTable();
+        System.out.println(kingWpos());
+        System.out.println(chessTable.checkW(kingWpos()));
     }
 
-    public void movepiece(MouseEvent e) {
+    public void movepiece(MouseEvent e, Component m) {
         try {
-            if (chessPiece == null) {
-                return;
-            }
-            //Sjekker om det er hvit eller svart sin tur:
-            if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
-                moveBack();
-                //chessPiece.setIcon(hjelpIkon);
-                return;
-            }
-            if (meme) {
-                chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
-            }
-            Component m = chessBoard.findComponentAt(e.getX(), e.getY());
-            Point b;
-            if (m instanceof JPanel) {
-                b = m.getLocation();
-            } else {
-                b = m.getParent().getLocation();
-            }
-            if (m instanceof PieceLabel) {
-                piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
-            }
-            xAdjustment = b.x - e.getX();
-            yAdjustment = b.y - e.getY();
-            //Sjekker om piecen slippes på en annen piece(og i så fall hvilken farge), eller blank rute
-            if (m instanceof PieceLabel) {
-                team = piece.getPiece().getTeam();
-            }
-            if (m instanceof JPanel) {
-                team = 0;
-            }
+
             //Sjekker hva steams brikke som blir move og deretter om det er et lovlig move
             if (chessPiece.getPiece().equals(pawnB)) {
                 movePawnB(e, m);
@@ -322,30 +316,25 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessPiece.setVisible(true);
     }
 
-    public void kingBpos() {
+    public int kingBpos() {
         for (int i = 0; i < 64; i++) {
-            if (pieceType(kord.getPunkt(i)).equals(kingB)) {
-                kingBpos = kord.getPunkt(i);
+            if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
+                if (pieceType(kord.getPunkt(i)).equals(kingB)) {
+                    return i;
+                }
             }
         }
+        return -1;
     }
-
-    public void kingWpos() {
+    public int kingWpos() {
         for (int i = 0; i < 64; i++) {
-            if (pieceType(kord.getPunkt(i)).equals(kingW)) {
-                kingWpos = kord.getPunkt(i);
+            if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
+                if (pieceType(kord.getPunkt(i)).equals(kingW)) {
+                    return i;
+                }
             }
         }
-    }
-
-    public boolean checkChessS() {
-        if (pieceType((int) (kingBpos.getX() - 75), (int) (kingBpos.getY() - 150)).equals(knightW)) {
-        }
-        return true;
-    }
-
-    public boolean checkChessH() {
-        return true;
+        return -1;
     }
 
     public Piece pieceType(Point a) {

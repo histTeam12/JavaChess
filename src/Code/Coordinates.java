@@ -42,4 +42,12 @@ public class Coordinates {
     public Point getPunkt(int a){
         return kords[a];
     }
+    public int getIndex(Point point){
+        for(int i=0;i<64;i++){
+            if (kords[i].equals(point)){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
