@@ -6,26 +6,26 @@ import javax.swing.JLabel;
 
 public class PieceLabel extends JLabel {
 
-    Icon ikon;
-    Piece brikke;
+    Icon icon;
+    Piece piece;
     
 
-    public PieceLabel(Icon ikon, Piece brikke) {
-        this.ikon = ikon;
-        this.brikke = brikke;
+    public PieceLabel(Icon icon, Piece piece) {
+        this.icon = icon;
+        this.piece = piece;
     }
 
     public Piece getPiece() {
-        return brikke;
+        return piece;
     }
 
     @Override
     public Icon getIcon() {
-        return ikon;
+        return icon;
     }
     @Override
-    public void setIcon(Icon ikon2){
-        ikon = ikon2;
+    public void setIcon(Icon icon2){
+        icon = icon2;
     }
 
     @Override

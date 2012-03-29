@@ -24,7 +24,7 @@ public class PawnW extends Piece {
         return team;
     }
     
-
+    //Setting the legal moves of the piece.
     @Override
     public boolean legalMove(int y, int x, Point start, Object brikke, int lag2) {
         if (lag2 == team) return false;

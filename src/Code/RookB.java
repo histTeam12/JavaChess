@@ -29,7 +29,7 @@ public class RookB extends Piece {
     public void setMove() {
         move = true;
     }
-
+    //Setting the legal moves of the piece.
     @Override
     public boolean legalMove(int y, int x, Point start, Object brikke, int team2) {
         if (team2 == team) {
