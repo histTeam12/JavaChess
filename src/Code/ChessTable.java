@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Code;
 
 import java.awt.BorderLayout;
@@ -10,10 +6,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Henrik
- */
 public class ChessTable {
 
     private PieceLabel[] table;

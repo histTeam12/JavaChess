@@ -22,7 +22,7 @@ public class BishopB extends Piece {
     public int getTeam() {
         return team;
     }
-
+    //Setting the legal moves of the piece.
     @Override
     public boolean legalMove(int y, int x, Point start, Object brikke, int team2) {
         if (team2 == team) return false;

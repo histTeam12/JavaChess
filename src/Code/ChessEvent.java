@@ -1,51 +1,43 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Code;
 
-/**
- *
- * @author Henrik
- */
 import java.util.EventObject;
 
 public class ChessEvent extends EventObject {
 
-    private int lag;
-    private Piece brikke;
+    private int team;
+    private Piece piece;
 
-    public ChessEvent(Object source, int lag, Piece brikke) {
+    public ChessEvent(Object source, int team, Piece piece) {
         super(source);
-        this.lag = lag;
-        this.brikke = brikke;
+        this.team = team;
+        this.piece = piece;
     }
-    public ChessEvent(Object source, int lag) {
+    public ChessEvent(Object source, int team) {
         super(source);
-        this.lag = lag;
+        this.team = team;
     }
 
-    public int lag() {
-        return lag;
+    public int team() {
+        return team;
     }
 
-    public int brikke() {
-        if (brikke instanceof PawnW || brikke instanceof PawnB) {
+    public int piece() {
+        if (piece instanceof PawnW || piece instanceof PawnB) {
             return 0;
         }
-        if (brikke instanceof KnightW || brikke instanceof KnightB) {
+        if (piece instanceof KnightW || piece instanceof KnightB) {
             return 1;
         }
-        if (brikke instanceof RookW || brikke instanceof RookB) {
+        if (piece instanceof RookW || piece instanceof RookB) {
             return 2;
         }
-        if (brikke instanceof QueenW || brikke instanceof QueenB) {
+        if (piece instanceof QueenW || piece instanceof QueenB) {
             return 3;
         }
-        if (brikke instanceof BishopW || brikke instanceof BishopB) {
+        if (piece instanceof BishopW || piece instanceof BishopB) {
             return 4;
         }
-        if (brikke instanceof KingW || brikke instanceof KingB) {
+        if (piece instanceof KingW || piece instanceof KingB) {
             return 5;
         }        
         return -1;

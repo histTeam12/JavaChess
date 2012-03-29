@@ -16,7 +16,8 @@ import javax.swing.JLabel;
 
 public class GUI extends JFrame {
 
-    //Alle komponenter
+    //OBJECT VARIABLES
+    
     private BoardPane background = new BoardPane("src/Pictures/Background.png");
     private JMenuBar menuBar = new JMenuBar();
     private Chess chess = new Chess();
@@ -35,39 +36,14 @@ public class GUI extends JFrame {
     private JTextArea lostPieceW = new JTextArea(15,5);
     private JTextArea lostPieceB = new JTextArea(15,5);
     private Container contentPane = getContentPane();
-    private SpringLayout layout = new SpringLayout();
-    ChessListener chessL = new ChessListener() {
-
-        @Override
-        public void chessReceived(ChessEvent event) {
-            if (event.lag() == 1) {
-                if (event.brikke() != -1) {
-                    counterH[event.brikke()]++;
-                }
-                timerH.resume();
-                timerS.pause();
-                textarea.setText(chess.getWhiteLog());
-                utslagsTabellS();
-                whitegif.setVisible(false);
-                blackgif.setVisible(true);
-            } else if (event.lag() == 2) {
-                if (event.brikke() != -1) {
-                    counterS[event.brikke()]++;
-                }
-                timerH.pause();
-                timerS.resume();
-                textarea2.setText(chess.getBlackLog());
-                utslagsTabellH();
-                blackgif.setVisible(false);
-                whitegif.setVisible(true);
-            }
-        }
-    };
-
-    public GUI(String tittel) {
-        //Ramme
+    private SpringLayout layout = new SpringLayout(); //Using springlayout and adding constraints to place the components.
+    
+    //CONSTRUCTOR
+    
+    public GUI(String title) {
+        //Settings for the frame and adding components.
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(tittel);
+        setTitle(title);
         contentPane.setLayout(layout);
         setJMenuBar(menuBar);
         chess = new Chess();
@@ -77,8 +53,8 @@ public class GUI extends JFrame {
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
         background.setPreferredSize(new Dimension(1084, 661));
-        utslagsTabellH();
-        utslagsTabellS();
+        lostpieceTableW();
+        lostpieceTableB();
         add(scrollpane);
         add(chess);
         add(scrollpane2);
@@ -92,8 +68,9 @@ public class GUI extends JFrame {
         add(blackgif);
         add(background);
         setConstraints();
+        settings(); //Using the settings() method to create the log.
 
-        //Menybar
+        //Creating and adding the menubar
         JMenu file = new JMenu("File");
         JMenu settings = new JMenu("Settings");
         JMenu credits = new JMenu("Credits");
@@ -104,85 +81,79 @@ public class GUI extends JFrame {
         menuBar.add(help);
         menuBar.setBorder(null);
 
-        //Knapper til menybar
-        JMenuItem Nyttspill = new JMenuItem("New Game", new ImageIcon("src/Pictures/Newgame.png"));
-        Nyttspill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
-        JMenuItem Avslutt = new JMenuItem("Exit", new ImageIcon("src/Pictures/Exit.png"));
+        //Creating buttons for the menubar with icons and key bindings.
+        JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon("src/Pictures/Newgame.png"));
+        Newgame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
+        JMenuItem Exit = new JMenuItem("Exit", new ImageIcon("src/Pictures/Exit.png"));
         JMenuItem Save = new JMenuItem("Save game", new ImageIcon("src/Pictures/Mac.png"));
         JMenuItem Load = new JMenuItem("Open game", new ImageIcon("src/Pictures/Load Icon.png"));
         Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
-        JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme-chess");
-        JRadioButtonMenuItem Vanlig = new JRadioButtonMenuItem("Regular chess");
+        JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme pieces");
+        JRadioButtonMenuItem Regular = new JRadioButtonMenuItem("Regular pieces");
         Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
-        Vanlig.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
-        Avslutt.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
-        JMenuItem Utviklere = new JMenuItem("Developers");
-        ButtonGroup bg = new ButtonGroup();
-
+        Regular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
+        Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
+        JMenuItem Developers = new JMenuItem("Developers");
+        ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
+        
+        //Adding the buttons.
         bg.add(Meme);
-        bg.add(Vanlig);
-        file.add(Nyttspill);
+        bg.add(Regular);
+        file.add(Newgame);
         file.add(Save);
         file.add(Load);
-        file.add(Avslutt);
+        file.add(Exit);
         settings.add(Meme);
-        settings.add(Vanlig);
-        credits.add(Utviklere);
+        settings.add(Regular);
+        credits.add(Developers);
 
-        //Logg
-        settings();
-
-        //Lyttere
-        Nyttspill.addActionListener(new ActionListener() {
-
+        //Listeners for the buttons in the menubar.
+        Newgame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 reset();
             }
         });
-        Avslutt.addActionListener(new ActionListener() {
-
+        Exit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        Utviklere.addActionListener(new ActionListener() {
-
+        Developers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Copyright © 2012 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess", 3, new ImageIcon("src/Pictures/TrollfaceW.png"));
             }
         });
         Save.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 chess.toTable();
             }
         });
         Load.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 chess.fromTable();
                 chess.refresh();
             }
         });
         Meme.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 chess.changeUI(1);
             }
         });
-        Vanlig.addActionListener(new ActionListener() {
-
+        Regular.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 chess.changeUI(2);
             }
         });
-
+        //Finishing the constructor by packing and setting visible.
         pack();
         setVisible(true);
     }
-
-    public void utslagsTabellH() {
+    
+    //METHODS
+    
+    //Method for adding info to the lost pieces table.
+    public void lostpieceTableW() {
         String res = "";
         for (int i = 0; i < counterS.length; i++) {
             res+=": "+counterS[i]+"\n";
@@ -190,14 +161,14 @@ public class GUI extends JFrame {
         lostPieceW.setText(res);
     }
 
-    public void utslagsTabellS() {
+    public void lostpieceTableB() {
         String res = "";
         for (int i = 0; i < counterH.length; i++) {
             res+=": "+counterH[i]+"\n";
         }
         lostPieceB.setText(res);
     }
-
+    //A reset method for the 'New Game' option in the menubar.
     public void reset() {
         remove(chess);
         remove(scrollpane);
@@ -205,8 +176,8 @@ public class GUI extends JFrame {
         remove(background);
         counterH = new int[6];
         counterS = new int[6];
-        utslagsTabellH();
-        utslagsTabellS();
+        lostpieceTableW();
+        lostpieceTableB();
         textarea.setText("");
         textarea2.setText("");
         chess = new Chess();
@@ -224,7 +195,7 @@ public class GUI extends JFrame {
         repaint();
         setVisible(true);
     }
-    
+    //Settings for the log and lost pieces table.
     public void settings(){
         textarea.setEditable(false);
         textarea2.setEditable(false);
@@ -250,7 +221,7 @@ public class GUI extends JFrame {
         lostPieceB.setForeground(Color.white);
         blackgif.setVisible(false);
     }
-    
+    //Adding constraints to the different components, determining their positions.
     public void setConstraints(){
         layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
@@ -275,5 +246,31 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, blackgif, 267, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.WEST, blackgif, 881, SpringLayout.WEST, contentPane);
     }
-    
+    //A method that changes the GUI based on movement.
+    ChessListener chessL = new ChessListener() {
+        public void chessReceived(ChessEvent event) {
+            if (event.team() == 1) {
+                if (event.piece() != -1) {
+                    counterH[event.piece()]++;
+                }
+                timerH.resume();
+                timerS.pause();
+                textarea.setText(chess.getWhiteLog());
+                lostpieceTableB();
+                whitegif.setVisible(false);
+                blackgif.setVisible(true);
+            } else if (event.team() == 2) {
+                if (event.piece() != -1) {
+                    counterS[event.piece()]++;
+                }
+                timerH.pause();
+                timerS.resume();
+                textarea2.setText(chess.getBlackLog());
+                lostpieceTableW();
+                blackgif.setVisible(false);
+                whitegif.setVisible(true);
+            }
+        }
+    };
 }
+    

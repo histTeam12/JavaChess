@@ -19,7 +19,7 @@ abstract class Piece {
         return name;
     }
     
-    public void setIcon(Icon ikon){
+    public void setIcon(Icon icon){
         this.icon = icon;
     }
 
