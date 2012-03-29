@@ -157,6 +157,10 @@ public class ChessTable {
     }
 
     public boolean checkW(int i) {
+        if (checkBishopW(i)) {
+            System.out.println("Bishop");
+            return true;
+        }
         if (checkRookW(i)) {
             System.out.println("ROOK");
             return true;
@@ -291,6 +295,85 @@ public class ChessTable {
                 if ((twoTable[j][b].getPiece() instanceof RookB) == false && (twoTable[j][b].getPiece() instanceof KingW) == false) {
                     break;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkBishopW(int i) {
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        for (int j = 0; j < 8; j++) {
+            int c = a;
+            int d = b;
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+            if (c > 0 && d > 0) {
+                c--;
+                d--;
+            }
+        }
+        for (int j = 0; j < 8; j++) {
+            int c = a;
+            int d = b;
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+            if (c < 7 && d < 7) {
+                c++;
+                d++;
+            }
+        }
+        for (int j = 0; j < 8; j++) {
+            int c = a;
+            int d = b;
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+            System.out.println(a + "NedVenstre" + b);
+            if (c < 7 && d > 0) {
+                c++;
+                d--;
+            }
+        }
+        for (int j = 0; j < 8; j++) {
+            int c = a;
+            int d = b;
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+            System.out.println(a + "Opp" + b);
+            if (c > 0 && d < 7) {
+                c--;
+                d++;
             }
         }
         return false;
