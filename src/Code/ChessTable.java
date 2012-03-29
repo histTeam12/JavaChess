@@ -310,9 +310,9 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+        int c = a;
+        int d = b;
         for (int j = 0; j < 8; j++) {
-            int c = a;
-            int d = b;
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                     return true;
@@ -326,9 +326,9 @@ public class ChessTable {
                 d--;
             }
         }
+        c = a;
+        d = b;
         for (int j = 0; j < 8; j++) {
-            int c = a;
-            int d = b;
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                     return true;
@@ -342,9 +342,9 @@ public class ChessTable {
                 d++;
             }
         }
+        c = a;
+        d = b;
         for (int j = 0; j < 8; j++) {
-            int c = a;
-            int d = b;
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                     return true;
@@ -353,15 +353,14 @@ public class ChessTable {
                     break;
                 }
             }
-            System.out.println(a + "NedVenstre" + b);
             if (c < 7 && d > 0) {
                 c++;
                 d--;
             }
         }
+        c = a;
+        d = b;
         for (int j = 0; j < 8; j++) {
-            int c = a;
-            int d = b;
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                     return true;
@@ -370,7 +369,6 @@ public class ChessTable {
                     break;
                 }
             }
-            System.out.println(a + "Opp" + b);
             if (c > 0 && d < 7) {
                 c--;
                 d++;
