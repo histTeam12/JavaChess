@@ -22,14 +22,23 @@ public class ChessTable {
         table[indeks] = piece;
     }
 
-    public void updateTwoTable() {
+    public void testTwoTable() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if(i == 0){
-                    twoTable[i][j] = table[j];
+                if (twoTable[i][j] instanceof PieceLabel) {
+                    System.out.println("i: " + i + " j: " + j + " " + twoTable[i][j].getPiece());
                 }
-                
-                else    twoTable[i][j] = table[i * j];
+            }
+        }
+    }
+
+    public void updateTwoTable() {
+        int a = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                twoTable[i][j] = table[a];
+                a++;
+
             }
         }
     }
@@ -153,9 +162,11 @@ public class ChessTable {
             return true;
         }
         if (checkKnightW(i)) {
+            System.out.println("KNIGHT");
             return true;
         }
         if (checkPawnW(i)) {
+            System.out.println("PAWN");
             return true;
         }
         return false;
@@ -233,23 +244,52 @@ public class ChessTable {
     }
 
     public boolean checkRookW(int i) {
-        int a;
-        int b;
+        int a = 0;
+        int b = 0;
         if (i > 7) {
             a = i / 8;
             b = i - (a * 8);
-            System.out.println(a +" og "+ b);
         } else {
             b = i;
             a = 0;
-                    System.out.println(a +" og "+ b);
         }
-        for (int j = 0; j < 7; j++) {
-            if (j + b <= 7 && j - b >= 0) {
-                if (twoTable[a][j] instanceof PieceLabel) {
-                    if (twoTable[a][j].getPiece() instanceof RookB) {
-                        return true;
-                    }
+        for (int j = b; j < 8; j++) {
+            if (twoTable[a][j] instanceof PieceLabel) {
+                if (twoTable[a][j].getPiece() instanceof RookB || twoTable[a][j].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[a][j].getPiece() instanceof RookB) == false && (twoTable[a][j].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+        }
+        for (int j = b; j >= 0; j--) {
+            if (twoTable[a][j] instanceof PieceLabel) {
+                if (twoTable[a][j].getPiece() instanceof RookB || twoTable[a][j].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[a][j].getPiece() instanceof RookB) == false && (twoTable[a][j].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+        }
+        for (int j = a; j < 8; j++) {
+            if (twoTable[j][b] instanceof PieceLabel) {
+                if (twoTable[j][b].getPiece() instanceof RookB || twoTable[j][b].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[j][b].getPiece() instanceof RookB) == false && (twoTable[j][b].getPiece() instanceof KingW) == false) {
+                    break;
+                }
+            }
+        }
+        for (int j = a; j >= 0; j--) {
+            if (twoTable[j][b] instanceof PieceLabel) {
+                if (twoTable[j][b].getPiece() instanceof RookB || twoTable[j][b].getPiece() instanceof QueenB) {
+                    return true;
+                }
+                if ((twoTable[j][b].getPiece() instanceof RookB) == false && (twoTable[j][b].getPiece() instanceof KingW) == false) {
+                    break;
                 }
             }
         }
