@@ -18,14 +18,28 @@ public class ChessTable {
 
     private PieceLabel[] table;
     private String[] log;
+    private PieceLabel[][] twoTable;
 
     public ChessTable() {
         this.table = new PieceLabel[64];
         this.log = new String[2];
+        this.twoTable = new PieceLabel[8][8];
     }
 
     public void updateTable(PieceLabel piece, int indeks) {
         table[indeks] = piece;
+    }
+
+    public void updateTwoTable() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(i == 0){
+                    twoTable[i][j] = table[j];
+                }
+                
+                else    twoTable[i][j] = table[i * j];
+            }
+        }
     }
 
     public void updateLog(String log2, int indeks) {
@@ -142,60 +156,108 @@ public class ChessTable {
     }
 
     public boolean checkW(int i) {
+        if (checkRookW(i)) {
+            System.out.println("ROOK");
+            return true;
+        }
         if (checkKnightW(i)) {
             return true;
         }
-
+        if (checkPawnW(i)) {
+            return true;
+        }
         return false;
     }
 
     public boolean checkKnightW(int i) {
-        if ((i + 15) <= 63 && (i+15) >= 0) {
+        if ((i + 15) <= 63 && (i + 15) >= 0) {
             if (table[i + 15] instanceof PieceLabel) {
                 if (table[i + 15].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
-        if ((i + 6) <= 63&& (i+6) >= 0) {
+        if ((i + 6) <= 63 && (i + 6) >= 0) {
             if (table[i + 6] instanceof PieceLabel) {
                 if (table[i + 6].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
-        if ((i -10) <= 63&& (i+-10) >= 0) {
-            if (table[i -10] instanceof PieceLabel) {
-                if (table[i -10].getPiece() instanceof KnightB) {
+        if ((i - 10) <= 63 && (i + -10) >= 0) {
+            if (table[i - 10] instanceof PieceLabel) {
+                if (table[i - 10].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
-        if ((i -17) <= 63&& (i-17) >= 0) {
-            if (table[i -17] instanceof PieceLabel) {
-                if (table[i -17].getPiece() instanceof KnightB) {
+        if ((i - 17) <= 63 && (i - 17) >= 0) {
+            if (table[i - 17] instanceof PieceLabel) {
+                if (table[i - 17].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
-        if ((i -15) <= 63&& (i-15) >= 0) {
-            if (table[i -15] instanceof PieceLabel) {
-                if (table[i -15].getPiece() instanceof KnightB) {
+        if ((i - 15) <= 63 && (i - 15) >= 0) {
+            if (table[i - 15] instanceof PieceLabel) {
+                if (table[i - 15].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
-        if ((i + 10) <= 63&& (i+10) >= 0) {
+        if ((i + 10) <= 63 && (i + 10) >= 0) {
             if (table[i + 10] instanceof PieceLabel) {
                 if (table[i + 10].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
-        if ((i + 17) <= 63&& (i+17) >= 0) {
+        if ((i + 17) <= 63 && (i + 17) >= 0) {
             if (table[i + 17] instanceof PieceLabel) {
                 if (table[i + 17].getPiece() instanceof KnightB) {
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkPawnW(int i) {
+        if ((i - 7) <= 63 && (i - 7) >= 0) {
+            if (table[i - 7] instanceof PieceLabel) {
+                if (table[i - 7].getPiece() instanceof PawnB) {
+                    return true;
+                }
+            }
+        }
+        if ((i - 9) <= 63 && (i - 9) >= 0) {
+            if (table[i - 9] instanceof PieceLabel) {
+                if (table[i - 9].getPiece() instanceof PawnB) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkRookW(int i) {
+        int a;
+        int b;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+            System.out.println(a +" og "+ b);
+        } else {
+            b = i;
+            a = 0;
+                    System.out.println(a +" og "+ b);
+        }
+        for (int j = 0; j < 7; j++) {
+            if (j + b <= 7 && j - b >= 0) {
+                if (twoTable[a][j] instanceof PieceLabel) {
+                    if (twoTable[a][j].getPiece() instanceof RookB) {
+                        return true;
+                    }
                 }
             }
         }

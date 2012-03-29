@@ -395,6 +395,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         chessTable.updateLog(getWhiteLog(), 0);
         chessTable.updateLog(getBlackLog(), 1);
+        chessTable.updateTwoTable();
     }
 
     public void fromTable() {
