@@ -28,8 +28,8 @@ public class PawnB extends Piece {
         return enPassant;
     }
     
-    public void setPassant(){
-        enPassant = false;
+    public void setPassant(boolean b){
+        enPassant = b;
     }
     
     //Setting the legal moves of the piece.

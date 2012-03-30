@@ -299,6 +299,16 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     moved = true;
                 }
             }
+            if (enPassantPW != null) {
+                if ((enPassantPW.getY() == (e.getY() + yAdjustment)) && (enPassantPW.getX() == (e.getX() + xAdjustment))) {
+                    enPassant();
+                }
+            }
+            if (enPassantPB != null) {
+                if ((enPassantPB.getY() == (e.getY() + yAdjustment)) && (enPassantPB.getX() == (e.getX() + xAdjustment))) {
+                    enPassant();
+                }
+            }
             chessPiece.setVisible(true);
             if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true) {
                 if (piece instanceof PieceLabel) {
@@ -559,6 +569,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public boolean movePawnB(MouseEvent e, Component m) {
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
+            enPassantPB = (new Point((int) startPos.getX(), (int) startPos.getY() + 75));
+            pawnB.setPassant(true);
+            enPassantB = turn + 2;
             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + 75) instanceof PieceLabel) {
                 moveBack();
                 return false;
@@ -584,6 +597,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public boolean movePawnW(MouseEvent e, Component m) {
 
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
+            enPassantPW = (new Point((int) startPos.getX(), (int) startPos.getY() - 75));
+            pawnW.setPassant(true);
+            enPassantW = turn + 2;
             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() - 75) instanceof PieceLabel) {
                 moveBack();
                 return false;
@@ -1109,17 +1125,23 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public void enPassant() {
+        System.out.println(chessPiece.getPiece().getTeam());
+        System.out.println(pawnB.getPassant());
         if (chessPiece.getPiece().getTeam() == 1 && pawnB.getPassant() == true) {
+            System.out.println("test2B");
             JPanel panel = new JPanel(new BorderLayout());
             panel.setOpaque(false);
-            Container c = (JPanel) chessBoard.findComponentAt((int) enPassantPB.getX(), (int) enPassantPB.getY() - 75);
-            c.add(panel);
+            Component c = chessBoard.findComponentAt((int) enPassantPB.getX(), (int) enPassantPB.getY() + 75);
+            Container parent = c.getParent();
+            parent.remove(0);
         }
         if (chessPiece.getPiece().getTeam() == 2 && pawnW.getPassant() == true) {
+            System.out.println("test2W");
             JPanel panel = new JPanel(new BorderLayout());
             panel.setOpaque(false);
-            Container c = (JPanel) chessBoard.findComponentAt((int) enPassantPW.getX(), (int) enPassantPW.getY() + 75);
-            c.add(panel);
+            Component c = chessBoard.findComponentAt((int) enPassantPW.getX(), (int) enPassantPW.getY() - 75);
+            Container parent = c.getParent();
+            parent.remove(0);
         }
     }
 }
