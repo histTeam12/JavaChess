@@ -219,61 +219,108 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         if (m instanceof JPanel) {
             team = 0;
         }
-        movepiece(e, m);
+        if (movepiece(e, m)) {
+            turnChange(e);
+        }
         refresh();
-        chessTable.reset();
         toTable();
-        
+
 //        chessTable.testTwoTable();
-        System.out.println("Sjakk Hvit: "+chessTable.checkW(kingWpos()));
-        System.out.println("Sjakk Svart: "+chessTable.checkB(kingBpos()));
+        System.out.println("Sjakk Hvit: " + chessTable.checkW(kingWpos()));
+        System.out.println("Sjakk Svart: " + chessTable.checkB(kingBpos()));
     }
 
-    public void movepiece(MouseEvent e, Component m) {
+    public boolean movepiece(MouseEvent e, Component m) {
+        boolean moved = false;
         try {
-
             //Sjekker hva steams brikke som blir move og deretter om det er et lovlig move
             if (chessPiece.getPiece().equals(pawnB)) {
-                movePawnB(e, m);
+                if (movePawnB(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(pawnW)) {
-                movePawnW(e, m);
+                if (movePawnW(e, m)) {
+                    moved = true;
+                }
+
             }
             if (chessPiece.getPiece().equals(queenW)) {
-                moveQueenW(e, m);
+                if (moveQueenW(e, m)) {
+                    moved = true;
+                }
             }
 
             if (chessPiece.getPiece().equals(queenB)) {
-                moveQueenB(e, m);
+                if (moveQueenB(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(knightB)) {
-                moveKnightB(e, m);
+                if (moveKnightB(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(knightW)) {
-                moveKnightW(e, m);
+                if (moveKnightW(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(kingW)) {
-                moveKingW(e, m);
+                if (moveKingW(e, m)) {
+                    moved = true;
+                }
             }
 
             if (chessPiece.getPiece().equals(kingB)) {
-                moveKingB(e, m);
+                if (moveKingB(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(bishopW)) {
-                moveBishopW(e, m);
+                if (moveBishopW(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(bishopB)) {
-                moveBishopB(e, m);
+                if (moveBishopB(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(rookW)) {
-                moveRookW(e, m);
+                if (moveRookW(e, m)) {
+                    moved = true;
+                }
             }
             if (chessPiece.getPiece().equals(rookB)) {
-                moveRookB(e, m);
+                if (moveRookB(e, m)) {
+                    moved = true;
+                }
             }
             chessPiece.setVisible(true);
+            if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true) {
+                if (piece instanceof PieceLabel){
+                replacePiece(e, piece);
+                }
+                moveBack();
+                return false;
+            }
+            if (chessPiece.getPiece().getTeam() == 2 && chessTable.checkB(kingBpos()) == true) {
+                 if (piece instanceof PieceLabel){
+                replacePiece(e, piece);
+                }
+                moveBack();
+                return false;
+            }
+
         } catch (NullPointerException npe) {
             moveBack();
+            return false;
+        }
+        if (moved) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -290,6 +337,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             Container parent = (Container) c;
             parent.add(chessPiece);
         }
+        chessPiece.setVisible(true);
+        toTable();
+    }
+
+    public void turnChange(MouseEvent e) {
         if (chessPiece.getPiece().getTeam() == 1) {
             whiteLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
         }
@@ -298,7 +350,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         fireChessEvent();
         turn++;
-        chessPiece.setVisible(true);
     }
 
     public void moveBack() {
@@ -316,6 +367,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             parent.add(chessPiece);
         }
         chessPiece.setVisible(true);
+        toTable();
     }
 
     public int kingBpos() {
@@ -328,6 +380,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         return -1;
     }
+
     public int kingWpos() {
         for (int i = 0; i < 64; i++) {
             if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
@@ -373,6 +426,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return whiteLog.toString();
     }
 
+    public void replacePiece(MouseEvent e, PieceLabel p) {
+        chessPiece.setVisible(false);
+        Container c = (JPanel) chessBoard.findComponentAt(e.getX(), e.getY());
+        c.add(p);
+        chessPiece.setVisible(true);
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
     }
@@ -390,6 +450,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public void toTable() {
+        refresh();
+        chessTable.reset();
         for (int i = 0; i < 64; i++) {
             if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
                 chessTable.updateTable((PieceLabel) chessBoard.findComponentAt(kord.getPunkt(i)), i);
@@ -493,10 +555,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     }
 
-    public void movePawnB(MouseEvent e, Component m) {
+    public boolean movePawnB(MouseEvent e, Component m) {
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + 75) instanceof PieceLabel) {
                 moveBack();
+                return false;
             }
         }
         if (pawnB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
@@ -506,19 +569,22 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 optionDialog(chessPiece.getPiece().getTeam());
                 chessPiece.setVisible(true);
                 move(e);
-                return;
+                return true;
             }
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void movePawnW(MouseEvent e, Component m) {
+    public boolean movePawnW(MouseEvent e, Component m) {
 
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() - 75) instanceof PieceLabel) {
                 moveBack();
+                return false;
             }
         }
         if (pawnW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
@@ -528,15 +594,17 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 optionDialog(chessPiece.getPiece().getTeam());
                 chessPiece.setVisible(true);
                 move(e);
-                return;
+                return true;
             }
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveQueenW(MouseEvent e, Component m) {
+    public boolean moveQueenW(MouseEvent e, Component m) {
         int ruter;
         if (queenW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
             if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
@@ -546,7 +614,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -556,7 +624,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -566,7 +634,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -576,12 +644,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
 
                 move(e);
+                return true;
             }
 
             if (((int) e.getY() + yAdjustment) != (int) startPos.getY() && ((int) e.getX() + xAdjustment) == (int) startPos.getX() || (((int) e.getY() + yAdjustment) == (int) startPos.getY() && ((int) e.getX() + xAdjustment) != (int) startPos.getX())) { //if "tårn"
@@ -592,14 +661,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     } else {
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     }
@@ -611,26 +680,29 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     } else {
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     }
                 }
                 move(e);
+                return true;
             }
         } else {
             moveBack();
+            return false;
         }
+        return false;
     }
 
-    public void moveQueenB(MouseEvent e, Component m) {
+    public boolean moveQueenB(MouseEvent e, Component m) {
         int ruter;
         if (queenB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
             if (Math.abs((int) startPos.getX() - ((int) e.getX() + xAdjustment)) == (Math.abs((int) startPos.getY() - ((int) e.getY() + yAdjustment)))) { //if "løper"
@@ -640,7 +712,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -650,7 +722,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -660,7 +732,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -670,12 +742,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
 
                 move(e);
+                return true;
             }
 
             if (((int) e.getY() + yAdjustment) != (int) startPos.getY() && ((int) e.getX() + xAdjustment) == (int) startPos.getX() || (((int) e.getY() + yAdjustment) == (int) startPos.getY() && ((int) e.getX() + xAdjustment) != (int) startPos.getX())) { //if "tårn"
@@ -686,14 +759,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     } else {
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     }
@@ -705,43 +778,50 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     } else {
                         for (int i = 0; i < ruter; i++) {
                             if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
                                 moveBack();
-                                return;
+                                return false;
                             }
                         }
                     }
                 }
                 move(e);
+                return true;
             }
         } else {
             moveBack();
+            return false;
         }
+        return false;
     }
 
-    public void moveKnightB(MouseEvent e, Component m) {
+    public boolean moveKnightB(MouseEvent e, Component m) {
         if (knightB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveKnightW(MouseEvent e, Component m) {
+    public boolean moveKnightW(MouseEvent e, Component m) {
         if (knightW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
 
     }
 
-    public void moveKingW(MouseEvent e, Component m) {
+    public boolean moveKingW(MouseEvent e, Component m) {
         if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
                 (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingW.move() == false && rookWright.move() == false) {
@@ -751,7 +831,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 parent.add(c);
                 kingW.setMove();
                 chessPiece.setVisible(true);
-                return;
+                return true;
             }
         }
         if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
@@ -764,18 +844,20 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 parent.add(c);
                 kingW.setMove();
                 chessPiece.setVisible(true);
-                return;
+                return true;
             }
         }
         if (kingW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
             kingW.setMove();
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveKingB(MouseEvent e, Component m) {
+    public boolean moveKingB(MouseEvent e, Component m) {
         if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
                 (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingB.move() == false && rookBleft.move() == false) {
@@ -785,7 +867,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 parent.add(c);
                 kingB.setMove();
                 chessPiece.setVisible(true);
-                return;
+                return true;
             }
         }
         if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
@@ -798,18 +880,20 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 parent.add(c);
                 kingB.setMove();
                 chessPiece.setVisible(true);
-                return;
+                return true;
             }
         }
         if (kingB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
             kingB.setMove();
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveBishopW(MouseEvent e, Component m) {
+    public boolean moveBishopW(MouseEvent e, Component m) {
         //Ned venstre
         int ruter;
         if (bishopW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
@@ -818,7 +902,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -828,7 +912,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -838,7 +922,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -848,17 +932,19 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveBishopB(MouseEvent e, Component m) {
+    public boolean moveBishopB(MouseEvent e, Component m) {
         //Ned venstre
         int ruter;
         if (bishopB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
@@ -867,7 +953,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -877,7 +963,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() - (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -887,7 +973,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() - (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
@@ -897,17 +983,19 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 for (int i = 0; i < ruter; i++) {
                     if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                         moveBack();
-                        return;
+                        return false;
                     }
                 }
             }
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveRookW(MouseEvent e, Component m) {
+    public boolean moveRookW(MouseEvent e, Component m) {
         int ruter;
         if (rookW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
             //Y-Retning
@@ -917,14 +1005,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 } else {
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -936,25 +1024,27 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 } else {
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
             }
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 
-    public void moveRookB(MouseEvent e, Component m) {
+    public boolean moveRookB(MouseEvent e, Component m) {
         int ruter;
         if (rookB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
             //Y-Retning
@@ -964,14 +1054,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * 75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 } else {
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX(), (int) startPos.getY() + (i * -75)) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
@@ -983,21 +1073,23 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * 75), (int) startPos.getY()) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 } else {
                     for (int i = 0; i < ruter; i++) {
                         if (chessBoard.findComponentAt((int) startPos.getX() + (i * -75), (int) startPos.getY()) instanceof PieceLabel) {
                             moveBack();
-                            return;
+                            return false;
                         }
                     }
                 }
             }
             move(e);
+            return true;
         } else {
             moveBack();
+            return false;
         }
     }
 }
