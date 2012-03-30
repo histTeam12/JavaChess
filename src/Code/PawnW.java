@@ -5,6 +5,7 @@ import javax.swing.Icon;
 
 public class PawnW extends Piece {
     private final int slope = -75;
+    private boolean enPassant = false;
     
     public PawnW(Icon ikon) {
         super(ikon);
@@ -24,11 +25,20 @@ public class PawnW extends Piece {
         return team;
     }
     
+    public boolean getPassant(){
+        return enPassant;
+    }
+    
+    public void setPassant(){
+        enPassant = false;
+    }
+    
     //Setting the legal moves of the piece.
     @Override
     public boolean legalMove(int y, int x, Point start, Object brikke, int lag2) {
         if (lag2 == team) return false;
         if (start.getY() == 450) {if (y == (int) start.getY() + maxY * 2 && x == (int) start.getX()) {
+                enPassant = true;
                 return true;
             }
         }

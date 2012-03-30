@@ -5,6 +5,7 @@ import javax.swing.Icon;
 
 public class PawnB extends Piece {
     private final int slope = 75;
+    private boolean enPassant = false;
     
     public PawnB(Icon icon) {
         super(icon);
@@ -22,6 +23,13 @@ public class PawnB extends Piece {
     @Override
     public int getTeam() {
         return team;
+    }
+    public boolean getPassant(){
+        return enPassant;
+    }
+    
+    public void setPassant(){
+        enPassant = false;
     }
     
     //Setting the legal moves of the piece.
