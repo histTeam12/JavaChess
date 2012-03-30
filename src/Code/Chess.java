@@ -351,8 +351,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             blackLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
         }
         fireChessEvent();
-        pawnW.setPassant();
-        pawnB.setPassant();
         turn++;
     }
 
@@ -431,7 +429,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public void replacePiece(MouseEvent e, PieceLabel p) {
-        replacePawn();
         chessPiece.setVisible(false);
         Container c = (JPanel) chessBoard.findComponentAt(e.getX(), e.getY());
         c.add(p);
@@ -573,10 +570,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 chessPiece.setVisible(false);
                 optionDialog(chessPiece.getPiece().getTeam());
                 chessPiece.setVisible(true);
-                if (pawnW.getPassant() == true) {
-                    enPassantPW = new Point((int) (startPos.getX()), (int) (startPos.getY() - 75));
-                    enPassantW = turn + 2;
-                }
                 move(e);
                 return true;
             }
@@ -602,10 +595,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 chessPiece.setVisible(false);
                 optionDialog(chessPiece.getPiece().getTeam());
                 chessPiece.setVisible(true);
-                if (pawnW.getPassant() == true) {
-                    enPassantPW = new Point((int) (startPos.getX()), (int) (startPos.getY() + 75));
-                    enPassantW = turn + 2;
-                }
                 move(e);
                 return true;
             }
