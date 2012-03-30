@@ -223,8 +223,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         refresh();
         chessTable.reset();
         toTable();
+        
 //        chessTable.testTwoTable();
-        System.out.println(chessTable.checkW(kingWpos()));
+        System.out.println("Sjakk Hvit: "+chessTable.checkW(kingWpos()));
+        System.out.println("Sjakk Svart: "+chessTable.checkB(kingBpos()));
     }
 
     public void movepiece(MouseEvent e, Component m) {
@@ -269,7 +271,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             if (chessPiece.getPiece().equals(rookB)) {
                 moveRookB(e, m);
             }
-
             chessPiece.setVisible(true);
         } catch (NullPointerException npe) {
             moveBack();
