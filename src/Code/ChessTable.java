@@ -254,7 +254,7 @@ public class ChessTable {
                 }
             }
         }
-        if ((i + 17) <= 63 && (i + 17) >= 0) {
+        if ((i - 6) <= 63 && (i - 6) >= 0) {
             if (table[i - 6] instanceof PieceLabel) {
                 if (table[i - 6].getPiece() instanceof KnightB) {
                     return true;
@@ -523,7 +523,7 @@ public class ChessTable {
                 }
             }
         }
-        if ((i + 17) <= 63 && (i + 17) >= 0) {
+        if ((i - 6) <= 63 && (i - 6) >= 0) {
             if (table[i - 6] instanceof PieceLabel) {
                 if (table[i - 6].getPiece() instanceof KnightW) {
                     return true;
