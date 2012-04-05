@@ -179,7 +179,8 @@ public class ChessTable {
         }
         return false;
     }
-     public boolean checkB(int i) {
+
+    public boolean checkB(int i) {
         if (checkBishopB(i)) {
             System.out.println("Bishop");
             return true;
@@ -249,6 +250,13 @@ public class ChessTable {
         if ((i + 17) <= 63 && (i + 17) >= 0) {
             if (table[i + 17] instanceof PieceLabel) {
                 if (table[i + 17].getPiece() instanceof KnightB) {
+                    return true;
+                }
+            }
+        }
+        if ((i + 17) <= 63 && (i + 17) >= 0) {
+            if (table[i - 6] instanceof PieceLabel) {
+                if (table[i - 6].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
@@ -403,7 +411,8 @@ public class ChessTable {
         }
         return false;
     }
-    public boolean checkKingW(int i){
+
+    public boolean checkKingW(int i) {
         if ((i - 7) <= 63 && (i - 7) >= 0) {
             if (table[i - 7] instanceof PieceLabel) {
                 if (table[i - 7].getPiece() instanceof KingB) {
@@ -461,8 +470,9 @@ public class ChessTable {
             }
         }
         return false;
-        
+
     }
+
     public boolean checkKnightB(int i) {
         if ((i + 15) <= 63 && (i + 15) >= 0) {
             if (table[i + 15] instanceof PieceLabel) {
@@ -509,6 +519,13 @@ public class ChessTable {
         if ((i + 17) <= 63 && (i + 17) >= 0) {
             if (table[i + 17] instanceof PieceLabel) {
                 if (table[i + 17].getPiece() instanceof KnightW) {
+                    return true;
+                }
+            }
+        }
+        if ((i + 17) <= 63 && (i + 17) >= 0) {
+            if (table[i - 6] instanceof PieceLabel) {
+                if (table[i - 6].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
@@ -663,7 +680,8 @@ public class ChessTable {
         }
         return false;
     }
-    public boolean checkKingB(int i){
+
+    public boolean checkKingB(int i) {
         if ((i - 7) <= 63 && (i - 7) >= 0) {
             if (table[i - 7] instanceof PieceLabel) {
                 if (table[i - 7].getPiece() instanceof KingW) {
@@ -721,6 +739,6 @@ public class ChessTable {
             }
         }
         return false;
-        
+
     }
 }
