@@ -38,6 +38,7 @@ public class PawnB extends Piece {
         if (team2 == team) return false;
         if (start.getY() == 75) {
             if (!(brikke instanceof PieceLabel) && y == (int) start.getY() + maxY * 2 && x == (int) start.getX()) {
+                setPassant(true);
                 return true;
             }
         }

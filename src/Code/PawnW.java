@@ -39,6 +39,7 @@ public class PawnW extends Piece {
         if (lag2 == team) return false;
         if (start.getY() == 450) {if (y == (int) start.getY() + maxY * 2 && x == (int) start.getX()) {
                 enPassant = true;
+                setPassant(true);
                 return true;
             }
         }
