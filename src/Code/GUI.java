@@ -197,6 +197,8 @@ public class GUI extends JFrame {
         add(scrollpane2, SpringLayout.EAST);
         settings();
         add(background);
+        lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWNormal.png")));
+        lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
         repaint();
         setVisible(true);
     }
