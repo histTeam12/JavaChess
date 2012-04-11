@@ -21,6 +21,12 @@ public class ChessTable {
     public void updateTable(PieceLabel piece, int indeks) {
         table[indeks] = piece;
     }
+    public void newTable(PieceLabel[] table2){
+        table = table2;
+    }
+    public PieceLabel[] getTable(){
+        return table;
+    }
 
     public void testTwoTable() {
         for (int i = 0; i < 8; i++) {

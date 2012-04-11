@@ -21,6 +21,7 @@ public class GUI extends JFrame {
     private JLabel background = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Background.png")));
     private JMenuBar menuBar = new JMenuBar();
     private Chess chess = new Chess();
+    private SaveGame[] savegames = new SaveGame[6];
     private Timer timerS;
     private Timer timerH;
     private int[] counterH = new int[6];
@@ -245,6 +246,20 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.WEST, whitegif, 1, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, blackgif, 267, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.WEST, blackgif, 881, SpringLayout.WEST, contentPane);
+    }
+    
+    public void save(String title, int index){
+        SaveGame save = new SaveGame(title, timerH, timerS, counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), chess.getTable());
+        savegames[index] = save;
+    }
+    public void load(int index){
+        chess.loadGame(savegames[index].getTable());
+        timerH = savegames[index].getTimerW();
+        timerS = savegames[index].getTimerB();
+        counterH = savegames[index].getCounterW();
+        counterS = savegames[index].getCounterB();
+        textarea.setText(savegames[index].getLogW());
+        textarea2.setText(savegames[index].getLogB());        
     }
     //A method that changes the GUI based on movement.
     ChessListener chessL = new ChessListener() {
