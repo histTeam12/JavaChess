@@ -90,8 +90,8 @@ public class GUI extends JFrame {
         JMenuItem Load = new JMenuItem("Open game", new ImageIcon(getClass().getResource("/Pictures/LoadIcon.png")));
         Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
-        JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme pieces");
-        JRadioButtonMenuItem Regular = new JRadioButtonMenuItem("Regular pieces");
+        JMenuItem Meme = new JMenuItem("Meme pieces");
+        JMenuItem Regular = new JMenuItem("Regular pieces");
         Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
         Regular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
         Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));

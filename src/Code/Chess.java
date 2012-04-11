@@ -508,8 +508,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         whiteLog.clearLogg();
         blackLog.clearLogg();
-        whiteLog.leggTilLogg(chessTable.getLog(0));
-        blackLog.leggTilLogg(chessTable.getLog(1));
+        if (turn != 2) {
+            whiteLog.leggTilLogg(chessTable.getLog(0));
+            blackLog.leggTilLogg(chessTable.getLog(1));
+        }
     }
 
     public synchronized void addChessListener(ChessListener l) {
@@ -1212,7 +1214,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         }
                     }
                 }
-                        //Ned venstre
+                //Ned venstre
                 if (chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() - 75) instanceof PieceLabel) {
                     Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() - 75)).getPiece();
                     if (a.equals(pawnB)) {
@@ -1236,10 +1238,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         return false;
     }
-    public ChessTable getTable(){
+
+    public ChessTable getTable() {
         return chessTable;
     }
-    public void loadGame(ChessTable table){
+
+    public void loadGame(ChessTable table) {
         chessTable = table;
     }
 }
