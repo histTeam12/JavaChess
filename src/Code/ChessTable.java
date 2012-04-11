@@ -103,10 +103,10 @@ public class ChessTable {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/YaomingB.png")));
                         }
                         if (table[i].getPiece() instanceof BishopW) {
-                            table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/BadassW.png")));
+                            table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/LolW.png")));
                         }
                         if (table[i].getPiece() instanceof BishopB) {
-                            table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/BadassB.png")));
+                            table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/LolB.png")));
                         }
                         if (table[i].getPiece() instanceof RookW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/MegustaW.png")));
