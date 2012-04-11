@@ -9,6 +9,7 @@ import static javax.swing.JOptionPane.*;
 
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
 
+    private boolean castling = false;
     private boolean passanten;
     private int enPassantB;
     private int enPassantW;
@@ -379,13 +380,22 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public void turnChange(MouseEvent e) {
         if (chessPiece.getPiece().getTeam() == 1) {
-            whiteLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
+            if (castling) {
+                whiteLog.leggTilLogg("Castling");
+            } else {
+                whiteLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
+            }
         }
         if (chessPiece.getPiece().getTeam() == 2) {
-            blackLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
+            if (castling) {
+                blackLog.leggTilLogg("Castling");
+            } else {
+                blackLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
+            }
         }
         fireChessEvent();
         turn++;
+        castling = false;
     }
 
     public void moveBack() {
@@ -869,12 +879,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingW.move() == false && rookWright.move() == false) {
                 move(e);
-                Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
-                Container parent = (Container) chessBoard.getComponent(61);
-                parent.add(c);
-                kingW.setMove();
-                chessPiece.setVisible(true);
-                return true;
+                if (chessTable.checkW(kingWpos()) == false) {
+                    castling = true;
+                    Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
+                    Container parent = (Container) chessBoard.getComponent(61);
+                    parent.add(c);
+                    kingW.setMove();
+                    chessPiece.setVisible(true);
+                    return true;
+                }
             }
         }
         if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
@@ -882,12 +895,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingW.move() == false && rookWleft.move() == false) {
                 move(e);
-                Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
-                Container parent = (Container) chessBoard.getComponent(59);
-                parent.add(c);
-                kingW.setMove();
-                chessPiece.setVisible(true);
-                return true;
+                if (chessTable.checkW(kingWpos()) == false) {
+                    castling = true;
+                    Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
+                    Container parent = (Container) chessBoard.getComponent(59);
+                    parent.add(c);
+                    kingW.setMove();
+                    chessPiece.setVisible(true);
+                    return true;
+                }
             }
         }
         if (kingW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
@@ -905,12 +921,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingB.move() == false && rookBleft.move() == false) {
                 move(e);
-                Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
-                Container parent = (Container) chessBoard.getComponent(3);
-                parent.add(c);
-                kingB.setMove();
-                chessPiece.setVisible(true);
-                return true;
+                if (chessTable.checkB(kingBpos()) == false) {
+                    castling = true;
+                    Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
+                    Container parent = (Container) chessBoard.getComponent(3);
+                    parent.add(c);
+                    kingB.setMove();
+                    chessPiece.setVisible(true);
+                    return true;
+                }
             }
         }
         if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
@@ -918,12 +937,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingB.move() == false && rookBright.move() == false) {
                 move(e);
-                Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
-                Container parent = (Container) chessBoard.getComponent(5);
-                parent.add(c);
-                kingB.setMove();
-                chessPiece.setVisible(true);
-                return true;
+                if (chessTable.checkB(kingBpos()) == false) {
+                    castling = true;
+                    Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
+                    Container parent = (Container) chessBoard.getComponent(5);
+                    parent.add(c);
+                    kingB.setMove();
+                    chessPiece.setVisible(true);
+                    return true;
+                }
             }
         }
         if (kingB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
