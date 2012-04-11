@@ -83,10 +83,10 @@ public class GUI extends JFrame {
         menuBar.setBorder(null);
 
         //Creating buttons for the menubar with icons and key bindings.
-        JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon(getClass().getResource("/Pictures/Newgame.png")));
+        JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon(getClass().getResource("/Pictures/newgame.png")));
         Newgame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
         JMenuItem Exit = new JMenuItem("Exit", new ImageIcon(getClass().getResource("/Pictures/Exit.png")));
-        JMenuItem Save = new JMenuItem("Save game", new ImageIcon(getClass().getResource("/Pictures/Mac.png")));
+        JMenuItem Save = new JMenuItem("Save game", new ImageIcon(getClass().getResource("/Pictures/mac.png")));
         JMenuItem Load = new JMenuItem("Open game", new ImageIcon(getClass().getResource("/Pictures/LoadIcon.png")));
         Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
