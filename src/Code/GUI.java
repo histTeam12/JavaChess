@@ -67,6 +67,8 @@ public class GUI extends JFrame {
         add(background);
         setConstraints(); //Sets constraints to the stuff added to the JFrame.
         settings(); //Using the settings() method to create the log.
+        lostpieceTableW();
+        lostpieceTableB();
 
         //Creating and adding the menubar
         JMenu file = new JMenu("File");
