@@ -189,51 +189,56 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper piecen tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
-            piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
-        } else {
-            piece = null;
-        }
-        if (chessPiece == null) {
-            return;
-        }
-        //Sjekker om det er hvit eller svart sin tur:
-        if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
+        try {
+            if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
+                piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+            } else {
+                piece = null;
+            }
+            if (chessPiece == null) {
+                return;
+            }
+            //Sjekker om det er hvit eller svart sin tur:
+            if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
+                moveBack();
+                //chessPiece.setIcon(hjelpIkon);
+                return;
+            }
+            if (meme) {
+                chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
+            }
+            Component m = chessBoard.findComponentAt(e.getX(), e.getY());
+            Point b;
+            if (m instanceof JPanel) {
+                b = m.getLocation();
+            } else {
+                b = m.getParent().getLocation();
+            }
+            if (m instanceof PieceLabel) {
+                piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+            }
+            xAdjustment = b.x - e.getX();
+            yAdjustment = b.y - e.getY();
+            //Sjekker om piecen slippes på en annen piece(og i så fall hvilken farge), eller blank rute
+            if (m instanceof PieceLabel) {
+                team = piece.getPiece().getTeam();
+            }
+            if (m instanceof JPanel) {
+                team = 0;
+            }
+            if (movepiece(e, m)) {
+                turnChange(e);
+            }
+            refresh();
+            toTable();
+            System.out.println(passanten);
+            passanten = false;
+            System.out.println("Sjakk Hvit: " + chessTable.checkW(kingWpos()));
+            System.out.println("Sjakk Svart: " + chessTable.checkB(kingBpos()));
+
+        } catch (NullPointerException npe) {
             moveBack();
-            //chessPiece.setIcon(hjelpIkon);
-            return;
         }
-        if (meme) {
-            chessPiece.setIcon(hjelpIkon); //setter tilbake til originalt ikon
-        }
-        Component m = chessBoard.findComponentAt(e.getX(), e.getY());
-        Point b;
-        if (m instanceof JPanel) {
-            b = m.getLocation();
-        } else {
-            b = m.getParent().getLocation();
-        }
-        if (m instanceof PieceLabel) {
-            piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
-        }
-        xAdjustment = b.x - e.getX();
-        yAdjustment = b.y - e.getY();
-        //Sjekker om piecen slippes på en annen piece(og i så fall hvilken farge), eller blank rute
-        if (m instanceof PieceLabel) {
-            team = piece.getPiece().getTeam();
-        }
-        if (m instanceof JPanel) {
-            team = 0;
-        }
-        if (movepiece(e, m)) {
-            turnChange(e);
-        }
-        refresh();
-        toTable();
-        System.out.println(passanten);
-        passanten = false;
-        System.out.println("Sjakk Hvit: " + chessTable.checkW(kingWpos()));
-        System.out.println("Sjakk Svart: " + chessTable.checkB(kingBpos()));
     }
 
     public boolean movepiece(MouseEvent e, Component m) {
