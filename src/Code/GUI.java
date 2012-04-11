@@ -18,7 +18,7 @@ public class GUI extends JFrame {
 
     //OBJECT VARIABLES
     
-    private BoardPane background = new BoardPane("src/Pictures/Background.png");
+    private JLabel background = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Background.png")));
     private JMenuBar menuBar = new JMenuBar();
     private Chess chess = new Chess();
     private Timer timerS;
@@ -29,10 +29,10 @@ public class GUI extends JFrame {
     private JTextArea textarea2 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
-    private JLabel lostPieceWLabel = new JLabel(new ImageIcon("src/pictures/lostPieceWNormal.png"));
-    private JLabel lostPieceBLabel = new JLabel(new ImageIcon("src/pictures/lostPieceBNormal.png"));
-    private JLabel whitegif = new JLabel(new ImageIcon("src/pictures/WhiteGIF.gif"));
-    private JLabel blackgif = new JLabel(new ImageIcon("src/pictures/BlackGIF.gif"));
+    private JLabel lostPieceWLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/lostPieceWNormal.png")));
+    private JLabel lostPieceBLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/lostPieceBNormal.png")));
+    private JLabel whitegif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/WhiteGIF.gif")));
+    private JLabel blackgif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/BlackGIF.gif")));
     private JTextArea lostPieceW = new JTextArea(15,5);
     private JTextArea lostPieceB = new JTextArea(15,5);
     private Container contentPane = getContentPane();
@@ -46,15 +46,13 @@ public class GUI extends JFrame {
         setTitle(title);
         contentPane.setLayout(layout);
         setJMenuBar(menuBar);
+        background.setPreferredSize(new Dimension(1084, 661));
         chess = new Chess();
         chess.addChessListener(chessL);
         timerS = new Timer();
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
-        background.setPreferredSize(new Dimension(1084, 661));
-        lostpieceTableW();
-        lostpieceTableB();
         add(scrollpane);
         add(chess);
         add(scrollpane2);
@@ -67,8 +65,10 @@ public class GUI extends JFrame {
         add(whitegif);
         add(blackgif);
         add(background);
-        setConstraints();
-        settings(); //Using the settings() method to create the log.
+        lostpieceTableW(); //Using this method to add info to the white lost piece table.
+        lostpieceTableB(); //Using this method to add info to the black lost piece table.
+        setConstraints(); // Using this method to place the components correctly.
+        settings(); //Using this method to create the movement log.
 
         //Creating and adding the menubar
         JMenu file = new JMenu("File");
@@ -82,11 +82,11 @@ public class GUI extends JFrame {
         menuBar.setBorder(null);
 
         //Creating buttons for the menubar with icons and key bindings.
-        JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon("src/Pictures/Newgame.png"));
+        JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon(getClass().getResource("/Pictures/newgame.png")));
         Newgame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
-        JMenuItem Exit = new JMenuItem("Exit", new ImageIcon("src/Pictures/Exit.png"));
-        JMenuItem Save = new JMenuItem("Save game", new ImageIcon("src/Pictures/Mac.png"));
-        JMenuItem Load = new JMenuItem("Open game", new ImageIcon("src/Pictures/Load Icon.png"));
+        JMenuItem Exit = new JMenuItem("Exit", new ImageIcon(getClass().getResource("/Pictures/Exit.png")));
+        JMenuItem Save = new JMenuItem("Save game", new ImageIcon(getClass().getResource("/Pictures/mac.png")));
+        JMenuItem Load = new JMenuItem("Open game", new ImageIcon(getClass().getResource("/Pictures/LoadIcon.png")));
         Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
         JRadioButtonMenuItem Meme = new JRadioButtonMenuItem("Meme pieces");
@@ -97,7 +97,7 @@ public class GUI extends JFrame {
         JMenuItem Developers = new JMenuItem("Developers");
         ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
         
-        //Adding the buttons.
+        //Adding the buttons to the different
         bg.add(Meme);
         bg.add(Regular);
         file.add(Newgame);
@@ -121,7 +121,7 @@ public class GUI extends JFrame {
         });
         Developers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Copyright © 2012 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess", 3, new ImageIcon("src/Pictures/TrollfaceW.png"));
+                JOptionPane.showMessageDialog(null, "Copyright © 2012 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess", 3, new ImageIcon(getClass().getResource("/Pictures/TrollfaceW.png")));
             }
         });
         Save.addActionListener(new ActionListener() {

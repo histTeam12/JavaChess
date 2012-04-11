@@ -24,29 +24,29 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private Coordinates kord = new Coordinates();
     private ChessTable chessTable = new ChessTable();
     private JLayeredPane layeredPane;
-    private BoardPane chessBoard;
+    private JLabel chessBoard;
     private PieceLabel chessPiece;
     private PieceLabel piece;
     private boolean meme = false;
     private Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
-    private Icon lolW = new ImageIcon("src/Pictures/nyancat2.gif");
-    private Icon lolB = new ImageIcon("src/Pictures/nyancat3.gif");
-    private PawnB pawnB = new PawnB(new ImageIcon("src/Pictures/PawnB.png"));
-    private PawnW pawnW = new PawnW(new ImageIcon("src/Pictures/PawnW.png"));
-    private RookB rookB = new RookB(new ImageIcon("src/Pictures/RookB.png"));
-    private RookW rookW = new RookW(new ImageIcon("src/Pictures/RookW.png"));
+    private Icon lolW = new ImageIcon(getClass().getResource("/Pictures/nyancat2.gif"));
+    private Icon lolB = new ImageIcon(getClass().getResource("/Pictures/nyancat3.gif"));
+    private PawnB pawnB = new PawnB(new ImageIcon(getClass().getResource("/Pictures/PawnB.png")));
+    private PawnW pawnW = new PawnW(new ImageIcon(getClass().getResource("/Pictures/PawnW.png")));
+    private RookB rookB = new RookB(new ImageIcon(getClass().getResource("/Pictures/RookB.png")));
+    private RookW rookW = new RookW(new ImageIcon(getClass().getResource("/Pictures/RookW.png")));
     private RookB rookBright = rookB;
     private RookB rookBleft = rookB;
     private RookW rookWleft = rookW;
     private RookW rookWright = rookW;
-    private KnightB knightB = new KnightB(new ImageIcon("src/Pictures/KnightB.png"));
-    private KnightW knightW = new KnightW(new ImageIcon("src/Pictures/KnightW.png"));
-    private BishopB bishopB = new BishopB(new ImageIcon("src/Pictures/BishopB.png"));
-    private BishopW bishopW = new BishopW(new ImageIcon("src/Pictures/BishopW.png"));
-    private QueenB queenB = new QueenB(new ImageIcon("src/Pictures/QueenB.png"));
-    private QueenW queenW = new QueenW(new ImageIcon("src/Pictures/QueenW.png"));
-    private KingB kingB = new KingB(new ImageIcon("src/Pictures/KingB.png"));
-    private KingW kingW = new KingW(new ImageIcon("src/Pictures/KingW.png"));
+    private KnightB knightB = new KnightB(new ImageIcon(getClass().getResource("/Pictures/KnightB.png")));
+    private KnightW knightW = new KnightW(new ImageIcon(getClass().getResource("/Pictures/KnightW.png")));
+    private BishopB bishopB = new BishopB(new ImageIcon(getClass().getResource("/Pictures/BishopB.png")));
+    private BishopW bishopW = new BishopW(new ImageIcon(getClass().getResource("/Pictures/BishopW.png")));
+    private QueenB queenB = new QueenB(new ImageIcon(getClass().getResource("/Pictures/QueenB.png")));
+    private QueenW queenW = new QueenW(new ImageIcon(getClass().getResource("/Pictures/QueenW.png")));
+    private KingB kingB = new KingB(new ImageIcon(getClass().getResource("/Pictures/KingB.png")));
+    private KingW kingW = new KingW(new ImageIcon(getClass().getResource("/Pictures/KingW.png")));
 
     public Chess() {
         Dimension boardSize = new Dimension(600, 600);
@@ -69,7 +69,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         layeredPane.addMouseListener(this);
         layeredPane.addMouseMotionListener(this);
 
-        chessBoard = new BoardPane("src/Pictures/Chessboard.png");
+        chessBoard = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Chessboard.png")));
         layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
         chessBoard.setLayout(new GridLayout(8, 8));
         chessBoard.setPreferredSize(boardSize);

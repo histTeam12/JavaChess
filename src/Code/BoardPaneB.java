@@ -17,7 +17,7 @@ public class BoardPaneB extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        Image a = Toolkit.getDefaultToolkit().getImage("src/Kode/Bilder/Svartfelt.png");
+        Image a = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Pictures/Chessboard.png"));
         g.drawImage(a, 0, 0, getSize().width, getSize().height, this);
         super.paint(g);
     }
