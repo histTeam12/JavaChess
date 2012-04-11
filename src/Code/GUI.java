@@ -67,7 +67,7 @@ public class GUI extends JFrame {
         add(whitegif);
         add(blackgif);
         add(background);
-        setConstraints();
+        setConstraints(); //Sets constraints to the stuff added to the JFrame.
         settings(); //Using the settings() method to create the log.
 
         //Creating and adding the menubar
