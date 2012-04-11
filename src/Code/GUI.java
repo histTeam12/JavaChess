@@ -138,11 +138,15 @@ public class GUI extends JFrame {
         Meme.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 chess.changeUI(1);
+                lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWMeme.png")));
+                lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBMeme.png")));
             }
         });
         Regular.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 chess.changeUI(2);
+                lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWNormal.png")));
+                lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
             }
         });
         //Finishing the constructor by packing and setting visible.
