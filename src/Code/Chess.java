@@ -9,6 +9,7 @@ import static javax.swing.JOptionPane.*;
 
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
 
+    private boolean passanten;
     private int enPassantB;
     private int enPassantW;
     private Point enPassantPW;
@@ -228,6 +229,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         refresh();
         toTable();
+        System.out.println(passanten);
+        passanten = false;
         System.out.println("Sjakk Hvit: " + chessTable.checkW(kingWpos()));
         System.out.println("Sjakk Svart: " + chessTable.checkB(kingBpos()));
     }
@@ -316,6 +319,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     if (enPassant() == true) {
                         moved = true;
                         pawnB.setPassant(false);
+                        passanten = true;
                     }
                 }
             }
@@ -324,6 +328,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     if (enPassant() == true) {
                         moved = true;
                         pawnW.setPassant(false);
+                        passanten = true;
                     }
                 }
             }
@@ -344,6 +349,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             }
 
         } catch (NullPointerException npe) {
+            System.out.println("Nullpointer");
             moveBack();
             return false;
         }
@@ -517,12 +523,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private synchronized void fireChessEvent() {
         if (piece != null) {
             ChessEvent chessEvent = new ChessEvent(this, chessPiece.getPiece().getTeam(), piece.getPiece());
+            chessEvent.setPassant(passanten);
             Iterator listeners = _listeners.iterator();
             while (listeners.hasNext()) {
                 ((ChessListener) listeners.next()).chessReceived(chessEvent);
             }
         } else {
             ChessEvent chessEvent = new ChessEvent(this, chessPiece.getPiece().getTeam());
+            chessEvent.setPassant(passanten);
             Iterator listeners = _listeners.iterator();
             while (listeners.hasNext()) {
                 ((ChessListener) listeners.next()).chessReceived(chessEvent);
@@ -1140,14 +1148,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public boolean enPassant() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setOpaque(false);
         if (chessPiece.getPiece().getTeam() == 1 && pawnB.getPassant() == true) {
             if (chessPiece.getPiece() == pawnW) {
                 if (chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() + 75) instanceof PieceLabel) {
                     Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() + 75)).getPiece();
                     if (a.equals(pawnW)) {
                         if (((int) enPassantPB.getX() + 75) == startPos.getX() && ((int) enPassantPB.getY() + 75) == startPos.getY()) {
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.setOpaque(false);
                             Component c = chessBoard.findComponentAt((int) enPassantPB.getX(), (int) enPassantPB.getY() + 75);
                             Container parent = c.getParent();
                             parent.remove(0);
@@ -1165,6 +1173,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() - 75, (int) enPassantPB.getY() + 75)).getPiece();
                     if (a.equals(pawnW)) {
                         if (((int) enPassantPB.getX() - 75) == startPos.getX() && ((int) enPassantPB.getY() + 75) == startPos.getY()) {
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.setOpaque(false);
                             Component c = chessBoard.findComponentAt((int) enPassantPB.getX(), (int) enPassantPB.getY() + 75);
                             Container parent = c.getParent();
                             parent.remove(0);
@@ -1182,10 +1192,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         if (chessPiece.getPiece().getTeam() == 2 && pawnW.getPassant() == true) {
             if (chessPiece.getPiece() == pawnB) {
+                //Ned høyre
                 if (chessBoard.findComponentAt((int) enPassantPB.getX() - 75, (int) enPassantPB.getY() - 75) instanceof PieceLabel) {
                     Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() - 75, (int) enPassantPB.getY() - 75)).getPiece();
                     if (a.equals(pawnB)) {
                         if (((int) enPassantPW.getX() - 75) == startPos.getX() && ((int) enPassantPW.getY() - 75) == startPos.getY()) {
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.setOpaque(false);
                             Component c = chessBoard.findComponentAt((int) enPassantPW.getX(), (int) enPassantPW.getY() - 75);
                             Container parent = c.getParent();
                             parent.remove(0);
@@ -1199,10 +1212,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                         }
                     }
                 }
+                        //Ned venstre
                 if (chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() - 75) instanceof PieceLabel) {
                     Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() - 75)).getPiece();
                     if (a.equals(pawnB)) {
                         if (((int) enPassantPW.getX() + 75) == startPos.getX() && ((int) enPassantPW.getY() - 75) == startPos.getY()) {
+                            JPanel panel = new JPanel(new BorderLayout());
+                            panel.setOpaque(false);
                             Component c = chessBoard.findComponentAt((int) enPassantPW.getX(), (int) enPassantPW.getY() - 75);
                             Container parent = c.getParent();
                             parent.remove(0);

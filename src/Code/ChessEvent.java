@@ -4,6 +4,7 @@ import java.util.EventObject;
 
 public class ChessEvent extends EventObject {
 
+    private boolean passanten = false;
     private int team;
     private Piece piece;
 
@@ -20,9 +21,13 @@ public class ChessEvent extends EventObject {
     public int team() {
         return team;
     }
+    
+    public void setPassant(boolean a){
+        passanten = a;
+    }
 
     public int piece() {
-        if (piece instanceof PawnW || piece instanceof PawnB) {
+        if (piece instanceof PawnW || piece instanceof PawnB || passanten == true) {
             return 0;
         }
         if (piece instanceof KnightW || piece instanceof KnightB) {

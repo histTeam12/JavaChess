@@ -65,10 +65,8 @@ public class GUI extends JFrame {
         add(whitegif);
         add(blackgif);
         add(background);
-        lostpieceTableW(); //Using this method to add info to the white lost piece table.
-        lostpieceTableB(); //Using this method to add info to the black lost piece table.
-        setConstraints(); // Using this method to place the components correctly.
-        settings(); //Using this method to create the movement log.
+        setConstraints(); //Sets constraints to the stuff added to the JFrame.
+        settings(); //Using the settings() method to create the log.
 
         //Creating and adding the menubar
         JMenu file = new JMenu("File");
