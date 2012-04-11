@@ -13,11 +13,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
+import static javax.swing.JOptionPane.*;
 
 public class GUI extends JFrame {
 
     //OBJECT VARIABLES
-    
     private JLabel background = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Background.png")));
     private JMenuBar menuBar = new JMenuBar();
     private Chess chess = new Chess();
@@ -34,13 +34,12 @@ public class GUI extends JFrame {
     private JLabel lostPieceBLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
     private JLabel whitegif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/WhiteGIF.gif")));
     private JLabel blackgif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/BlackGIF.gif")));
-    private JTextArea lostPieceW = new JTextArea(15,5);
-    private JTextArea lostPieceB = new JTextArea(15,5);
+    private JTextArea lostPieceW = new JTextArea(15, 5);
+    private JTextArea lostPieceB = new JTextArea(15, 5);
     private Container contentPane = getContentPane();
     private SpringLayout layout = new SpringLayout(); //Using springlayout and adding constraints to place the components.
-    
+
     //CONSTRUCTOR
-    
     public GUI(String title) {
         //Settings for the frame and adding components.
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -97,7 +96,7 @@ public class GUI extends JFrame {
         Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
         JMenuItem Developers = new JMenuItem("Developers");
         ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
-        
+
         //Adding the buttons to the different
         bg.add(Meme);
         bg.add(Regular);
@@ -111,32 +110,37 @@ public class GUI extends JFrame {
 
         //Listeners for the buttons in the menubar.
         Newgame.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 reset();
             }
         });
         Exit.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
         Developers.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Copyright © 2012 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess", 3, new ImageIcon(getClass().getResource("/Pictures/TrollfaceW.png")));
             }
         });
         Save.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
-                chess.toTable();
+                saveGame();
             }
         });
         Load.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
-                chess.fromTable();
-                chess.refresh();
+                loadGame();
             }
         });
         Meme.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 chess.changeUI(1);
                 lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWMeme.png")));
@@ -144,6 +148,7 @@ public class GUI extends JFrame {
             }
         });
         Regular.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 chess.changeUI(2);
                 lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWNormal.png")));
@@ -154,14 +159,13 @@ public class GUI extends JFrame {
         pack();
         setVisible(true);
     }
-    
+
     //METHODS
-    
     //Method for adding info to the lost pieces table.
     public void lostpieceTableW() {
         String res = "";
         for (int i = 0; i < counterS.length; i++) {
-            res+=": "+counterS[i]+"\n";
+            res += ": " + counterS[i] + "\n";
         }
         lostPieceW.setText(res);
     }
@@ -169,11 +173,12 @@ public class GUI extends JFrame {
     public void lostpieceTableB() {
         String res = "";
         for (int i = 0; i < counterH.length; i++) {
-            res+=": "+counterH[i]+"\n";
+            res += ": " + counterH[i] + "\n";
         }
         lostPieceB.setText(res);
     }
     //A reset method for the 'New Game' option in the menubar.
+
     public void reset() {
         remove(chess);
         remove(scrollpane);
@@ -203,7 +208,8 @@ public class GUI extends JFrame {
         setVisible(true);
     }
     //Settings for the log and lost pieces table.
-    public void settings(){
+
+    public void settings() {
         textarea.setEditable(false);
         textarea2.setEditable(false);
         textarea.setOpaque(false);
@@ -216,8 +222,8 @@ public class GUI extends JFrame {
         scrollpane2.setBorder(null);
         textarea.setForeground(Color.white);
         textarea2.setForeground(Color.white);
-        scrollpane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-        scrollpane2.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+        scrollpane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollpane2.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         lostPieceW.setOpaque(false);
         lostPieceW.setEditable(false);
         lostPieceW.setFont(new Font("SansSerif", 4, 31));
@@ -229,7 +235,8 @@ public class GUI extends JFrame {
         blackgif.setVisible(false);
     }
     //Adding constraints to the different components, determining their positions.
-    public void setConstraints(){
+
+    public void setConstraints() {
         layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane2, 20, SpringLayout.NORTH, contentPane);
@@ -243,7 +250,7 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceW, 165, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, lostPieceW, 385, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceWLabel, 130, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, lostPieceWLabel, 360, SpringLayout.NORTH, contentPane);        
+        layout.putConstraint(SpringLayout.NORTH, lostPieceWLabel, 360, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceB, 1045, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, lostPieceB, 385, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceBLabel, 1010, SpringLayout.WEST, contentPane);
@@ -253,22 +260,24 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, blackgif, 267, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.WEST, blackgif, 881, SpringLayout.WEST, contentPane);
     }
-    
-    public void save(String title, int index){
+
+    public void save(String title, int index) {
         SaveGame save = new SaveGame(title, timerH, timerS, counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), chess.getTable());
         savegames[index] = save;
     }
-    public void load(int index){
+
+    public void load(int index) {
         chess.loadGame(savegames[index].getTable());
         timerH = savegames[index].getTimerW();
         timerS = savegames[index].getTimerB();
         counterH = savegames[index].getCounterW();
         counterS = savegames[index].getCounterB();
         textarea.setText(savegames[index].getLogW());
-        textarea2.setText(savegames[index].getLogB());        
+        textarea2.setText(savegames[index].getLogB());
     }
     //A method that changes the GUI based on movement.
     ChessListener chessL = new ChessListener() {
+
         public void chessReceived(ChessEvent event) {
             if (event.team() == 1) {
                 if (event.piece() != -1) {
@@ -293,5 +302,175 @@ public class GUI extends JFrame {
             }
         }
     };
+
+    public void saveGame() {
+        JButton button1 = new JButton("blank");
+        try {
+            button1 = new JButton(savegames[0].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button2 = new JButton("blank");
+        try {
+            button2 = new JButton(savegames[1].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button3 = new JButton("blank");
+        try {
+            button3 = new JButton(savegames[2].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button4 = new JButton("blank");
+        try {
+            button4 = new JButton(savegames[3].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button5 = new JButton("blank");
+        try {
+            button5 = new JButton(savegames[4].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button6 = new JButton("blank");
+        try {
+            button6 = new JButton(savegames[5].getTitle());
+        } catch (NullPointerException npe) {
+        }
+
+        button1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                save(showInputDialog("Name:"), 0);
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                save(showInputDialog("Name:"), 1);
+            }
+        });
+        button3.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                save(showInputDialog("Name:"), 2);
+            }
+        });
+        button4.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                save(showInputDialog("Name:"), 3);
+            }
+        });
+        button5.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                save(showInputDialog("Name:"), 4);
+            }
+        });
+        button6.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                save(showInputDialog("Name:"), 5);
+            }
+        });
+
+        Object[] group = {button1, button2, button3, button4, button5, button6};
+        showConfirmDialog(null, group, "Save", DEFAULT_OPTION, PLAIN_MESSAGE);
+    }
+
+    public void loadGame() {
+        JButton button1 = new JButton("blank");
+        try {
+            button1 = new JButton(savegames[0].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button2 = new JButton("blank");
+        try {
+            button2 = new JButton(savegames[1].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button3 = new JButton("blank");
+        try {
+            button3 = new JButton(savegames[2].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button4 = new JButton("blank");
+        try {
+            button4 = new JButton(savegames[3].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button5 = new JButton("blank");
+        try {
+            button5 = new JButton(savegames[4].getTitle());
+        } catch (NullPointerException npe) {
+        }
+        JButton button6 = new JButton("blank");
+        try {
+            button6 = new JButton(savegames[5].getTitle());
+        } catch (NullPointerException npe) {
+        }
+
+        button1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    load(0);
+                } catch (NullPointerException np) {
+                }
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    load(1);
+                } catch (NullPointerException np) {
+                }
+            }
+        });
+        button3.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    load(2);
+                } catch (NullPointerException np) {
+                }
+            }
+        });
+        button4.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    load(3);
+                } catch (NullPointerException np) {
+                }
+            }
+        });
+        button5.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    load(4);
+                } catch (NullPointerException np) {
+                }
+            }
+        });
+
+        button6.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    load(5);
+                } catch (NullPointerException np) {
+                }
+            }
+        });
+
+        Object[] group = {button1, button2, button3, button4, button5, button6};
+        showConfirmDialog(null, group, "Load", DEFAULT_OPTION, PLAIN_MESSAGE);
+    }
 }
-    

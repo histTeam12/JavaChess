@@ -22,7 +22,10 @@ public class ChessTable {
         table[indeks] = piece;
     }
     public void newTable(PieceLabel[] table2){
+        reset();
         table = table2;
+        updateTwoTable();
+        testTwoTable();
     }
     public PieceLabel[] getTable(){
         return table;

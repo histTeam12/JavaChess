@@ -1302,11 +1302,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return false;
     }
 
-    public ChessTable getTable() {
-        return chessTable;
+    public PieceLabel[] getTable() {
+        return chessTable.getTable();
     }
 
-    public void loadGame(ChessTable table) {
-        chessTable = table;
+    public void loadGame(PieceLabel[] table) {
+        chessTable.newTable(table);
+        fromTable();
+        refresh();
     }
 }
