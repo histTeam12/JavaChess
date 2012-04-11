@@ -29,8 +29,8 @@ public class GUI extends JFrame {
     private JTextArea textarea2 = new JTextArea(10, 12);
     private JScrollPane scrollpane = new JScrollPane(textarea);
     private JScrollPane scrollpane2 = new JScrollPane(textarea2);
-    private JLabel lostPieceWLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/lostPieceWNormal.png")));
-    private JLabel lostPieceBLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/lostPieceBNormal.png")));
+    private JLabel lostPieceWLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/LostPieceWNormal.png")));
+    private JLabel lostPieceBLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
     private JLabel whitegif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/WhiteGIF.gif")));
     private JLabel blackgif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/BlackGIF.gif")));
     private JTextArea lostPieceW = new JTextArea(15,5);
