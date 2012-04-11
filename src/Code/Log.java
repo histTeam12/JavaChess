@@ -19,7 +19,7 @@ public class Log {
         String res = "";
         for (int i = 0; i < logg.size(); i++) {
             if (i == logg.size() - 1) {
-                res += logg.get(i);
+                res += logg.get(i);;
             } else {
                 res += logg.get(i) + "\n";
             }
