@@ -21,11 +21,14 @@ public class ChessTable {
     public void updateTable(PieceLabel piece, int indeks) {
         table[indeks] = piece;
     }
-    public void newTable(PieceLabel[] table2){
+    public void newTable(Component[] table2){
         reset();
-        table = table2;
+        for(int i = 0; i<64;i++){
+            if(table2[i] instanceof PieceLabel){
+                table[i] = (PieceLabel) table2[i];
+            }
+        }
         updateTwoTable();
-        testTwoTable();
     }
     public PieceLabel[] getTable(){
         return table;
@@ -74,6 +77,8 @@ public class ChessTable {
         for (int i = 0; i < table.length; i++) {
             table[i] = null;
         }
+        log[0] = "";
+        log[1] = "";
     }
 
     public void changeUI(int a) {

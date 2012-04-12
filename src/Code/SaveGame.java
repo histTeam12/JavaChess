@@ -1,30 +1,39 @@
 package Code;
 
+import java.awt.Component;
 import java.io.Serializable;
 
 public class SaveGame implements Serializable {
 
     private String title;
-    private Timer timerW;
-    private Timer timerB;
+    private int turn;
+    private int[] timerW;
+    private int[] timerB;
     private int[] counterW;
     private int[] counterB;
     private String logW;
     private String logB;
-    private PieceLabel[] table;
+    private Component[] table;
 
-    public SaveGame(String title, Timer timerW, Timer timerB, int[] counterW, int[] counterB, String logW, String logB, PieceLabel[] table) {
+    public SaveGame(String title, int turn, int[] timerW, int[] timerB, int[] counterW, int[] counterB, String logW, String logB, Component[] table) {
         this.title = title;
+        this.turn = turn;
         this.timerW = timerW;
         this.timerB = timerB;
-        this.counterW = counterW;
-        this.counterB = counterB;
+        int[] tab = {counterW[0], counterW[1], counterW[2], counterW[3], counterW[4], counterW[5]};
+        this.counterW = tab;
+        int[] tab2 = {counterB[0], counterB[1], counterB[2], counterB[3], counterB[4], counterB[5]};
+        this.counterB = tab2;
         this.logW = logW;
         this.logB = logB;
         this.table = table;
     }
     public String getTitle(){
         return title;
+    }
+    
+    public int getTurn(){
+        return turn;
     }
 
     public int[] getCounterB() {
@@ -43,15 +52,15 @@ public class SaveGame implements Serializable {
         return logW;
     }
 
-    public PieceLabel[] getTable() {
+    public Component[] getTable() {
         return table;
     }
 
-    public Timer getTimerB() {
+    public int[] getTimerB() {
         return timerB;
     }
 
-    public Timer getTimerW() {
+    public int[] getTimerW() {
         return timerW;
     }
     

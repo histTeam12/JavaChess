@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 class Timer extends JLabel {
     //Creating an object variable for every digit in the timer.
+
     private int s;
     private int m;
     private int h;
@@ -22,7 +23,28 @@ class Timer extends JLabel {
         setFont(new Font("SansSerif", 4, 20));
         setForeground(Color.white);
     }
+
+    public int[] getTime() {
+        int[] time = new int[6];
+        time[0] = s;
+        time[1] = m;
+        time[2] = h;
+        time[3] = s2;
+        time[4] = m2;
+        time[5] = h2;
+
+        return time;
+    }
+    public void setTime(int[] time){
+        s = time[0];
+        m = time[1];
+        h = time[2];
+        s2 = time[3];
+        m2 = time[4];
+        h2 = time[5];
+    }
     //Method for resetting the timer.
+
     public void reset() {
         s = 0;
         m = 0;
@@ -33,23 +55,28 @@ class Timer extends JLabel {
         pause();
     }
     //Helping method for the run() method.
+
     public void setTekst(String text1) {
         text = text1;
     }
     //Pause
+
     public void pause() {
         pause = true;
     }
     //Resume
+
     public void resume() {
         pause = false;
     }
     //Start with the run() method inside it.
+
     public void start() {
         reset();
         java.util.Timer timer = new java.util.Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             //Method for manually adding to the variables.
+
             public void run() {
                 if (!pause) {
                     if (s <= 10) {

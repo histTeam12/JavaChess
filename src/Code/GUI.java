@@ -262,18 +262,33 @@ public class GUI extends JFrame {
     }
 
     public void save(String title, int index) {
-        SaveGame save = new SaveGame(title, timerH, timerS, counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), chess.getTable());
+        Component[] table = new Component[64];
+        for (int i = 0; i < table.length; i++) {
+            table[i] = chess.getPiece(i);
+        }
+        SaveGame save = new SaveGame(title, chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table);
         savegames[index] = save;
     }
 
     public void load(int index) {
-        chess.loadGame(savegames[index].getTable());
-        timerH = savegames[index].getTimerW();
-        timerS = savegames[index].getTimerB();
+        chess.loadGame(savegames[index].getTable(), savegames[index].getTurn(), savegames[index].getLogW(), savegames[index].getLogB());
+        timerH.setTime(savegames[index].getTimerW());
+        timerS.setTime(savegames[index].getTimerB());
+        timerH.pause();
+        timerS.pause();
         counterH = savegames[index].getCounterW();
         counterS = savegames[index].getCounterB();
-        textarea.setText(savegames[index].getLogW());
-        textarea2.setText(savegames[index].getLogB());
+        lostpieceTableW();
+        lostpieceTableB();
+        textarea.setText(chess.getWhiteLog());
+        textarea2.setText(chess.getBlackLog());
+        if (chess.getTurn() % 2 == 0) {
+            blackgif.setVisible(false);
+            whitegif.setVisible(true);
+        } else {
+            blackgif.setVisible(true);
+            whitegif.setVisible(false);
+        }
     }
     //A method that changes the GUI based on movement.
     ChessListener chessL = new ChessListener() {
@@ -419,6 +434,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     load(0);
+                    JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
                 }
             }
@@ -428,6 +444,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     load(1);
+                    JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
                 }
             }
@@ -437,6 +454,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     load(2);
+                    JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
                 }
             }
@@ -446,6 +464,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     load(3);
+                    JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
                 }
             }
@@ -455,6 +474,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     load(4);
+                    JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
                 }
             }
@@ -465,6 +485,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     load(5);
+                    JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
                 }
             }
