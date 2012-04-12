@@ -88,39 +88,51 @@ public class ChessTable {
                     if (table[i] instanceof PieceLabel) {
                         if (table[i].getPiece() instanceof PawnW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/OkayguyW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/OkayguyW.png")));
                         }
                         if (table[i].getPiece() instanceof PawnB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/OkayguyB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/OkayguyB.png")));
                         }
                         if (table[i].getPiece() instanceof QueenW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/FmercuryW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/FmercuryW.png")));
                         }
                         if (table[i].getPiece() instanceof QueenB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/FmercuryB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/FmercuryB.png")));
                         }
                         if (table[i].getPiece() instanceof KnightW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/TrollfaceW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/TrollfaceW.png")));
                         }
                         if (table[i].getPiece() instanceof KnightB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/TrollfaceB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/TrollfaceB.png")));
                         }
                         if (table[i].getPiece() instanceof KingW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/YaomingW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/YaomingW.png")));
                         }
                         if (table[i].getPiece() instanceof KingB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/YaomingB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/YaomingB.png")));
                         }
                         if (table[i].getPiece() instanceof BishopW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/LolW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/LolW.png")));
                         }
                         if (table[i].getPiece() instanceof BishopB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/LolB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/LolB.png")));
                         }
                         if (table[i].getPiece() instanceof RookW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/MegustaW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/MegustaW.png")));
                         }
                         if (table[i].getPiece() instanceof RookB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/MegustaB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/MegustaB.png")));
                         }
                     }
                 }
