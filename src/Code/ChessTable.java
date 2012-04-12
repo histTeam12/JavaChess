@@ -142,39 +142,51 @@ public class ChessTable {
                     if (table[i] instanceof PieceLabel) {
                         if (table[i].getPiece() instanceof PawnW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/PawnW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/PawnW.png")));
                         }
                         if (table[i].getPiece() instanceof PawnB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/PawnB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/PawnB.png")));
                         }
                         if (table[i].getPiece() instanceof QueenW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/QueenW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/QueenW.png")));
                         }
                         if (table[i].getPiece() instanceof QueenB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/QueenB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/QueenB.png")));
                         }
                         if (table[i].getPiece() instanceof KnightW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/KnightW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/KnightW.png")));
                         }
                         if (table[i].getPiece() instanceof KnightB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/KnightB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/KnightB.png")));
                         }
                         if (table[i].getPiece() instanceof KingW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/KingW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/KingW.png")));
                         }
                         if (table[i].getPiece() instanceof KingB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/KingB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/KingB.png")));
                         }
                         if (table[i].getPiece() instanceof BishopW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/BishopW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/BishopW.png")));
                         }
                         if (table[i].getPiece() instanceof BishopB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/BishopB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/BishopB.png")));
                         }
                         if (table[i].getPiece() instanceof RookW) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/RookW.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/RookW.png")));
                         }
                         if (table[i].getPiece() instanceof RookB) {
                             table[i].setIcon(new ImageIcon(getClass().getResource("/Pictures/RookB.png")));
+                            table[i].getPiece().setIcon(new ImageIcon(getClass().getResource("/Pictures/RookB.png")));
                         }
                     }
                 }
