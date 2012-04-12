@@ -1,9 +1,10 @@
 package Code;
 
 import java.awt.Point;
+import java.io.Serializable;
 import javax.swing.Icon;
 
-public class RookB extends Piece {
+public class RookB extends Piece{
     private boolean move = false;
     
 

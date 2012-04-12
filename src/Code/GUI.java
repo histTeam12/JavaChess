@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.*;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import static javax.swing.JOptionPane.*;
@@ -91,6 +92,7 @@ public class GUI extends JFrame {
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
         JMenuItem Meme = new JMenuItem("Meme pieces");
         JMenuItem Regular = new JMenuItem("Regular pieces");
+        JMenuItem Rules = new JMenuItem("Rules");
         Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
         Regular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
         Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
@@ -98,6 +100,7 @@ public class GUI extends JFrame {
         ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
 
         //Adding the buttons to the different
+        help.add(Rules);
         bg.add(Meme);
         bg.add(Regular);
         file.add(Newgame);
@@ -136,7 +139,10 @@ public class GUI extends JFrame {
         Load.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                loadGame();
+                try {
+                    loadGame();
+                } catch (IOException a) {
+                }
             }
         });
         Meme.addActionListener(new ActionListener() {
@@ -153,6 +159,12 @@ public class GUI extends JFrame {
                 chess.changeUI(2);
                 lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWNormal.png")));
                 lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
+            }
+        });
+        Rules.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
         //Finishing the constructor by packing and setting visible.
@@ -349,6 +361,11 @@ public class GUI extends JFrame {
             button6 = new JButton(savegames[5].getTitle());
         } catch (NullPointerException npe) {
         }
+        JButton button7 = new JButton("Serialisere");
+        try {
+            button7 = new JButton(savegames[5].getTitle());
+        } catch (NullPointerException npe) {
+        }
 
         button1.addActionListener(new ActionListener() {
 
@@ -392,42 +409,59 @@ public class GUI extends JFrame {
                 save(showInputDialog("Name:"), 5);
             }
         });
+        button7.addActionListener(new ActionListener() {
 
-        Object[] group = {button1, button2, button3, button4, button5, button6};
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose();
+                try {
+                    serialize();
+                } catch (IOException ioe) {
+                }
+            }
+        });
+
+        Object[] group = {button1, button2, button3, button4, button5, button6, button7};
         showConfirmDialog(null, group, "Save", DEFAULT_OPTION, PLAIN_MESSAGE);
     }
 
-    public void loadGame() {
+    public void loadGame() throws IOException {
         JButton button1 = new JButton("blank");
         try {
             button1 = new JButton(savegames[0].getTitle());
+            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button2 = new JButton("blank");
         try {
             button2 = new JButton(savegames[1].getTitle());
+            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button3 = new JButton("blank");
         try {
             button3 = new JButton(savegames[2].getTitle());
+            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button4 = new JButton("blank");
         try {
             button4 = new JButton(savegames[3].getTitle());
+            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button5 = new JButton("blank");
         try {
             button5 = new JButton(savegames[4].getTitle());
+            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button6 = new JButton("blank");
         try {
             button6 = new JButton(savegames[5].getTitle());
+            serialize();
         } catch (NullPointerException npe) {
         }
+        JButton button7 = new JButton("Load");
 
         button1.addActionListener(new ActionListener() {
 
@@ -490,8 +524,43 @@ public class GUI extends JFrame {
                 }
             }
         });
+        button7.addActionListener(new ActionListener() {
 
-        Object[] group = {button1, button2, button3, button4, button5, button6};
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JOptionPane.getRootFrame().dispose();
+                    fromSerialized();
+                } catch (IOException ioe) {
+                }
+            }
+        });
+
+        Object[] group = {button1, button2, button3, button4, button5, button6, button7};
         showConfirmDialog(null, group, "Load", DEFAULT_OPTION, PLAIN_MESSAGE);
+    }
+
+    public void serialize() throws IOException {
+        try {
+            FileOutputStream utstrøm = new FileOutputStream("save.ser");
+            ObjectOutputStream ut = new ObjectOutputStream(utstrøm);
+            ut.writeObject(savegames);
+            ut.close();
+        } catch (EOFException eof) {
+        }
+    }
+
+    public void fromSerialized() throws IOException {
+        FileInputStream innstrøm = new FileInputStream("save.ser");
+        ObjectInputStream inn = new ObjectInputStream(innstrøm);
+        try {
+            Object tab = inn.readObject();
+            savegames = (SaveGame[]) tab;
+
+        } catch (EOFException eof) {
+        } catch (ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+        } catch (IOException cnfe) {
+        }
+        inn.close();
     }
 }

@@ -1,0 +1,18 @@
+total 5656
+-rw-r--r--@  1 andreaskalstad  staff  1560435 Oct 16 21:31 10531.gif
+-rw-r--r--@  1 andreaskalstad  staff   373034 Oct 16 21:32 11957.jpg
+-rw-r--r--@  1 andreaskalstad  staff   138622 Oct 16 21:27 6474.jpg
+-rw-r--r--@  1 andreaskalstad  staff   293755 Oct 16 21:22 8123.jpg
+drwx------   3 andreaskalstad  staff      102 Sep  9 15:27 About Stacks.lpdf
+-rw-r--r--   1 andreaskalstad  staff     1079 Jan 16 14:35 Konferansesenter.java
+-rw-r--r--   1 andreaskalstad  staff      946 Jan 16 14:35 Konferansesenterklient.java
+-rw-r--r--   1 andreaskalstad  staff      792 Jan 16 14:35 Kunde.java
+-rw-r--r--   1 andreaskalstad  staff     3658 Jan 16 14:35 Reservasjon.java
+-rw-r--r--   1 andreaskalstad  staff      800 Jan 16 14:43 Rom.java
+-rw-r--r--   1 andreaskalstad  staff     1165 Jan 23 21:12 lol.rtf
+-rw-r--r--   1 andreaskalstad  staff     1165 Jan 23 21:09 lol.rts
+-rw-r--r--   1 andreaskalstad  staff        0 Jan 23 21:14 ls.txt
+-rw-r--r--@  1 andreaskalstad  staff       43 Nov 28 12:21 qschool.gif
+-rw-r--r--@  1 andreaskalstad  staff   484988 Oct 16 21:17 rabiatjente.gif
+-rw-r--r--   1 andreaskalstad  staff      544 Jan 12 12:08 resultat.rtf
+drwxr-xr-x  10 andreaskalstad  staff      340 Jan  4 14:24 workspace

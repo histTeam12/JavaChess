@@ -2,9 +2,10 @@ package Code;
 
 
 import java.awt.Point;
+import java.io.Serializable;
 import javax.swing.Icon;
 
-abstract class Piece {
+abstract class Piece implements Serializable{
 
     Icon icon;
     int maxX;
