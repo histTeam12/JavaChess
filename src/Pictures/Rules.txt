@@ -1,0 +1,149 @@
+Setup
+Chess is played on a square board of eight rows (called ranks 
+and denoted with numbers 1 to 8) and eight columns (called files and 
+denoted with letters a to h) of squares. The colors of the sixty- 
+four squares alternate and are referred to as "light squares" and 
+"dark squares". The chessboard is placed with a light square at the 
+right-hand end of the rank nearest to each player, and the pieces 
+are set out as shown in the diagram, with each queen on its own 
+color.
+
+The pieces are divided, by convention, into white and black sets. The 
+players are referred to as "White" and "Black", and each begins the 
+game with sixteen pieces of the specified color. These consist of 
+one king, one queen, two rooks, two bishops, two knights, and eight 
+pawns.
+
+Movement
+White always moves first. After the initial move, the players 
+alternately move one piece at a time (with the exception of 
+castling, when two pieces are moved). Pieces are moved to either an 
+unoccupied square or one occupied by an opponents piece, which is 
+captured and removed from play. With the sole exception of en 
+passant, all pieces capture opponent's pieces by moving to the 
+square that the opponents piece occupies. A player may not make any 
+move that would put or leave his king under attack. If the player to 
+move has no legal moves, the game is over; it is either a checkmate
+if the king is under attack or a stalemate if the king is not.
+Each chess piece has its own style of moving. In the diagrams, the 
+dots mark the squares where the piece can move if no other pieces 
+(including ones own piece) are on the squares between the pieces 
+initial position and its destination.
+
+The king moves one square in any direction. The king has also a 
+special move which is called castling and involves also moving a 
+rook.
+
+The rook can move any number of squares along any rank or file, but 
+may not leap over other pieces. Along with the king, the rook is 
+involved during the king's castling move.
+
+The bishop can move any number of squares diagonally, but may not 
+leap over other pieces.
+
+The queen combines the power of the rook and bishop and can move any 
+number of squares along rank, file, or diagonal, but it may not leap 
+over other pieces.
+
+The knight moves to any of the closest squares that are not on the 
+same rank, file, or diagonal, thus the move forms an "L"-shape: two 
+squares vertically and one square horizontally, or two squares 
+horizontally and one square vertically. The knight is the only piece 
+that can leap over other pieces.
+
+The pawn may move forward to the unoccupied square immediately in 
+front of it on the same file; or on its first move it may advance 
+two squares along the same file provided both squares are 
+unoccupied; or it may move to a square occupied by an opponents 
+piece which is diagonally in front of it on an adjacent file, 
+capturing that piece. The pawn has two special moves: the en passant 
+capture and pawn promotion.
+
+Pawns can optionally move two squares forward instead of one on 
+their first move only. They capture diagonally, but they 
+cannot capture with their normal move. Pawns also are 
+involved in the special capture called en passant.
+
+Castling
+Once in every game, each king is allowed to make a special move, 
+known as castling. Castling consists of moving the king two squares 
+along the first rank toward a rook (which is on the player's first 
+rank) and then placing the rook on the last square the king 
+has just crossed. Castling is permissible only if all of the 
+following conditions hold.
+Neither of the pieces involved in castling may have been previously 
+moved during the game.
+There must be no pieces between the king and the rook.
+The king may not be in check, nor may the king pass through squares 
+that are under attack by enemy pieces, nor move to a square where it 
+is in check.
+
+En passant
+When a pawn advances two squares from its starting position and 
+there is an opponents pawn on an adjacent file next to its 
+destination square, then the opponents pawn can capture it en 
+passant (in passing), and move to the square the pawn passed over. 
+However, this can only be done on the very next move, otherwise the 
+right to do so is forfeit. For example, if the black pawn has just 
+advanced two squares from g7 (initial starting position) to g5, then 
+the white pawn on f5 may take it via en passant on g6 (but only on 
+white's next move).
+
+Promotion
+Main article: Promotion (chess)
+When a pawn advances to the eighth rank, as a part of the move it is 
+promoted and must be exchanged for the players choice of queen, 
+rook, bishop, or knight of the same color. Usually, the pawn is 
+chosen to be promoted to a queen, but in some cases another piece is 
+chosen; this is called underpromotion. In the diagram on the right,
+the pawn on c7 can be advanced to the eighth rank and be promoted 
+to an allowed piece. There is no restriction placed on the piece 
+that is chosen on promotion, so it is possible to have more pieces 
+of the same type than at the start of the game (for example, two 
+queens).
+
+Check (chess)
+When a king is under immediate attack by one or two of the 
+opponents pieces, it is said to be in check. A response to a check 
+is a legal move if it results in a position where the king is no 
+longer under direct attack (that is, not in check). This can involve 
+capturing the checking piece; interposing a piece between the 
+checking piece and the king (which is possible only if the attacking 
+piece is a queen, rook, or bishop and there is a square between it 
+and the king); or moving the king to a square where it is not under 
+attack. Castling is not a permissible response to a check. The 
+object of the game is to checkmate the opponent; this occurs when 
+the opponents king is in check, and there is no legal way to remove 
+it from attack. It is illegal for a player to make a move that would 
+put or leave his own king in check.
+
+End of the game
+Stalemate if it is Black to move. It is not checkmate, and since 
+Black cannot move, the game is a draw.
+Although the objective of the game is to checkmate the opponent, 
+chess games do not have to end in checkmate either player may 
+resign which is a win for the other player. It is considered bad 
+etiquette to continue playing when in a truly hopeless position. 
+If it is a game with time control, a player may run out of time 
+and lose, even with a much superior position. Games also may end 
+in a draw (tie). A draw can occur in several situations, including 
+draw by agreement, stalemate, threefold repetition of a position, 
+the fifty-move rule, or a draw by impossibility of checkmate 
+(usually because of insufficient material to checkmate). 
+As checkmate from some positions cannot be forced in fewer than 
+50 moves (such as in the pawnless chess endgame and two knights 
+endgame), the fifty-move rule is not applied everywhere,
+particularly in correspondence chess.
+
+Time control
+Besides casual games without any time restriction, chess is also 
+played with a time control, mostly by club and professional players. 
+If a players time runs out before the game is completed, the game 
+is automatically lost (provided his opponent has enough pieces left 
+to deliver checkmate). The duration of a game ranges from long games 
+played up to seven hours to shorter rapid chess games, usually 
+lasting 30 minutes or one hour per game. Even shorter is blitz 
+chess, with a time control of three to fifteen minutes for each 
+player, and bullet chess (under three minutes). In tournament play, 
+time is controlled using a game clock that has two displays, one for 
+each player's remaining time.

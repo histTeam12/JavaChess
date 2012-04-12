@@ -9,6 +9,10 @@ import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -38,6 +42,10 @@ public class GUI extends JFrame {
     private JTextArea lostPieceW = new JTextArea(15, 5);
     private JTextArea lostPieceB = new JTextArea(15, 5);
     private Container contentPane = getContentPane();
+    private JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Helpbackground.png")));
+    private JTextArea helparea = new JTextArea(200, 200);
+    private JScrollPane helppane = new JScrollPane(helparea);
+    private final JFrame helplabel = new JFrame();
     private SpringLayout layout = new SpringLayout(); //Using springlayout and adding constraints to place the components.
 
     //CONSTRUCTOR
@@ -162,9 +170,11 @@ public class GUI extends JFrame {
             }
         });
         Rules.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
+                try{
+                help();
+                }catch(IOException ioe){
+                }
             }
         });
         //Finishing the constructor by packing and setting visible.
@@ -218,6 +228,42 @@ public class GUI extends JFrame {
         lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
         repaint();
         setVisible(true);
+    }
+    public void help() throws IOException{
+        
+        helplabel.setTitle("Rules");
+        helplabel.setPreferredSize(new Dimension(510, 300));
+        helparea.setFont(new Font("Arial", 1, 15));
+        helparea.setForeground(Color.white);
+        helparea.setEditable(false);
+        helparea.setOpaque(false);
+        helppane.setOpaque(false);
+        helppane.getViewport().setOpaque(false);
+        helppane.setBorder(null);
+        helppane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        helplabel.add(helppane, SpringLayout.WEST);
+        helplabel.add(helpbg, SpringLayout.EAST);
+        helplabel.pack();
+        helplabel.setResizable(false);
+        helplabel.setVisible(true);
+        String res = "";
+        FileReader leseforbTilFil = new FileReader("src/Pictures/Rules.txt");
+        BufferedReader leser = new BufferedReader(leseforbTilFil);
+        String resultat = "";
+        try {
+            while (resultat != null) {
+                resultat = leser.readLine();
+                res += resultat + "\n";
+                if (resultat.equals("each player's remaining time.")){
+                    leser.close();
+                }
+            }
+        } catch (EOFException eof) {
+        } catch (IOException eof) {
+        }
+        helparea.setText(res);
+        helparea.setSelectionStart(0);
+        helparea.setSelectionEnd(0);
     }
     //Settings for the log and lost pieces table.
 
