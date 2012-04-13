@@ -17,21 +17,35 @@ public class ChessTable {
         this.log = new String[2];
         this.twoTable = new PieceLabel[8][8];
     }
+    public ChessTable(Component[] table2) {
+        this.table = new PieceLabel[64];
+        for(int i =0; i<64; i++){
+            if(table2[i] instanceof PieceLabel){
+            table[i]= (PieceLabel) table2[i];
+            }
+        }
+        this.log = new String[2];
+        this.twoTable = new PieceLabel[8][8];
+    }
 
     public void updateTable(PieceLabel piece, int indeks) {
         table[indeks] = piece;
     }
-    public void newTable(Component[] table2){
-        reset();
-        for(int i = 0; i<64;i++){
-            if(table2[i] instanceof PieceLabel){
-                table[i] = (PieceLabel) table2[i];
-            }
-        }
+    public void newTable(PieceLabel[] table2){
+        table = table2;
+//        reset();
+//        for(int i = 0; i<64;i++){
+//            if(table2[i] instanceof PieceLabel){
+//                table[i] = (PieceLabel) table2[i];
+//            }
+//        }
         updateTwoTable();
     }
     public PieceLabel[] getTable(){
         return table;
+    }
+    public PieceLabel getPiece(int index){
+        return table[index];
     }
 
     public void testTwoTable() {
@@ -192,6 +206,22 @@ public class ChessTable {
                 }
                 break;
         }
+    }
+    public int kingWpos(){
+        for (int i= 0; i<table.length;i++){
+            if(table[i].getPiece() instanceof KingW){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public int kingBpos(){
+        for (int i= 0; i<table.length;i++){
+            if(table[i].getPiece() instanceof KingB){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public boolean checkW(int i) {
@@ -386,7 +416,8 @@ public class ChessTable {
         int c = a;
         int d = b;
         for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
+            
+            if (twoTable[c][d] instanceof PieceLabel) {                
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                     return true;
                 }
@@ -449,7 +480,7 @@ public class ChessTable {
         }
         return false;
     }
-
+    
     public boolean checkKingW(int i) {
         if ((i - 7) <= 63 && (i - 7) >= 0) {
             if (table[i - 7] instanceof PieceLabel) {

@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import javax.swing.Icon;
 
-abstract class Piece implements Serializable{
+abstract class Piece implements Serializable {
 
     Icon icon;
     int maxX;

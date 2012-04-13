@@ -142,7 +142,49 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         test = new PieceLabel(kingW.getIcon(), kingW);
         panel = (JPanel) chessBoard.getComponent(60);
         panel.add(test);
+        toTable();
+    }
 
+    public Chess(Component[] table) {
+        Dimension boardSize = new Dimension(600, 600);
+
+        setVisible(true);
+        setLocation(100, 100);
+        setTitle("");
+        setResizable(false);
+        setClosable(false);
+        setIconifiable(false);
+        setMaximizable(false);
+        setBorder(null);
+        setRootPaneCheckingEnabled(false);
+        javax.swing.plaf.InternalFrameUI ifu = getUI();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) ifu).setNorthPane(null);
+
+        layeredPane = new JLayeredPane();
+        getContentPane().add(layeredPane);
+        layeredPane.setPreferredSize(boardSize);
+        layeredPane.addMouseListener(this);
+        layeredPane.addMouseMotionListener(this);
+
+        chessBoard = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Chessboard.png")));
+        layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
+        chessBoard.setLayout(new GridLayout(8, 8));
+        chessBoard.setPreferredSize(boardSize);
+        chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+
+        for (int i = 0; i < 64; i++) {
+            JPanel square = new JPanel(new BorderLayout());
+            square.setOpaque(false);
+            chessBoard.add(square);
+        }
+        for (int i = 0; i < 64; i++) {
+            if (table[i] instanceof PieceLabel) {
+                PieceLabel test = (PieceLabel) table[i];
+                JPanel panel = (JPanel) chessBoard.getComponent(i);
+                panel.add(test);
+            }
+        }
+        toTable();
     }
 
     @Override
@@ -165,6 +207,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             hjelpIkon = chessPiece.getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
             startPos = chessPiece.getLocation();
         } catch (NullPointerException npe) {
+            System.out.println("Nullpointer Mousepressed");
         }
     }
 
@@ -201,7 +244,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             //Sjekker om det er hvit eller svart sin tur:
             if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
                 moveBack();
-                //chessPiece.setIcon(hjelpIkon);
                 return;
             }
             if (meme) {
@@ -233,10 +275,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             toTable();
             System.out.println(passanten);
             passanten = false;
-            System.out.println("Sjakk Hvit: " + chessTable.checkW(kingWpos()));
-            System.out.println("Sjakk Svart: " + chessTable.checkB(kingBpos()));
 
         } catch (NullPointerException npe) {
+            System.out.println("Nullpointer MouseReleased");
             moveBack();
         }
     }
@@ -313,7 +354,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     pawnW.setPassant(false);
                 }
             }
-            if (chessPiece.getPiece().equals(pawnW)) {
+            if (chessPiece.getPiece() instanceof PawnW) {
                 if (movePawnW(e, m)) {
                     moved = true;
                     pawnB.setPassant(false);
@@ -354,13 +395,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             }
 
         } catch (NullPointerException npe) {
-            System.out.println("Nullpointer");
+            System.out.println("Nullpointer MovePiece");
             moveBack();
             return false;
         }
         if (moved) {
             return true;
         } else {
+            System.out.println("fail");
             return false;
         }
     }
@@ -423,7 +465,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public int kingBpos() {
         for (int i = 0; i < 64; i++) {
             if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
-                if (pieceType(kord.getPunkt(i)).equals(kingB)) {
+                PieceLabel c = (PieceLabel) chessBoard.findComponentAt(kord.getPunkt(i));
+                if (c.getPiece() instanceof KingB) {
+                    System.out.println("kingBpos " + i);
                     return i;
                 }
             }
@@ -434,7 +478,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public int kingWpos() {
         for (int i = 0; i < 64; i++) {
             if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
-                if (pieceType(kord.getPunkt(i)).equals(kingW)) {
+                PieceLabel c = (PieceLabel) chessBoard.findComponentAt(kord.getPunkt(i));
+                if (c.getPiece() instanceof KingW) {
+                    System.out.println("kingWpos " + i);
                     return i;
                 }
             }
@@ -934,7 +980,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             if (kingW.move() == false && rookWleft.move() == false) {
                 move(e);
                 if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(59) == false && chessTable.checkW(58) == false) {
-                    System.out.println("LOL2222");
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(59);
@@ -1305,17 +1350,55 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public Component getPiece(int index) {
         return chessBoard.findComponentAt(kord.getPunkt(index));
     }
+    public Piece[] getPieceTable(){
+        Piece[] pieces = {pawnB, pawnW, rookB, rookW, rookBright, rookBleft, rookWright, rookBright, knightB, knightW, bishopB, bishopW, queenB, queenW, kingB, kingW};
+        return pieces;
+    }
 
-    public void loadGame(Component[] table, int turn2, String logW, String logB) {
+    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces) {
+        for (int i = 0; i < 64; i++) {
+            JPanel panel = (JPanel) chessBoard.getComponent(i);
+            panel.removeAll();
+        }
+        for (int i = 0; i < 64; i++) {
+            if (table[i] instanceof PieceLabel) {
+                JPanel panel = (JPanel) chessBoard.getComponent(i);
+                panel.add(table[i]);
+            }
+        }
+        pawnB = (PawnB)pieces[0];
+        pawnW =(PawnW) pieces[1];
+        rookB = (RookB)pieces[2];
+        rookW = (RookW) pieces[3];
+        rookBright  = (RookB) pieces[4];
+        rookBleft = (RookB) pieces[5];
+        rookWright = (RookW) pieces[6];
+        rookBright = (RookB) pieces[7];
+        knightB = (KnightB) pieces[8];
+        knightW  = (KnightW) pieces[9];
+        bishopB  = (BishopB) pieces[10];
+        bishopW  = (BishopW) pieces[11];
+        queenB  = (QueenB) pieces[12];
+        queenW = (QueenW) pieces[13];
+        kingB = (KingB) pieces[14];
+        kingW = (KingW) pieces[15];
+        
+
         chessTable.newTable(table);
+
         chessTable.updateLog(logW, 0);
         chessTable.updateLog(logB, 1);
         turn = turn2;
+
         fromTable();
+
         refresh();
+
+        System.out.println(
+                "load");
     }
-    public int getTurn(){
+
+    public int getTurn() {
         return turn;
     }
-    
 }

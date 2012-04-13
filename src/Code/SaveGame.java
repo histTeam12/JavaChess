@@ -13,9 +13,10 @@ public class SaveGame implements Serializable {
     private int[] counterB;
     private String logW;
     private String logB;
-    private Component[] table;
+    private PieceLabel[] table;
+    Piece[] pieces;
 
-    public SaveGame(String title, int turn, int[] timerW, int[] timerB, int[] counterW, int[] counterB, String logW, String logB, Component[] table) {
+    public SaveGame(String title, int turn, int[] timerW, int[] timerB, int[] counterW, int[] counterB, String logW, String logB, PieceLabel[] table, Piece[] pieces) {
         this.title = title;
         this.turn = turn;
         this.timerW = timerW;
@@ -27,6 +28,7 @@ public class SaveGame implements Serializable {
         this.logW = logW;
         this.logB = logB;
         this.table = table;
+        this.pieces = pieces;
     }
     public String getTitle(){
         return title;
@@ -34,6 +36,11 @@ public class SaveGame implements Serializable {
     
     public int getTurn(){
         return turn;
+    }
+    public void testTable(){
+        for(int i = 0; i<table.length;i++){
+            System.out.println(table[i]);
+        }
     }
 
     public int[] getCounterB() {
@@ -52,14 +59,16 @@ public class SaveGame implements Serializable {
         return logW;
     }
 
-    public Component[] getTable() {
+    public PieceLabel[] getTable() {
         return table;
     }
 
     public int[] getTimerB() {
         return timerB;
     }
-
+    public Piece[] getPieces(){
+            return pieces;
+    }
     public int[] getTimerW() {
         return timerW;
     }

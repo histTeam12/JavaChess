@@ -9,10 +9,6 @@ import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.EOFException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -42,10 +38,6 @@ public class GUI extends JFrame {
     private JTextArea lostPieceW = new JTextArea(15, 5);
     private JTextArea lostPieceB = new JTextArea(15, 5);
     private Container contentPane = getContentPane();
-    private JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Helpbackground.png")));
-    private JTextArea helparea = new JTextArea(200, 200);
-    private JScrollPane helppane = new JScrollPane(helparea);
-    private final JFrame helplabel = new JFrame();
     private SpringLayout layout = new SpringLayout(); //Using springlayout and adding constraints to place the components.
 
     //CONSTRUCTOR
@@ -74,10 +66,17 @@ public class GUI extends JFrame {
         add(whitegif);
         add(blackgif);
         add(background);
+        
         setConstraints(); //Sets constraints to the stuff added to the JFrame.
         settings(); //Using the settings() method to create the log.
         lostpieceTableW();
         lostpieceTableB();
+        try{
+        fromSerialized();
+        }catch(IOException io){
+            System.out.println("ioExcepion");
+        }
+        
 
         //Creating and adding the menubar
         JMenu file = new JMenu("File");
@@ -100,7 +99,6 @@ public class GUI extends JFrame {
         Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
         JMenuItem Meme = new JMenuItem("Meme pieces");
         JMenuItem Regular = new JMenuItem("Regular pieces");
-        JMenuItem Rules = new JMenuItem("Rules");
         Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
         Regular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
         Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
@@ -108,7 +106,6 @@ public class GUI extends JFrame {
         ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
 
         //Adding the buttons to the different
-        help.add(Rules);
         bg.add(Meme);
         bg.add(Regular);
         file.add(Newgame);
@@ -147,10 +144,7 @@ public class GUI extends JFrame {
         Load.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                try {
-                    loadGame();
-                } catch (IOException a) {
-                }
+                loadGame();
             }
         });
         Meme.addActionListener(new ActionListener() {
@@ -167,14 +161,6 @@ public class GUI extends JFrame {
                 chess.changeUI(2);
                 lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceWNormal.png")));
                 lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
-            }
-        });
-        Rules.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try{
-                help();
-                }catch(IOException ioe){
-                }
             }
         });
         //Finishing the constructor by packing and setting visible.
@@ -228,43 +214,11 @@ public class GUI extends JFrame {
         lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
         repaint();
         setVisible(true);
-    }
-    
-    public void help() throws IOException{
-        
-        helplabel.setTitle("Rules");
-        helplabel.setPreferredSize(new Dimension(510, 300));
-        helparea.setFont(new Font("Arial", 1, 15));
-        helparea.setForeground(Color.white);
-        helparea.setEditable(false);
-        helparea.setOpaque(false);
-        helppane.setOpaque(false);
-        helppane.getViewport().setOpaque(false);
-        helppane.setBorder(null);
-        helppane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        helplabel.add(helppane, SpringLayout.WEST);
-        helplabel.add(helpbg, SpringLayout.EAST);
-        helplabel.pack();
-        helplabel.setResizable(false);
-        helplabel.setVisible(true);
-        String res = "";
-        FileReader leseforbTilFil = new FileReader("src/Pictures/Rules.txt");
-        BufferedReader leser = new BufferedReader(leseforbTilFil);
-        String resultat = "";
-        try {
-            while (resultat != null) {
-                resultat = leser.readLine();
-                res += resultat + "\n";
-                if (resultat.equals("each player's remaining time.")){
-                    leser.close();
-                }
-            }
-        } catch (EOFException eof) {
-        } catch (IOException eof) {
+        try{
+        fromSerialized();
+        }catch(IOException io){
+            System.out.println("ioExcepion");
         }
-        helparea.setText(res);
-        helparea.setSelectionStart(0);
-        helparea.setSelectionEnd(0);
     }
     //Settings for the log and lost pieces table.
 
@@ -321,16 +275,18 @@ public class GUI extends JFrame {
     }
 
     public void save(String title, int index) {
-        Component[] table = new Component[64];
+        PieceLabel[] table = new PieceLabel[64];
         for (int i = 0; i < table.length; i++) {
-            table[i] = chess.getPiece(i);
+            if (chess.getPiece(i) instanceof PieceLabel) {
+                table[i] = (PieceLabel) chess.getPiece(i);
+            }
         }
-        SaveGame save = new SaveGame(title, chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table);
+        SaveGame save = new SaveGame(title, chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable());
         savegames[index] = save;
     }
 
     public void load(int index) {
-        chess.loadGame(savegames[index].getTable(), savegames[index].getTurn(), savegames[index].getLogW(), savegames[index].getLogB());
+        chess.loadGame(savegames[index].getTable(), savegames[index].getTurn(), savegames[index].getLogW(), savegames[index].getLogB(), savegames[index].getPieces());
         timerH.setTime(savegames[index].getTimerW());
         timerS.setTime(savegames[index].getTimerB());
         timerH.pause();
@@ -408,17 +364,16 @@ public class GUI extends JFrame {
             button6 = new JButton(savegames[5].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button7 = new JButton("Serialisere");
-        try {
-            button7 = new JButton(savegames[5].getTitle());
-        } catch (NullPointerException npe) {
-        }
 
         button1.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 0);
+                try{
+                serialize();
+                }catch(IOException ioe){
+                }
             }
         });
         button2.addActionListener(new ActionListener() {
@@ -426,6 +381,10 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 1);
+                try{
+                serialize();
+                }catch(IOException ioe){
+                }
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -433,6 +392,10 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 2);
+                try{
+                serialize();
+                }catch(IOException ioe){
+                }
             }
         });
         button4.addActionListener(new ActionListener() {
@@ -440,6 +403,10 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 3);
+                try{
+                serialize();
+                }catch(IOException ioe){
+                }
             }
         });
         button5.addActionListener(new ActionListener() {
@@ -447,6 +414,10 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 4);
+                try{
+                serialize();
+                }catch(IOException ioe){
+                }
             }
         });
         button6.addActionListener(new ActionListener() {
@@ -454,61 +425,48 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 5);
-            }
-        });
-        button7.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.getRootFrame().dispose();
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                try{
+                serialize();
+                }catch(IOException ioe){
                 }
             }
         });
 
-        Object[] group = {button1, button2, button3, button4, button5, button6, button7};
+        Object[] group = {button1, button2, button3, button4, button5, button6};
         showConfirmDialog(null, group, "Save", DEFAULT_OPTION, PLAIN_MESSAGE);
     }
 
-    public void loadGame() throws IOException {
+    public void loadGame() {
         JButton button1 = new JButton("blank");
         try {
             button1 = new JButton(savegames[0].getTitle());
-            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button2 = new JButton("blank");
         try {
             button2 = new JButton(savegames[1].getTitle());
-            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button3 = new JButton("blank");
         try {
             button3 = new JButton(savegames[2].getTitle());
-            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button4 = new JButton("blank");
         try {
             button4 = new JButton(savegames[3].getTitle());
-            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button5 = new JButton("blank");
         try {
             button5 = new JButton(savegames[4].getTitle());
-            serialize();
         } catch (NullPointerException npe) {
         }
         JButton button6 = new JButton("blank");
         try {
             button6 = new JButton(savegames[5].getTitle());
-            serialize();
         } catch (NullPointerException npe) {
         }
-        JButton button7 = new JButton("Load");
 
         button1.addActionListener(new ActionListener() {
 
@@ -517,6 +475,7 @@ public class GUI extends JFrame {
                     load(0);
                     JOptionPane.getRootFrame().dispose();
                 } catch (NullPointerException np) {
+                    System.out.println("NullPointer load");
                 }
             }
         });
@@ -571,18 +530,8 @@ public class GUI extends JFrame {
                 }
             }
         });
-        button7.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    JOptionPane.getRootFrame().dispose();
-                    fromSerialized();
-                } catch (IOException ioe) {
-                }
-            }
-        });
-
-        Object[] group = {button1, button2, button3, button4, button5, button6, button7};
+        Object[] group = {button1, button2, button3, button4, button5, button6};
         showConfirmDialog(null, group, "Load", DEFAULT_OPTION, PLAIN_MESSAGE);
     }
 
@@ -602,7 +551,6 @@ public class GUI extends JFrame {
         try {
             Object tab = inn.readObject();
             savegames = (SaveGame[]) tab;
-
         } catch (EOFException eof) {
         } catch (ClassNotFoundException cnfe) {
             cnfe.printStackTrace();
