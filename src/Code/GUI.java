@@ -229,6 +229,7 @@ public class GUI extends JFrame {
         repaint();
         setVisible(true);
     }
+    
     public void help() throws IOException{
         
         helplabel.setTitle("Rules");
