@@ -8,7 +8,9 @@ import javax.swing.*;
 import static javax.swing.JOptionPane.*;
 
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
-
+    
+    private int colorSquareW;
+    private int colorSquareB;
     private boolean castling = false;
     private boolean passanten;
     private int enPassantB;
@@ -270,6 +272,18 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             }
             if (movepiece(e, m)) {
                 turnChange(e);
+            }
+            if(chessTable.checkB(kingBpos())){
+                colorSquare(kingBpos());
+                colorSquareB = kingBpos();
+            } else {
+                blankSquare(colorSquareB);
+            }
+            if(chessTable.checkW(kingWpos())){
+                colorSquare(kingWpos());
+                colorSquareW = kingWpos();
+            } else {
+                blankSquare(colorSquareW);
             }
             refresh();
             toTable();
@@ -1400,5 +1414,27 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public int getTurn() {
         return turn;
+    }
+    public void colorSquare(int i){
+        Component c = chessBoard.getComponent(i);
+        if(c instanceof PieceLabel){
+            JPanel p = (JPanel) c.getParent();
+            p.setOpaque(true);
+            p.setBackground(Color.red);
+        } else{
+            JPanel p = (JPanel) c;
+            p.setOpaque(true);
+            p.setBackground(Color.red);
+        }
+    }
+    public void blankSquare(int i){
+        Component c = chessBoard.getComponent(i);
+        if(c instanceof PieceLabel){
+            JPanel p = (JPanel) c.getParent();
+            p.setOpaque(false);
+        } else{
+            JPanel p = (JPanel) c;
+            p.setOpaque(false);
+        }
     }
 }
