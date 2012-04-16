@@ -893,12 +893,23 @@ public class ChessTable {
         if (p instanceof KnightW || p instanceof KnightB) {
             list = colorKnight(i, p);
         }
+        if (p instanceof BishopW || p instanceof BishopB) {
+            list = colorBishop(i, p);
+        }
+        if (p instanceof KingW || p instanceof KingB) {
+            list = colorKing(i, p);
+        }
+        if (p instanceof PawnW || p instanceof PawnB) {
+            list = colorPawn(i, p);
+        }
+        if (p instanceof RookW || p instanceof RookB) {
+            list = colorRook(i, p);
+        }
         return list;
     }
 
     public int[] colorKnight(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
-        System.out.println(i);
         if ((i + 15) <= 63 && (i + 15) >= 0) {
             if (table[i + 15] instanceof PieceLabel) {
                 if (table[i + 15].getPiece().getTeam() != p.getTeam()) {
