@@ -1410,25 +1410,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public void colorSquares(int[] tab) {
         for (int i = 0; i < tab.length; i++) {
             Component c = chessBoard.getComponent(tab[i]);
-            Component d = chessBoard.findComponentAt(startPos);
-            if (d instanceof PieceLabel) {
-                JPanel p = (JPanel) d.getParent();
-                p.setOpaque(true);
-                p.setBackground(Color.yellow);
-            } else {
-                JPanel p = (JPanel) d;
-                p.setOpaque(true);
-                p.setBackground(Color.yellow);
-            }
-            if (c instanceof PieceLabel) {
-                JPanel p = (JPanel) c.getParent();
-                p.setOpaque(true);
-                p.setBackground(Color.green);
-            } else {
-                JPanel p = (JPanel) c;
-                p.setOpaque(true);
-                p.setBackground(Color.green);
-            }
+            JPanel d = (JPanel) chessBoard.findComponentAt(startPos);
+            d.setOpaque(true);
+            d.setBackground(Color.yellow);
+            JPanel p = (JPanel) c;
+            p.setOpaque(true);
+            p.setBackground(Color.green);
         }
     }
 
