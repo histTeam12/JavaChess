@@ -144,53 +144,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         test = new PieceLabel(kingW.getIcon(), kingW);
         panel = (JPanel) chessBoard.getComponent(60);
         panel.add(test);
-        toTable();
+        toTable();        
     }
 
-    public Chess(Component[] table) {
-        Dimension boardSize = new Dimension(600, 600);
-
-        setVisible(true);
-        setLocation(100, 100);
-        setTitle("");
-        setResizable(false);
-        setClosable(false);
-        setIconifiable(false);
-        setMaximizable(false);
-        setBorder(null);
-        setRootPaneCheckingEnabled(false);
-        javax.swing.plaf.InternalFrameUI ifu = getUI();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) ifu).setNorthPane(null);
-
-        layeredPane = new JLayeredPane();
-        getContentPane().add(layeredPane);
-        layeredPane.setPreferredSize(boardSize);
-        layeredPane.addMouseListener(this);
-        layeredPane.addMouseMotionListener(this);
-
-        chessBoard = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Chessboard.png")));
-        layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
-        chessBoard.setLayout(new GridLayout(8, 8));
-        chessBoard.setPreferredSize(boardSize);
-        chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
-
-        for (int i = 0; i < 64; i++) {
-            JPanel square = new JPanel(new BorderLayout());
-            square.setOpaque(false);
-            chessBoard.add(square);
-        }
-        for (int i = 0; i < 64; i++) {
-            if (table[i] instanceof PieceLabel) {
-                PieceLabel test = (PieceLabel) table[i];
-                JPanel panel = (JPanel) chessBoard.getComponent(i);
-                panel.add(test);
-            }
-        }
-        toTable();
-    }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        toTable();
         try {
             chessPiece = null;
             Component c = chessBoard.findComponentAt(e.getX(), e.getY());
@@ -208,7 +168,16 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
             hjelpIkon = chessPiece.getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
             startPos = chessPiece.getLocation();
-            colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
+            if (c instanceof PieceLabel){
+                PieceLabel d = (PieceLabel) c;
+                if (d.getPiece().getTeam() == 1 && turn%2 == 0){
+                    colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
+                }
+                if (d.getPiece().getTeam() == 2 && turn%2 == 1){
+                    colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
+                }
+            }
+            repaint();
         } catch (NullPointerException npe) {
             System.out.println("Nullpointer Mousepressed");
         }
@@ -1442,6 +1411,16 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public void colorSquares(int[] tab) {
         for (int i = 0; i < tab.length; i++) {
             Component c = chessBoard.getComponent(tab[i]);
+            Component d = chessBoard.findComponentAt(startPos);
+            if (d instanceof PieceLabel) {
+                JPanel p = (JPanel) d.getParent();
+                p.setOpaque(true);
+                p.setBackground(Color.yellow);
+            } else {
+                JPanel p = (JPanel) d;
+                p.setOpaque(true);
+                p.setBackground(Color.yellow);
+            }
             if (c instanceof PieceLabel) {
                 JPanel p = (JPanel) c.getParent();
                 p.setOpaque(true);
