@@ -1,11 +1,29 @@
 package Code;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 class Rules {
-    private JTextArea textarea = new JTextArea();
+    private JTextArea textarea1 = new JTextArea();
+    private JTextArea textarea2 = new JTextArea();
+    private JTextArea textarea3 = new JTextArea();
+    private JTextArea textarea4 = new JTextArea();
+    private JTextArea textarea5 = new JTextArea();
+    private JTextArea textarea6 = new JTextArea();
+    private JTextArea textarea7 = new JTextArea();
+    private JTextArea textarea8 = new JTextArea();
+    private JTextArea textarea9 = new JTextArea();
+    private JTextArea textarea10 = new JTextArea();
+    private JTextArea textarea11 = new JTextArea();
+    private JTextArea textarea12 = new JTextArea();
+    private JTextArea textarea13 = new JTextArea();
+    private JTextArea textarea14 = new JTextArea();
+    private JTextArea textarea15 = new JTextArea();
+    private JTextArea textarea16 = new JTextArea();
+    private JTextArea textarea17 = new JTextArea();
+    private JTextArea textarea18 = new JTextArea();
+    private JPanel panel = new JPanel();
     private String title1 = "Setup\n";
     private String text1 = 
     "Chess is played on a square board of eight rows (called ranks \n"
@@ -163,32 +181,73 @@ class Rules {
     + "player, and bullet chess (under three minutes). In tournament play, \n"
     + "time is controlled using a game clock that has two displays, one for \n"
     + "each player's remaining time.";
+    public Rules(){
+        Font a, b;
+        a = new Font("Arial", 1, 15);
+        b = new Font("Arial", 1, 20);
+        panel.setLayout(new GridLayout(18, 0));
+        textarea1.setFont(b);
+        textarea3.setFont(b);
+        textarea5.setFont(b);
+        textarea7.setFont(b);
+        textarea9.setFont(b);
+        textarea11.setFont(b);
+        textarea13.setFont(b);
+        textarea15.setFont(b);
+        textarea17.setFont(b);
+        textarea2.setFont(a);
+        textarea4.setFont(a);
+        textarea6.setFont(a);
+        textarea8.setFont(a);
+        textarea10.setFont(a);
+        textarea12.setFont(a);
+        textarea14.setFont(a);
+        textarea16.setFont(a);
+        textarea18.setFont(a);
+        textarea1.setSelectionStart(0);
+        textarea1.setSelectionEnd(0);
+        textarea1.setText(title1);
+        textarea2.setText(text1);
+        textarea3.setText(title2);
+        textarea4.setText(text2);
+        textarea5.setText(title3);
+        textarea6.setText(text3);
+        textarea7.setText(title4);
+        textarea8.setText(text4);
+        textarea9.setText(title5);
+        textarea10.setText(text5);
+        textarea11.setText(title6);
+        textarea12.setText(text6);
+        textarea13.setText(title7);
+        textarea14.setText(text7);
+        textarea15.setText(title8);
+        textarea16.setText(text8);
+        textarea17.setText(title9);
+        textarea18.setText(text9);
+        panel.add(textarea1);
+        panel.add(textarea2);
+        panel.add(textarea3);
+        panel.add(textarea4);
+        panel.add(textarea5);
+        panel.add(textarea6);
+        panel.add(textarea7);
+        panel.add(textarea8);
+        panel.add(textarea9);
+        panel.add(textarea10);
+        panel.add(textarea11);
+        panel.add(textarea12);
+        panel.add(textarea13);
+        panel.add(textarea14);
+        panel.add(textarea15);
+        panel.add(textarea16);
+        panel.add(textarea17);
+        panel.add(textarea18);
+        
+    }
 
-    public JTextArea getRules(){
-        textarea.setForeground(Color.white);
-        textarea.setEditable(false);
-        textarea.setOpaque(false);
-        textarea.setSelectionStart(0);
-        textarea.setSelectionEnd(0);
-        textarea.append(title1);
-        textarea.append(text1);
-        textarea.append(title2);
-        textarea.append(text2);
-        textarea.append(title3);
-        textarea.append(text3);
-        textarea.append(title4);
-        textarea.append(text4);
-        textarea.append(title5);
-        textarea.append(text5);
-        textarea.append(title6);
-        textarea.append(text6);
-        textarea.append(title7);
-        textarea.append(text7);
-        textarea.append(title8);
-        textarea.append(text8);
-        textarea.append(title9);
-        textarea.append(text9);
-        return textarea;
+    public JPanel getRules(){
+        
+        return panel;
    
     }
 }
