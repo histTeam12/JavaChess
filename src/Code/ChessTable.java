@@ -998,7 +998,6 @@ public class ChessTable {
             }
             if (!(twoTable[a - 1][b + 2] instanceof PieceLabel)) {
                 array.add((a - 1) * 8 + (b + 2));
-                System.out.println(twoTable[a - 1][b + 2]);
             }
         }
         if ((a + 2 <= 7 && a + 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
