@@ -36,7 +36,7 @@ public class GUI extends JFrame {
     private JLabel lostPieceBLabel = new JLabel(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
     private JLabel whitegif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/WhiteGIF.gif")));
     private JLabel blackgif = new JLabel(new ImageIcon(getClass().getResource("/Pictures/BlackGIF.gif")));
-    private JPanel helparea = rules.getRules();
+    private JTextArea helparea = rules.getRules();
     private JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Helpbackground.png")));
     private JScrollPane helppane = new JScrollPane(helparea);
     private JFrame helplabel = new JFrame();
@@ -190,19 +190,19 @@ public class GUI extends JFrame {
     //METHODS
     public void help(){
         helplabel.setTitle("Rules");
-        helplabel.setPreferredSize(new Dimension(480, 300));
+        helplabel.setPreferredSize(new Dimension(500, 400));
         helparea.setFont(new Font("Arial", Font.PLAIN, 15));
         helparea.setOpaque(false);
         helppane.setOpaque(false);
-        textarea.setEditable(false);
+        textarea.setEditable(true);
         textarea.setOpaque(false);
         helppane.getViewport().setOpaque(false);
         helppane.setBorder(null);
         helppane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        helplabel.add(helpbg);
-        helplabel.add(helppane);
+        helplabel.add(helppane, BorderLayout.WEST);
+        helplabel.add(helpbg, BorderLayout.EAST);
         helplabel.pack();
-        helplabel.setResizable(false);
+        helplabel.setResizable(true);
         helplabel.setVisible(true);
     }
     

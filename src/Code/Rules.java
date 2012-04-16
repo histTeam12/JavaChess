@@ -1,32 +1,11 @@
 package Code;
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 class Rules {
-    private JTextArea textarea1 = new JTextArea();
-    private JTextArea textarea2 = new JTextArea();
-    private JTextArea textarea3 = new JTextArea();
-    private JTextArea textarea4 = new JTextArea();
-    private JTextArea textarea5 = new JTextArea();
-    private JTextArea textarea6 = new JTextArea();
-    private JTextArea textarea7 = new JTextArea();
-    private JTextArea textarea8 = new JTextArea();
-    private JTextArea textarea9 = new JTextArea();
-    private JTextArea textarea10 = new JTextArea();
-    private JTextArea textarea11 = new JTextArea();
-    private JTextArea textarea12 = new JTextArea();
-    private JTextArea textarea13 = new JTextArea();
-    private JTextArea textarea14 = new JTextArea();
-    private JTextArea textarea15 = new JTextArea();
-    private JTextArea textarea16 = new JTextArea();
-    private JTextArea textarea17 = new JTextArea();
-    private JTextArea textarea18 = new JTextArea();
-    private JPanel panel = new JPanel();
+    private JTextArea rules = new JTextArea();
     private String title1 = "Setup\n";
-    private String text1 = 
-    "Chess is played on a square board of eight rows (called ranks \n"
+    private String text1 = "Chess is played on a square board of eight rows (called ranks \n"
     + "and denoted with numbers 1 to 8) and eight columns (called files and \n"
     + "denoted with letters a to h) of squares. The colors of the sixty- \n"
     +"four squares alternate and are referred to as light squares and\n"
@@ -182,72 +161,32 @@ class Rules {
     + "time is controlled using a game clock that has two displays, one for \n"
     + "each player's remaining time.";
     public Rules(){
-        Font a, b;
-        a = new Font("Arial", 1, 15);
-        b = new Font("Arial", 1, 20);
-        panel.setLayout(new GridLayout(18, 0));
-        textarea1.setFont(b);
-        textarea3.setFont(b);
-        textarea5.setFont(b);
-        textarea7.setFont(b);
-        textarea9.setFont(b);
-        textarea11.setFont(b);
-        textarea13.setFont(b);
-        textarea15.setFont(b);
-        textarea17.setFont(b);
-        textarea2.setFont(a);
-        textarea4.setFont(a);
-        textarea6.setFont(a);
-        textarea8.setFont(a);
-        textarea10.setFont(a);
-        textarea12.setFont(a);
-        textarea14.setFont(a);
-        textarea16.setFont(a);
-        textarea18.setFont(a);
-        textarea1.setSelectionStart(0);
-        textarea1.setSelectionEnd(0);
-        textarea1.setText(title1);
-        textarea2.setText(text1);
-        textarea3.setText(title2);
-        textarea4.setText(text2);
-        textarea5.setText(title3);
-        textarea6.setText(text3);
-        textarea7.setText(title4);
-        textarea8.setText(text4);
-        textarea9.setText(title5);
-        textarea10.setText(text5);
-        textarea11.setText(title6);
-        textarea12.setText(text6);
-        textarea13.setText(title7);
-        textarea14.setText(text7);
-        textarea15.setText(title8);
-        textarea16.setText(text8);
-        textarea17.setText(title9);
-        textarea18.setText(text9);
-        panel.add(textarea1);
-        panel.add(textarea2);
-        panel.add(textarea3);
-        panel.add(textarea4);
-        panel.add(textarea5);
-        panel.add(textarea6);
-        panel.add(textarea7);
-        panel.add(textarea8);
-        panel.add(textarea9);
-        panel.add(textarea10);
-        panel.add(textarea11);
-        panel.add(textarea12);
-        panel.add(textarea13);
-        panel.add(textarea14);
-        panel.add(textarea15);
-        panel.add(textarea16);
-        panel.add(textarea17);
-        panel.add(textarea18);
-        
+        rules.setOpaque(false);
+        rules.setForeground(Color.white);
+        rules.setSelectionStart(0);
+        rules.setSelectionEnd(0);
+        rules.append(title1);
+        rules.append(text1);
+        rules.append(title2);
+        rules.append(text2);
+        rules.append(title3);
+        rules.append(text3);
+        rules.append(title4);
+        rules.append(text4);
+        rules.append(title5);
+        rules.append(text5);
+        rules.append(title6);
+        rules.append(text6);
+        rules.append(title7);
+        rules.append(text7);
+        rules.append(title8);
+        rules.append(text8);
+        rules.append(title9);
+        rules.append(text9);
     }
 
-    public JPanel getRules(){
-        
-        return panel;
+    public JTextArea getRules(){
+        return rules;
    
     }
 }
