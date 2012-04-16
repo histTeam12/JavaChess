@@ -290,63 +290,64 @@ public class ChessTable {
             a = 0;
         }
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
-            if (twoTable[a +1][b-2] instanceof PieceLabel) {
-                if (twoTable[a+1][b-2].getPiece() instanceof KnightB) {
+            if (twoTable[a + 1][b - 2] instanceof PieceLabel) {
+                if (twoTable[a + 1][b - 2].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
-            if (twoTable[a +1][b+2] instanceof PieceLabel) {
-                if (twoTable[a+1][b+2].getPiece() instanceof KnightB) {
+            if (twoTable[a + 1][b + 2] instanceof PieceLabel) {
+                if (twoTable[a + 1][b + 2].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a + 2 <= 7 && a + 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a +2][b-1] instanceof PieceLabel) {
-                if (twoTable[a+2][b-1].getPiece() instanceof KnightB) {
+            if (twoTable[a + 2][b - 1] instanceof PieceLabel) {
+                if (twoTable[a + 2][b - 1].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a-2][b+1] instanceof PieceLabel) {
-                if (twoTable[a-2][b+1].getPiece() instanceof KnightB) {
+            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b + 1].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a - 2 <= 7 && a - 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a -2][b-1] instanceof PieceLabel) {
-                if (twoTable[a-2][b-1].getPiece() instanceof KnightB) {
+            if (twoTable[a - 2][b - 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b - 1].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a -2][b+1] instanceof PieceLabel) {
-                if (twoTable[a-2][b+1].getPiece() instanceof KnightB) {
+            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b + 1].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
-            if (twoTable[a -1][b-2] instanceof PieceLabel) {
-                if (twoTable[a-1][b-2].getPiece() instanceof KnightB) {
+            if (twoTable[a - 1][b - 2] instanceof PieceLabel) {
+                if (twoTable[a - 1][b - 2].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
-            if (twoTable[a-1][b+2] instanceof PieceLabel) {
-                if (twoTable[a-1][b+2].getPiece() instanceof KnightB) {
+            if (twoTable[a - 1][b + 2] instanceof PieceLabel) {
+                if (twoTable[a - 1][b + 2].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
         return false;
     }
+
     public boolean checkPawnW(int i) {
         int a = 0;
         int b = 0;
@@ -373,7 +374,6 @@ public class ChessTable {
         }
         return false;
     }
-
 
     public boolean checkRookW(int i) {
         int a = 0;
@@ -596,63 +596,64 @@ public class ChessTable {
             a = 0;
         }
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
-            if (twoTable[a +1][b-2] instanceof PieceLabel) {
-                if (twoTable[a+1][b-2].getPiece() instanceof KnightW) {
+            if (twoTable[a + 1][b - 2] instanceof PieceLabel) {
+                if (twoTable[a + 1][b - 2].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
-            if (twoTable[a +1][b+2] instanceof PieceLabel) {
-                if (twoTable[a+1][b+2].getPiece() instanceof KnightW) {
+            if (twoTable[a + 1][b + 2] instanceof PieceLabel) {
+                if (twoTable[a + 1][b + 2].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a + 2 <= 7 && a + 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a +2][b-1] instanceof PieceLabel) {
-                if (twoTable[a+2][b-1].getPiece() instanceof KnightW) {
+            if (twoTable[a + 2][b - 1] instanceof PieceLabel) {
+                if (twoTable[a + 2][b - 1].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a-2][b+1] instanceof PieceLabel) {
-                if (twoTable[a-2][b+1].getPiece() instanceof KnightW) {
+            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b + 1].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a - 2 <= 7 && a - 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a -2][b-1] instanceof PieceLabel) {
-                if (twoTable[a-2][b-1].getPiece() instanceof KnightW) {
+            if (twoTable[a - 2][b - 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b - 1].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a -2][b+1] instanceof PieceLabel) {
-                if (twoTable[a-2][b+1].getPiece() instanceof KnightW) {
+            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b + 1].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
-            if (twoTable[a -1][b-2] instanceof PieceLabel) {
-                if (twoTable[a-1][b-2].getPiece() instanceof KnightW) {
+            if (twoTable[a - 1][b - 2] instanceof PieceLabel) {
+                if (twoTable[a - 1][b - 2].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
-            if (twoTable[a-1][b+2] instanceof PieceLabel) {
-                if (twoTable[a-1][b+2].getPiece() instanceof KnightW) {
+            if (twoTable[a - 1][b + 2] instanceof PieceLabel) {
+                if (twoTable[a - 1][b + 2].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
         return false;
     }
+
     public boolean checkPawnB(int i) {
         int a = 0;
         int b = 0;
@@ -893,22 +894,124 @@ public class ChessTable {
         if (p instanceof KnightW || p instanceof KnightB) {
             list = colorKnight(i, p);
         }
+//        if (p instanceof BishopW || p instanceof BishopB) {
+//            list = colorBishop(i, p);
+//        }
+//        if (p instanceof KingW || p instanceof KingB) {
+//            list = colorKing(i, p);
+//        }
+//        if (p instanceof PawnW || p instanceof PawnB) {
+//            list = colorPawn(i, p);
+//        }
+//        if (p instanceof RookW || p instanceof RookB) {
+//            list = colorRook(i, p);
+//        }
         return list;
     }
 
     public int[] colorKnight(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
-        System.out.println(i);
-        if ((i + 15) <= 63 && (i + 15) >= 0) {
-            if (table[i + 15] instanceof PieceLabel) {
-                if (table[i + 15].getPiece().getTeam() != p.getTeam()) {
-                    array.add(i + 15);
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
+            if (twoTable[a + 1][b - 2] instanceof PieceLabel) {
+                if (twoTable[a + 1][b - 2].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 1) * 8 + (b - 2));
                 }
             }
-            if (!(table[i + 15] instanceof PieceLabel)) {
-                array.add(i + 15);
+            if (!(twoTable[a + 1][b - 2] instanceof PieceLabel)) {
+                array.add((a + 1) * 8 + (b - 2));
             }
         }
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
+            if (twoTable[a + 1][b + 2] instanceof PieceLabel) {
+                if (twoTable[a + 1][b + 2].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 1) * 8 + (b + 2));
+                }
+            }
+            if (!(twoTable[a + 1][b + 2] instanceof PieceLabel)) {
+                array.add((a + 1) * 8 + (b + 2));
+            }
+        }
+        if ((a + 2 <= 7 && a + 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            if (twoTable[a + 2][b - 1] instanceof PieceLabel) {
+                if (twoTable[a + 2][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 2) * 8 + (b - 1));                    
+                }
+            }
+            if (!(twoTable[a + 2][b - 1] instanceof PieceLabel)) {
+                array.add((a + 2) * 8 + (b - 1));
+            }
+        }
+        if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 2) * 8 + (b + 1));
+                }
+            }
+            if (!(twoTable[a - 2][b + 1] instanceof PieceLabel)) {
+                array.add((a - 2) * 8 + (b + 1));
+            }
+        }
+        if ((a - 2 <= 7 && a - 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            if (twoTable[a - 2][b - 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 2) * 8 + (b - 1));
+                }
+            }
+            if (!(twoTable[a - 2][b - 1] instanceof PieceLabel)) {
+                array.add((a - 2) * 8 + (b - 1));
+            }
+        }
+        if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 2][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 2) * 8 + (b + 1));
+                }
+            }
+            if (!(twoTable[a - 2][b + 1] instanceof PieceLabel)) {
+                array.add((a - 2) * 8 + (b + 1));
+            }
+        }
+        if ((a - 1 <= 7 && a - 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
+            if (twoTable[a - 1][b - 2] instanceof PieceLabel) {
+                if (twoTable[a - 1][b - 2].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 1) * 8 + (b - 2));
+                }
+            }
+            if (!(twoTable[a - 1][b - 2] instanceof PieceLabel)) {
+                array.add((a - 1) * 8 + (b - 2));
+            }
+        }
+        if ((a - 1 <= 7 && a - 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
+            if (twoTable[a - 1][b + 2] instanceof PieceLabel) {
+                if (twoTable[a - 1][b + 2].getPiece().getTeam() != p.getTeam()) {                    
+                    array.add((a - 1) * 8 + (b + 2));
+                }
+            }
+            if (!(twoTable[a - 1][b + 2] instanceof PieceLabel)) {
+                array.add((a - 1) * 8 + (b + 2));
+                System.out.println(twoTable[a - 1][b + 2]);
+            }
+        }
+        if ((a + 2 <= 7 && a + 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a + 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a + 2][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 2) * 8 + (b + 1));
+                }
+            }
+            if (!(twoTable[a + 2][b + 1] instanceof PieceLabel)) {
+                array.add((a + 2) * 8 + (b + 1));
+            }
+        }
+
         int[] list = new int[array.size()];
         for (int y = 0; y < array.size(); y++) {
             list[y] = array.get(y);
