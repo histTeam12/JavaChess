@@ -233,23 +233,18 @@ public class ChessTable {
 
     public boolean checkW(int i) {
         if (checkBishopW(i)) {
-            System.out.println("Bishop");
             return true;
         }
         if (checkRookW(i)) {
-            System.out.println("ROOK");
             return true;
         }
         if (checkKnightW(i)) {
-            System.out.println("KNIGHT");
             return true;
         }
         if (checkPawnW(i)) {
-            System.out.println("PAWN");
             return true;
         }
         if (checkKingW(i)) {
-            System.out.println("KING");
             return true;
         }
         return false;
@@ -257,23 +252,18 @@ public class ChessTable {
 
     public boolean checkB(int i) {
         if (checkBishopB(i)) {
-            System.out.println("Bishop");
             return true;
         }
         if (checkRookB(i)) {
-            System.out.println("ROOK");
             return true;
         }
         if (checkKnightB(i)) {
-            System.out.println("KNIGHT");
             return true;
         }
         if (checkPawnB(i)) {
-            System.out.println("PAWN");
             return true;
         }
         if (checkKingB(i)) {
-            System.out.println("KING");
             return true;
         }
         return false;
