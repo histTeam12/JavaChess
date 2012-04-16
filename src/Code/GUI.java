@@ -66,17 +66,12 @@ public class GUI extends JFrame {
         add(whitegif);
         add(blackgif);
         add(background);
-        
+
         setConstraints(); //Sets constraints to the stuff added to the JFrame.
         settings(); //Using the settings() method to create the log.
         lostpieceTableW();
         lostpieceTableB();
-        try{
-        fromSerialized();
-        }catch(IOException io){
-            System.out.println("ioExcepion");
-        }
-        
+
 
         //Creating and adding the menubar
         JMenu file = new JMenu("File");
@@ -144,6 +139,11 @@ public class GUI extends JFrame {
         Load.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                try {
+                    fromSerialized();
+                } catch (IOException io) {
+                    System.out.println("ioExcepion" + io.getMessage());
+                }
                 loadGame();
             }
         });
@@ -214,11 +214,6 @@ public class GUI extends JFrame {
         lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Pictures/LostPieceBNormal.png")));
         repaint();
         setVisible(true);
-        try{
-        fromSerialized();
-        }catch(IOException io){
-            System.out.println("ioExcepion");
-        }
     }
     //Settings for the log and lost pieces table.
 
@@ -370,9 +365,9 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 0);
-                try{
-                serialize();
-                }catch(IOException ioe){
+                try {
+                    serialize();
+                } catch (IOException ioe) {
                 }
             }
         });
@@ -381,9 +376,9 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 1);
-                try{
-                serialize();
-                }catch(IOException ioe){
+                try {
+                    serialize();
+                } catch (IOException ioe) {
                 }
             }
         });
@@ -392,9 +387,9 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 2);
-                try{
-                serialize();
-                }catch(IOException ioe){
+                try {
+                    serialize();
+                } catch (IOException ioe) {
                 }
             }
         });
@@ -403,9 +398,9 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 3);
-                try{
-                serialize();
-                }catch(IOException ioe){
+                try {
+                    serialize();
+                } catch (IOException ioe) {
                 }
             }
         });
@@ -414,9 +409,9 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 4);
-                try{
-                serialize();
-                }catch(IOException ioe){
+                try {
+                    serialize();
+                } catch (IOException ioe) {
                 }
             }
         });
@@ -425,9 +420,9 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
                 save(showInputDialog("Name:"), 5);
-                try{
-                serialize();
-                }catch(IOException ioe){
+                try {
+                    serialize();
+                } catch (IOException ioe) {
                 }
             }
         });
