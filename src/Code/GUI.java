@@ -39,7 +39,9 @@ public class GUI extends JFrame {
     private JPanel helparea = rules.getRules();
     private JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Helpbackground.png")));
     private JScrollPane helppane = new JScrollPane(helparea);
-    private final JFrame helplabel = new JFrame();
+    private JFrame helplabel = new JFrame();
+    private JLabel devpicture = new JLabel(new ImageIcon(getClass().getResource("/Pictures/Developers.png")));
+    private JFrame devlabel = new JFrame();
     private JTextArea lostPieceW = new JTextArea(15, 5);
     private JTextArea lostPieceB = new JTextArea(15, 5);
     private Container contentPane = getContentPane();
@@ -135,7 +137,9 @@ public class GUI extends JFrame {
         Developers.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Copyright © 2012 Andreas Kalstad, Henrik Reitan, Michael Olsen, Lars Kristoffer Sagmo. \nAll rights reserved.", "MemeChess", 3, new ImageIcon(getClass().getResource("/Pictures/TrollfaceW.png")));
+                devlabel.add(devpicture);
+                devlabel.pack();
+                devlabel.setVisible(true);
             }
         });
         Save.addActionListener(new ActionListener() {
