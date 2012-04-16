@@ -1336,7 +1336,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return pieces;
     }
 
-    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces) {
+    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces) {        
         for (int i = 0; i < 64; i++) {
             JPanel panel = (JPanel) chessBoard.getComponent(i);
             panel.removeAll();
@@ -1374,6 +1374,19 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         fromTable();
 
         refresh();
+        cleanBoardColor();
+        if (chessTable.checkB(kingBpos())) {
+            colorSquare(kingBpos());
+            colorSquareB = kingBpos();
+        } else {
+            blankSquare(colorSquareB);
+        }
+        if (chessTable.checkW(kingWpos())) {
+            colorSquare(kingWpos());
+            colorSquareW = kingWpos();
+        } else {
+            blankSquare(colorSquareW);
+        }
 
         System.out.println(
                 "load");

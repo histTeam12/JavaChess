@@ -360,14 +360,14 @@ public class ChessTable {
         }
         if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b + 1].getPiece() instanceof PawnW) {
+                if (twoTable[a - 1][b + 1].getPiece() instanceof PawnB) {
                     return true;
                 }
             }
         }
         if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b - 1].getPiece() instanceof PawnW) {
+                if (twoTable[a - 1][b - 1].getPiece() instanceof PawnB) {
                     return true;
                 }
             }
@@ -566,17 +566,17 @@ public class ChessTable {
             }
         }
         //bot
-        if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
-            if (twoTable[a - 1][b] instanceof PieceLabel) {
-                if (twoTable[a - 1][b].getPiece() instanceof KingB) {
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b <= 7 && b >= 0)) {
+            if (twoTable[a + 1][b] instanceof PieceLabel) {
+                if (twoTable[a + 1][b].getPiece() instanceof KingB) {
                     return true;
                 }
             }
         }
         //bot right
-        if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b + 1].getPiece() instanceof KingB) {
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
+                if (twoTable[a + 1][b + 1].getPiece() instanceof KingB) {
                     return true;
                 }
             }
@@ -870,17 +870,17 @@ public class ChessTable {
             }
         }
         //bot
-        if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
-            if (twoTable[a - 1][b] instanceof PieceLabel) {
-                if (twoTable[a - 1][b].getPiece() instanceof KingW) {
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b <= 7 && b >= 0)) {
+            if (twoTable[a + 1][b] instanceof PieceLabel) {
+                if (twoTable[a + 1][b].getPiece() instanceof KingW) {
                     return true;
                 }
             }
         }
         //bot right
-        if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b + 1].getPiece() instanceof KingW) {
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
+                if (twoTable[a + 1][b + 1].getPiece() instanceof KingW) {
                     return true;
                 }
             }
@@ -897,18 +897,18 @@ public class ChessTable {
         if (p instanceof BishopW || p instanceof BishopB) {
             list = colorBishop(i, p);
         }
-//        if (p instanceof KingW || p instanceof KingB) {
-//            list = colorKing(i, p);
-//        }
+        if (p instanceof KingW || p instanceof KingB) {
+            list = colorKing(i, p);
+        }
         if (p instanceof PawnW || p instanceof PawnB) {
             list = colorPawn(i, p);
         }
-//        if (p instanceof RookW || p instanceof RookB) {
-//            list = colorRook(i, p);
-//        }
-//        if (p instanceof QueenW || p instanceof QueenB) {
-//            list = colorQueen(i, p);
-//        }
+        if (p instanceof RookW || p instanceof RookB) {
+            list = colorRook(i, p);
+        }
+        if (p instanceof QueenW || p instanceof QueenB) {
+            list = colorQueen(i, p);
+        }
         return list;
     }
 
@@ -941,12 +941,12 @@ public class ChessTable {
                 d--;
             }
             if (twoTable[c][d] instanceof PieceLabel) {
-                if(twoTable[c][d].getPiece().getTeam() != p.getTeam()){
-                array.add((c) * 8 + (d));
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
                 }
                 break;
             }
-        }        
+        }
         c = a;
         d = b;
         for (int j = 0; j < 8; j++) {
@@ -965,8 +965,8 @@ public class ChessTable {
                 d++;
             }
             if (twoTable[c][d] instanceof PieceLabel) {
-                if(twoTable[c][d].getPiece().getTeam() != p.getTeam()){
-                array.add((c) * 8 + (d));
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
                 }
                 break;
             }
@@ -989,8 +989,8 @@ public class ChessTable {
                 d++;
             }
             if (twoTable[c][d] instanceof PieceLabel) {
-                if(twoTable[c][d].getPiece().getTeam() != p.getTeam()){
-                array.add((c) * 8 + (d));
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
                 }
                 break;
             }
@@ -1013,8 +1013,8 @@ public class ChessTable {
                 d--;
             }
             if (twoTable[c][d] instanceof PieceLabel) {
-                if(twoTable[c][d].getPiece().getTeam() != p.getTeam()){
-                array.add((c) * 8 + (d));
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
                 }
                 break;
             }
@@ -1134,6 +1134,112 @@ public class ChessTable {
         }
         return list;
     }
+
+    public int[] colorKing(int i, Piece p) {
+        ArrayList<Integer> array = new ArrayList<Integer>();
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        //top left
+        if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
+                if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 1) * 8 + (b - 1));
+                }
+            }
+            if (!(twoTable[a - 1][b - 1] instanceof PieceLabel)) {
+                array.add((a - 1) * 8 + (b - 1));
+            }
+        }
+        //top right
+        if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
+               if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 1) * 8 + (b + 1));
+                }
+            }
+            if (!(twoTable[a - 1][b + 1] instanceof PieceLabel)) {
+                array.add((a - 1) * 8 + (b + 1));
+            }
+        }
+        //top
+        if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
+            if (twoTable[a - 1][b] instanceof PieceLabel) {
+                if (twoTable[a - 1][b].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a - 1) * 8 + (b));
+                }
+            }
+            if (!(twoTable[a - 1][b] instanceof PieceLabel)) {
+                array.add((a - 1) * 8 + (b));
+            }
+        }
+        //left
+        if ((a <= 7 && a >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            if (twoTable[a][b - 1] instanceof PieceLabel) {
+                if (twoTable[a][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a) * 8 + (b -1));
+                }
+            }
+            if (!(twoTable[a][b - 1] instanceof PieceLabel)) {
+                array.add((a) * 8 + (b - 1));
+            }
+        }
+        //right
+        if ((a <= 7 && a >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a][b + 1] instanceof PieceLabel) {
+                if (twoTable[a][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a) * 8 + (b + 1));
+                }
+            }
+            if (!(twoTable[a][b + 1] instanceof PieceLabel)) {
+                array.add((a) * 8 + (b + 1));
+            }
+        }
+        //bot left
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
+                if (twoTable[a + 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 1) * 8 + (b - 1));
+                }
+            }
+            if (!(twoTable[a + 1][b - 1] instanceof PieceLabel)) {
+                array.add((a + 1) * 8 + (b - 1));
+            }
+        }
+        //bot
+        if ((a + 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
+            if (twoTable[a + 1][b] instanceof PieceLabel) {
+                if (twoTable[a + 1][b].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 1) * 8 + (b));
+                }
+            }
+            if (!(twoTable[a + 1][b] instanceof PieceLabel)) {
+                array.add((a + 1) * 8 + (b));
+            }
+        }
+        //bot right
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
+                if (twoTable[a + 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    array.add((a + 1) * 8 + (b + 1));
+                }
+            }
+            if (!(twoTable[a + 1][b + 1] instanceof PieceLabel)) {
+                array.add((a + 1) * 8 + (b + 1));
+            }
+        }
+        int[] list = new int[array.size()];
+        for (int y = 0; y < array.size(); y++) {
+            list[y] = array.get(y);
+        }
+        return list;
+    }
     public int[] colorPawn(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1145,28 +1251,28 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        if (a - 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
+        if (a - 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
                 if (p.getTeam() == 1) {
                     array.add((a - 1) * 8 + (b + 1));
                 }
             }
         }
-        if (a - 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
+        if (a - 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
                 if (p.getTeam() == 1) {
                     array.add((a - 1) * 8 + (b - 1));
                 }
             }
         }
-        if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
+        if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
                 if (p.getTeam() == 2) {
                     array.add((a + 1) * 8 + (b + 1));
                 }
             }
         }
-        if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
+        if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
                 if (p.getTeam() == 2) {
                     array.add((a + 1) * 8 + (b - 1));
@@ -1209,4 +1315,321 @@ public class ChessTable {
         }
         return list;
     }
+    public int[] colorRook(int i, Piece p) {
+        ArrayList<Integer> array = new ArrayList<Integer>();
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        int c = a;
+        int d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c < 7) {
+                c++;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c > 0) {
+                c--;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (d < 7) {
+                d++;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (d > 0) {
+                d--;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        int[] list = new int[array.size()];
+        for (int y = 0; y < array.size(); y++) {
+            list[y] = array.get(y);
+        }
+        return list;
+    }
+    public int[] colorQueen(int i, Piece p) {
+        ArrayList<Integer> array = new ArrayList<Integer>();
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        int c = a;
+        int d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c < 7) {
+                c++;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c > 0) {
+                c--;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (d < 7) {
+                d++;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (d > 0) {
+                d--;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c > 0 && d > 0) {
+                c--;
+                d--;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c < 7 && d < 7) {
+                c++;
+                d++;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c > 0 && d < 7) {
+                c--;
+                d++;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        c = a;
+        d = b;
+        for (int j = 0; j < 8; j++) {
+            if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                        array.add((c) * 8 + (d));
+                    }
+                }
+                if (!(twoTable[c][d] instanceof PieceLabel)) {
+                    array.add((c) * 8 + (d));
+                }
+            }
+            if (c < 7 && d > 0) {
+                c++;
+                d--;
+            }
+            if (twoTable[c][d] instanceof PieceLabel) {
+                if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
+                    array.add((c) * 8 + (d));
+                }
+                break;
+            }
+        }
+        int[] list = new int[array.size()];
+        for (int y = 0; y < array.size(); y++) {
+            list[y] = array.get(y);
+        }
+        return list;
+    }
 }
+
