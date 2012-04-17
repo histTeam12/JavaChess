@@ -1695,7 +1695,6 @@ public class ChessTable {
             d = 0;
         }
         if (p.getTeam() == 1 && passant) {
-            System.out.println("lol1");
             if ((a == (c + 1)) && ((b == d - 1) || (b == d + 1))) {
                 array.add(j);
             }
