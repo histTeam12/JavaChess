@@ -902,7 +902,7 @@ public class ChessTable {
         return list;
     }
 
-    public int[] colorSpecialMoves(int i, Piece p,boolean castlingL, boolean castlingR, boolean castlingK, boolean passant, int j) {
+    public int[] colorSpecialMoves(int i, Piece p, boolean castlingL, boolean castlingR, boolean castlingK, boolean passant, int j) {
         int[] list = new int[0];
         if (p instanceof KingW || p instanceof KingB) {
             list = colorCastling(i, castlingL, castlingR, castlingK);
@@ -1255,29 +1255,37 @@ public class ChessTable {
         }
         if (a - 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-                if (p.getTeam() == 1) {
-                    array.add((a - 1) * 8 + (b + 1));
+                if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    if (p.getTeam() == 1) {
+                        array.add((a - 1) * 8 + (b + 1));
+                    }
                 }
             }
         }
         if (a - 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
-                if (p.getTeam() == 1) {
-                    array.add((a - 1) * 8 + (b - 1));
+                if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    if (p.getTeam() == 1) {
+                        array.add((a - 1) * 8 + (b - 1));
+                    }
                 }
             }
         }
         if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
-                if (p.getTeam() == 2) {
-                    array.add((a + 1) * 8 + (b + 1));
+                if (twoTable[a + 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                    if (p.getTeam() == 2) {
+                        array.add((a + 1) * 8 + (b + 1));
+                    }
                 }
             }
         }
         if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
-                if (p.getTeam() == 2) {
-                    array.add((a + 1) * 8 + (b - 1));
+                if (twoTable[a + 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+                    if (p.getTeam() == 2) {
+                        array.add((a + 1) * 8 + (b - 1));
+                    }
                 }
             }
         }
@@ -1649,11 +1657,15 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
-        if (castlingL && castlingK) {
-            array.add(c * 8 + (d - 2));
+        if (!(twoTable[c][d - 2] instanceof PieceLabel)) {
+            if (!castlingL && !castlingK) {
+                array.add(c * 8 + (d - 2));
+            }
         }
-        if (castlingR && castlingK) {
-            array.add(c * 8 + (d + 2));
+        if (!(twoTable[c][d + 2] instanceof PieceLabel)) {
+            if (!castlingR && !castlingK) {
+                array.add(c * 8 + (d + 2));
+            }
         }
         int[] list = new int[array.size()];
         for (int y = 0; y < array.size(); y++) {
@@ -1675,20 +1687,21 @@ public class ChessTable {
         }
         int c = 0;
         int d = 0;
-        if (i > 7) {
-            c = i / 8;
-            d = i - (a * 8);
+        if (j > 7) {
+            c = j / 8;
+            d = j - (c * 8);
         } else {
-            c = i;
+            c = j;
             d = 0;
         }
         if (p.getTeam() == 1 && passant) {
-            if ((c == a + 1) && (d == b - 1 || d == b + 1)) {
+            System.out.println("lol1");
+            if ((a == (c + 1)) && ((b == d - 1) || (b == d + 1))) {
                 array.add(j);
             }
         }
         if (p.getTeam() == 2 && passant) {
-            if ((c == a - 1) && (d == b - 1 || d == b + 1)) {
+            if ((a == c - 1) && (b == d - 1 || b == d + 1)) {
                 array.add(j);
             }
         }

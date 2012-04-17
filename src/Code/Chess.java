@@ -170,11 +170,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             if (c instanceof PieceLabel) {
                 PieceLabel d = (PieceLabel) c;
                 if (d.getPiece().getTeam() == 1 && turn % 2 == 0) {
-                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookWleft.move(), rookWright.move(), kingW.move(), passanten, kord.getIndex(enPassantPW)));
+                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookWleft.move(), rookWright.move(), kingW.move(), pawnB.getPassant(), kord.getIndex(enPassantPB)));
                     colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
                 }
                 if (d.getPiece().getTeam() == 2 && turn % 2 == 1) {
-                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookBleft.move(), rookBright.move(), kingB.move(), passanten, kord.getIndex(enPassantPB)));
+                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookBleft.move(), rookBright.move(), kingB.move(), pawnW.getPassant(), kord.getIndex(enPassantPW)));
                     colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
                 }
             }
@@ -945,7 +945,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingW.move() == false && rookWright.move() == false) {
                 move(e);
-                if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(61) == false && chessTable.checkW(62)) {
+                if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(61) == false && chessTable.checkW(62) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(61);
@@ -988,7 +988,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingB.move() == false && rookBleft.move() == false) {
                 move(e);
-                if (chessTable.checkB(kingBpos()) == false && chessTable.checkW(3) == false && chessTable.checkW(2)) {
+                if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(3) == false && chessTable.checkB(2) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(3);
@@ -1005,7 +1005,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
             if (kingB.move() == false && rookBright.move() == false) {
                 move(e);
-                if (chessTable.checkB(kingBpos()) == false && chessTable.checkW(5) == false && chessTable.checkW(6)) {
+                if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(5) == false && chessTable.checkB(6) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(5);
@@ -1285,8 +1285,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         if (chessPiece.getPiece().getTeam() == 2 && pawnW.getPassant() == true) {
             if (chessPiece.getPiece() == pawnB) {
                 //Ned høyre
-                if (chessBoard.findComponentAt((int) enPassantPB.getX() - 75, (int) enPassantPB.getY() - 75) instanceof PieceLabel) {
-                    Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() - 75, (int) enPassantPB.getY() - 75)).getPiece();
+                if (chessBoard.findComponentAt((int) enPassantPW.getX() - 75, (int) enPassantPW.getY() - 75) instanceof PieceLabel) {
+                    Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPW.getX() - 75, (int) enPassantPW.getY() - 75)).getPiece();
                     if (a.equals(pawnB)) {
                         if (((int) enPassantPW.getX() - 75) == startPos.getX() && ((int) enPassantPW.getY() - 75) == startPos.getY()) {
                             JPanel panel = new JPanel(new BorderLayout());
@@ -1305,8 +1305,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     }
                 }
                 //Ned venstre
-                if (chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() - 75) instanceof PieceLabel) {
-                    Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPB.getX() + 75, (int) enPassantPB.getY() - 75)).getPiece();
+                if (chessBoard.findComponentAt((int) enPassantPW.getX() + 75, (int) enPassantPW.getY() - 75) instanceof PieceLabel) {
+                    Piece a = (Piece) ((PieceLabel) chessBoard.findComponentAt((int) enPassantPW.getX() + 75, (int) enPassantPW.getY() - 75)).getPiece();
                     if (a.equals(pawnB)) {
                         if (((int) enPassantPW.getX() + 75) == startPos.getX() && ((int) enPassantPW.getY() - 75) == startPos.getY()) {
                             JPanel panel = new JPanel(new BorderLayout());
