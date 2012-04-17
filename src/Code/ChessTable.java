@@ -902,6 +902,17 @@ public class ChessTable {
         return list;
     }
 
+    public int[] colorSpecialMoves(int i, Piece p,boolean castlingL, boolean castlingR, boolean castlingK, boolean passant, int j) {
+        int[] list = new int[0];
+        if (p instanceof KingW || p instanceof KingB) {
+            list = colorCastling(i, castlingL, castlingR, castlingK);
+        }
+        if (p instanceof PawnW || p instanceof PawnB) {
+            list = colorPassant(i, passant, j, p);
+        }
+        return list;
+    }
+
     public int[] colorBishop(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1150,7 +1161,7 @@ public class ChessTable {
         //top right
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-               if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
                     array.add((a - 1) * 8 + (b + 1));
                 }
             }
@@ -1173,7 +1184,7 @@ public class ChessTable {
         if ((a <= 7 && a >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a][b - 1] instanceof PieceLabel) {
                 if (twoTable[a][b - 1].getPiece().getTeam() != p.getTeam()) {
-                    array.add((a) * 8 + (b -1));
+                    array.add((a) * 8 + (b - 1));
                 }
             }
             if (!(twoTable[a][b - 1] instanceof PieceLabel)) {
@@ -1230,6 +1241,7 @@ public class ChessTable {
         }
         return list;
     }
+
     public int[] colorPawn(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1305,6 +1317,7 @@ public class ChessTable {
         }
         return list;
     }
+
     public int[] colorRook(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1416,6 +1429,7 @@ public class ChessTable {
         }
         return list;
     }
+
     public int[] colorQueen(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1621,5 +1635,68 @@ public class ChessTable {
         }
         return list;
     }
-}
 
+    public int[] colorCastling(int i, boolean castlingL, boolean castlingR, boolean castlingK) {
+        ArrayList<Integer> array = new ArrayList<Integer>();
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        int c = a;
+        int d = b;
+        if (castlingL && castlingK) {
+            array.add(c * 8 + (d - 2));
+        }
+        if (castlingR && castlingK) {
+            array.add(c * 8 + (d + 2));
+        }
+        int[] list = new int[array.size()];
+        for (int y = 0; y < array.size(); y++) {
+            list[y] = array.get(y);
+        }
+        return list;
+    }
+
+    public int[] colorPassant(int i, boolean passant, int j, Piece p) {
+        ArrayList<Integer> array = new ArrayList<Integer>();
+        int a = 0;
+        int b = 0;
+        if (i > 7) {
+            a = i / 8;
+            b = i - (a * 8);
+        } else {
+            b = i;
+            a = 0;
+        }
+        int c = 0;
+        int d = 0;
+        if (i > 7) {
+            c = i / 8;
+            d = i - (a * 8);
+        } else {
+            c = i;
+            d = 0;
+        }
+        if (p.getTeam() == 1 && passant) {
+            if ((c == a + 1) && (d == b - 1 || d == b + 1)) {
+                array.add(j);
+            }
+        }
+        if (p.getTeam() == 2 && passant) {
+            if ((c == a - 1) && (d == b - 1 || d == b + 1)) {
+                array.add(j);
+            }
+        }
+        int[] list = new int[array.size()];
+        for (int y = 0; y < array.size(); y++) {
+            list[y] = array.get(y);
+        }
+        return list;
+
+    }
+}

@@ -170,9 +170,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             if (c instanceof PieceLabel) {
                 PieceLabel d = (PieceLabel) c;
                 if (d.getPiece().getTeam() == 1 && turn % 2 == 0) {
+                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookWleft.move(), rookWright.move(), kingW.move(), passanten, kord.getIndex(enPassantPW)));
                     colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
                 }
                 if (d.getPiece().getTeam() == 2 && turn % 2 == 1) {
+                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookBleft.move(), rookBright.move(), kingB.move(), passanten, kord.getIndex(enPassantPB)));
                     colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
                 }
             }
@@ -1336,7 +1338,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return pieces;
     }
 
-    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces) {        
+    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces) {
         for (int i = 0; i < 64; i++) {
             JPanel panel = (JPanel) chessBoard.getComponent(i);
             panel.removeAll();
@@ -1429,6 +1431,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             JPanel p = (JPanel) c;
             p.setOpaque(true);
             p.setBackground(Color.green);
+        }
+    }
+
+    public void colorSpecialSquares(int[] tab) {
+        for (int i = 0; i < tab.length; i++) {
+            JPanel d = (JPanel) chessBoard.getComponent(tab[i]);
+            d.setOpaque(true);
+            d.setBackground(Color.blue);
         }
     }
 
