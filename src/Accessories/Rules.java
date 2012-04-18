@@ -163,8 +163,6 @@ public class Rules {
     public Rules(){
         rules.setOpaque(false);
         rules.setForeground(Color.white);
-        rules.setSelectionStart(0);
-        rules.setSelectionEnd(0);
         rules.append(title1);
         rules.append(text1);
         rules.append(title2);

@@ -36,7 +36,7 @@ public class PawnW extends Piece {
     
     //Setting the legal moves of the piece.
     @Override
-    public boolean legalMove(int y, int x, Point start, Object brikke, int lag2) {
+    public boolean legalMove(int y, int x, Point start, Object piece, int lag2) {
         if (lag2 == team) return false;
         if (start.getY() == 450) {if (y == (int) start.getY() + maxY * 2 && x == (int) start.getX()) {
                 enPassant = true;
@@ -44,10 +44,10 @@ public class PawnW extends Piece {
                 return true;
             }
         }
-        if (!(brikke instanceof PieceLabel) && y == (int) start.getY() + maxY && x == (int) start.getX()) {
+        if (!(piece instanceof PieceLabel) && y == (int) start.getY() + maxY && x == (int) start.getX()) {
             return true;
         }
-        if (brikke instanceof PieceLabel) {
+        if (piece instanceof PieceLabel) {
             if (y == (int) start.getY() + maxY && x == (int) start.getX() + slope || y == (int) start.getY() + maxY && x == (int) start.getX() - slope ) {
                 return true;
             }

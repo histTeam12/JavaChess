@@ -24,7 +24,7 @@ public class BishopB extends Piece {
     }
     //Setting the legal moves of the piece.
     @Override
-    public boolean legalMove(int y, int x, Point start, Object brikke, int team2) {
+    public boolean legalMove(int y, int x, Point start, Object piece, int team2) {
         if (team2 == team) return false;
         if ((Math.abs((int)start.getX() - x) == (Math.abs((int)start.getY()-y))) && (Math.abs((int)start.getY()-y) >= 75)){
                 return true;

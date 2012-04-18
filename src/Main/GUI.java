@@ -15,7 +15,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,9 +27,7 @@ import static javax.swing.JOptionPane.*;
 public class GUI extends JFrame {
 
     //OBJECT VARIABLES
-    private Rules rules = new Rules();
     private JLabel background = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Background.png")));
-    private JMenuBar menuBar = new JMenuBar();
     private Chess chess = new Chess();
     private SaveGame[] savegames = new SaveGame[6];
     private Timer timerS;
@@ -45,10 +42,6 @@ public class GUI extends JFrame {
     private JLabel lostPieceBLabel = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/LostPieceBNormal.png")));
     private JLabel whitegif = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/WhiteGIF.gif")));
     private JLabel blackgif = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/BlackGIF.gif")));
-    private JTextArea helparea = rules.getRules();
-    private JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Helpbackground.png")));
-    private JScrollPane helppane = new JScrollPane(helparea);
-    private JFrame helplabel = new JFrame();
     private JTextArea lostPieceW = new JTextArea(15, 5);
     private JTextArea lostPieceB = new JTextArea(15, 5);
     private Container contentPane = getContentPane();
@@ -56,11 +49,11 @@ public class GUI extends JFrame {
 
     //CONSTRUCTOR
     public GUI(String title) {
+        
         //Settings for the frame and adding components.
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle(title);
         contentPane.setLayout(layout);
-        setJMenuBar(menuBar);
         background.setPreferredSize(new Dimension(1084, 661));
         chess = new Chess();
         chess.addChessListener(chessL);
@@ -68,6 +61,8 @@ public class GUI extends JFrame {
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
         add(scrollpane);
         add(chess);
         add(scrollpane2);
@@ -183,7 +178,7 @@ public class GUI extends JFrame {
         Rules.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-               help();
+               rules();
             }
         });
         
@@ -193,23 +188,6 @@ public class GUI extends JFrame {
     }
 
     //METHODS
-    public void help(){
-        helplabel.setTitle("Rules");
-        helplabel.setPreferredSize(new Dimension(500, 400));
-        helparea.setFont(new Font("Arial", Font.PLAIN, 15));
-        helparea.setOpaque(false);
-        helppane.setOpaque(false);
-        textarea.setEditable(true);
-        textarea.setOpaque(false);
-        helppane.getViewport().setOpaque(false);
-        helppane.setBorder(null);
-        helppane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        helplabel.add(helppane,BorderLayout.WEST);
-        helplabel.add(helpbg, BorderLayout.EAST);
-        helplabel.pack();
-        helplabel.setResizable(true);
-        helplabel.setVisible(true);
-    }
     
     //Method for adding info to the lost pieces table.
     public void lostpieceTableW() {
@@ -264,6 +242,31 @@ public class GUI extends JFrame {
         devlabel.add(devpicture);
         devlabel.pack();
         devlabel.setVisible(true);
+    }
+    //Method for creating the rules page.
+    public void rules(){
+        Rules rules = new Rules();
+        JFrame helplabel = new JFrame();
+        JTextArea helparea = rules.getRules();
+        JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Helpbackground.png")));
+        JScrollPane helppane = new JScrollPane(helparea);
+        helplabel.setTitle("Rules");
+        helplabel.setPreferredSize(new Dimension(500, 400));
+        helparea.setFont(new Font("Arial", Font.PLAIN, 15));
+        helparea.setOpaque(false);
+        helppane.setOpaque(false);
+        helparea.setEditable(true);
+        helparea.setOpaque(false);
+        helparea.setSelectionStart(0);
+        helparea.setSelectionEnd(0);
+        helppane.getViewport().setOpaque(false);
+        helppane.setBorder(null);
+        helppane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        helplabel.add(helppane,BorderLayout.WEST);
+        helplabel.add(helpbg, BorderLayout.EAST);
+        helplabel.pack();
+        helplabel.setResizable(true);
+        helplabel.setVisible(true);
     }
     //Settings for the log and lost pieces table.
 
