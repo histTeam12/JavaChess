@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.util.TimerTask;
 import javax.swing.JLabel;
 
-class Timer extends JLabel {
+public class Timer extends JLabel {
     //Creating an object variable for every digit in the timer.
 
     public int s;

@@ -2,7 +2,7 @@ package Accessories;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-class Rules {
+public class Rules {
     private JTextArea rules = new JTextArea();
     private String title1 = "Setup\n";
     private String text1 = "Chess is played on a square board of eight rows (called ranks \n"

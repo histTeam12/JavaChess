@@ -1,6 +1,6 @@
-package Logic;
+package Main;
 
-import Accessories.GUI;
+import Main.GUI;
 
 class Main {
 public static void main(String[] args){

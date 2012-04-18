@@ -1,8 +1,10 @@
-package Accessories;
+package Main;
 
 import Accessories.SaveGame;
 import Accessories.Timer;
 import Accessories.Rules;
+import Accessories.SaveGame;
+import Accessories.Timer;
 import Logic.Chess;
 import Logic.ChessEvent;
 import Logic.ChessListener;
@@ -47,8 +49,6 @@ public class GUI extends JFrame {
     private JLabel helpbg = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Helpbackground.png")));
     private JScrollPane helppane = new JScrollPane(helparea);
     private JFrame helplabel = new JFrame();
-    private JLabel devpicture = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Developers.png")));
-    private JFrame devlabel = new JFrame();
     private JTextArea lostPieceW = new JTextArea(15, 5);
     private JTextArea lostPieceB = new JTextArea(15, 5);
     private Container contentPane = getContentPane();
@@ -144,9 +144,7 @@ public class GUI extends JFrame {
         Developers.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                devlabel.add(devpicture);
-                devlabel.pack();
-                devlabel.setVisible(true);
+                developers();
             }
         });
         Save.addActionListener(new ActionListener() {
@@ -206,7 +204,7 @@ public class GUI extends JFrame {
         helppane.getViewport().setOpaque(false);
         helppane.setBorder(null);
         helppane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        helplabel.add(helppane, BorderLayout.WEST);
+        helplabel.add(helppane,BorderLayout.WEST);
         helplabel.add(helpbg, BorderLayout.EAST);
         helplabel.pack();
         helplabel.setResizable(true);
@@ -258,6 +256,14 @@ public class GUI extends JFrame {
         lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Accessories/Pictures/LostPieceBNormal.png")));
         repaint();
         setVisible(true);
+    }
+    
+    public void developers(){
+        JLabel devpicture = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Developers.png")));
+        JFrame devlabel = new JFrame();
+        devlabel.add(devpicture);
+        devlabel.pack();
+        devlabel.setVisible(true);
     }
     //Settings for the log and lost pieces table.
 
