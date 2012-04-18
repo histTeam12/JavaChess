@@ -414,10 +414,15 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
-                save(showInputDialog("Name:"), 0);
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                String a = showInputDialog("Name: ");
+                if (a == null || a.equals("")) {
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    save(a, 0);
+                    try {
+                        serialize();
+                    } catch (IOException ioe) {
+                    }
                 }
             }
         });
@@ -425,10 +430,15 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
-                save(showInputDialog("Name:"), 1);
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                String a = showInputDialog("Name: ");
+                if (a == null || a.equals("")) {
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    save(a, 1);
+                    try {
+                        serialize();
+                    } catch (IOException ioe) {
+                    }
                 }
             }
         });
@@ -436,10 +446,15 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
-                save(showInputDialog("Name:"), 2);
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                String a = showInputDialog("Name: ");
+                if (a == null || a.equals("")) {
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    save(a, 2);
+                    try {
+                        serialize();
+                    } catch (IOException ioe) {
+                    }
                 }
             }
         });
@@ -447,10 +462,15 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
-                save(showInputDialog("Name:"), 3);
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                String a = showInputDialog("Name: ");
+                if (a == null || a.equals("")) {
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    save(a, 3);
+                    try {
+                        serialize();
+                    } catch (IOException ioe) {
+                    }
                 }
             }
         });
@@ -458,10 +478,15 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
-                save(showInputDialog("Name:"), 4);
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                String a = showInputDialog("Name: ");
+                if (a == null || a.equals("")) {
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    save(a, 4);
+                    try {
+                        serialize();
+                    } catch (IOException ioe) {
+                    }
                 }
             }
         });
@@ -469,14 +494,19 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.getRootFrame().dispose();
-                save(showInputDialog("Name:"), 5);
-                try {
-                    serialize();
-                } catch (IOException ioe) {
+                String a = showInputDialog("Name: ");
+                if (a == null || a.equals("")) {
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    save(a, 5);
+                    try {
+                        serialize();
+                    } catch (IOException ioe) {
+                    }
                 }
             }
         });
-
+    
         Object[] group = {button1, button2, button3, button4, button5, button6};
         showConfirmDialog(null, group, "Save", DEFAULT_OPTION, PLAIN_MESSAGE);
     }
