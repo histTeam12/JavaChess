@@ -47,7 +47,7 @@ public class GUI extends JFrame {
     private Container contentPane = getContentPane();
     private SpringLayout layout = new SpringLayout(); //Using springlayout and adding constraints to place the components.
 
-    //CONSTRUCTOR
+    //Constructor
     public GUI(String title) {
         
         //Settings for the frame and adding components.

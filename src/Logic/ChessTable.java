@@ -26,11 +26,13 @@ public class ChessTable {
     private String[] log;
     private PieceLabel[][] twoTable;
 
+    //Constructor 1
     public ChessTable() {
         this.table = new PieceLabel[64];
         this.log = new String[2];
         this.twoTable = new PieceLabel[8][8];
     }
+    //Constructor 2
 
     public ChessTable(Component[] table2) {
         this.table = new PieceLabel[64];
@@ -43,29 +45,28 @@ public class ChessTable {
         this.twoTable = new PieceLabel[8][8];
     }
 
+    //Method for updating the one dimensional tabel
     public void updateTable(PieceLabel piece, int indeks) {
         table[indeks] = piece;
     }
 
+    //Method for creating a new dimensional tabel and setting it as object variabel
     public void newTable(PieceLabel[] table2) {
         table = table2;
-//        reset();
-//        for(int i = 0; i<64;i++){
-//            if(table2[i] instanceof PieceLabel){
-//                table[i] = (PieceLabel) table2[i];
-//            }
-//        }
         updateTwoTable();
     }
 
+    //Method for getting the table
     public PieceLabel[] getTable() {
         return table;
     }
 
+    //Method for getting a piece from a index in the table
     public PieceLabel getPiece(int index) {
         return table[index];
     }
 
+    //Method for testing the two dimensional table
     public void testTwoTable() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -76,6 +77,7 @@ public class ChessTable {
         }
     }
 
+    //Method for updating the two dimensional tabel
     public void updateTwoTable() {
         int a = 0;
         for (int i = 0; i < 8; i++) {
@@ -86,16 +88,19 @@ public class ChessTable {
             }
         }
     }
+    //Method for updating the log
 
     public void updateLog(String log2, int indeks) {
         log[indeks] = log2;
     }
 
+    //Method for getting the log
     public String getLog(int index) {
         return log[index];
     }
 
-    public Component getTable(int index) {
+    //Method for getting a component at given index
+    public Component getComponent(int index) {
         if (table[index] instanceof PieceLabel) {
             return table[index];
         } else {
@@ -105,6 +110,7 @@ public class ChessTable {
         }
     }
 
+    //Method for resetting the one dimensional table and log
     public void reset() {
         for (int i = 0; i < table.length; i++) {
             table[i] = null;
@@ -113,6 +119,7 @@ public class ChessTable {
         log[1] = "";
     }
 
+    //Method for changing the interface layout of the board
     public void changeUI(int a) {
         switch (a) {
             case 1:
@@ -226,6 +233,7 @@ public class ChessTable {
         }
     }
 
+    //Method for getting the white kings position
     public int kingWpos() {
         for (int i = 0; i < table.length; i++) {
             if (table[i].getPiece() instanceof KingW) {
@@ -235,6 +243,7 @@ public class ChessTable {
         return -1;
     }
 
+    //Method for getting the black kings position
     public int kingBpos() {
         for (int i = 0; i < table.length; i++) {
             if (table[i].getPiece() instanceof KingB) {
@@ -244,6 +253,7 @@ public class ChessTable {
         return -1;
     }
 
+    //Method for checking if the white king is in check. Takes in index of the white king.
     public boolean checkW(int i) {
         if (checkBishopW(i)) {
             return true;
@@ -263,6 +273,7 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if the black king is in check. Takes in index of the black king.
     public boolean checkB(int i) {
         if (checkBishopB(i)) {
             return true;
@@ -282,7 +293,9 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the black knights checks the white king
     public boolean checkKnightW(int i) {
+        //Takes the index i and transforms it into two dimensional indexes
         int a = 0;
         int b = 0;
         if (i > 7) {
@@ -292,13 +305,19 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+
+        //Checking if there`s a black knight in the bottom long left corner
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
+            //Checking if there`s a piecelabel in the bottom left corner
             if (twoTable[a + 1][b - 2] instanceof PieceLabel) {
+                //Getting the piece from the index and checks if its an instance of a black knight
                 if (twoTable[a + 1][b - 2].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
         }
+
+        //Checking if there`s a black knight in the long bottom right corner
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
             if (twoTable[a + 1][b + 2] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 2].getPiece() instanceof KnightB) {
@@ -306,6 +325,8 @@ public class ChessTable {
                 }
             }
         }
+
+        //Checking if there`s a black knight in the short bottom left corner
         if ((a + 2 <= 7 && a + 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a + 2][b - 1] instanceof PieceLabel) {
                 if (twoTable[a + 2][b - 1].getPiece() instanceof KnightB) {
@@ -313,6 +334,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking if there`s a black knight in the short bottom right corner
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 2][b + 1].getPiece() instanceof KnightB) {
@@ -320,6 +342,8 @@ public class ChessTable {
                 }
             }
         }
+
+        //Checking if there`s a black knight in the long top left corner
         if ((a - 2 <= 7 && a - 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a - 2][b - 1] instanceof PieceLabel) {
                 if (twoTable[a - 2][b - 1].getPiece() instanceof KnightB) {
@@ -327,6 +351,8 @@ public class ChessTable {
                 }
             }
         }
+
+        //Checking if there`s a black knight in the long top right corner
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 2][b + 1].getPiece() instanceof KnightB) {
@@ -334,6 +360,8 @@ public class ChessTable {
                 }
             }
         }
+
+        //Checking if there`s a black knight in the short top left corner
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
             if (twoTable[a - 1][b - 2] instanceof PieceLabel) {
                 if (twoTable[a - 1][b - 2].getPiece() instanceof KnightB) {
@@ -341,6 +369,8 @@ public class ChessTable {
                 }
             }
         }
+
+        //Checking if there`s a black knight in the short top right corner
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
             if (twoTable[a - 1][b + 2] instanceof PieceLabel) {
                 if (twoTable[a - 1][b + 2].getPiece() instanceof KnightB) {
@@ -351,7 +381,9 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the black pawns checks the white king
     public boolean checkPawnW(int i) {
+        //Takes the index i and transforms it into two dimensional indexes
         int a = 0;
         int b = 0;
         if (i > 7) {
@@ -361,13 +393,18 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+
+        //Checks if there`s a pawn in bottom left corner
         if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
+            //Checks if there`s a piecelabel in bottom left corner
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
+                //Checks if the piecelabel in bottom left corner is an instanceof of PawnB
                 if (twoTable[a - 1][b + 1].getPiece() instanceof PawnB) {
                     return true;
                 }
             }
         }
+        //Checks if there`s a pawn in bottom right corner
         if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b - 1].getPiece() instanceof PawnB) {
@@ -378,7 +415,9 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the black rooks checks the white king
     public boolean checkRookW(int i) {
+        //Takes the index i and transforms it into two dimensional indexes
         int a = 0;
         int b = 0;
         if (i > 7) {
@@ -388,16 +427,20 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+        //Checks if there`s an instance of piecelabel in the line behind the white king
         for (int j = b; j < 8; j++) {
             if (twoTable[a][j] instanceof PieceLabel) {
+                //Checks if there`s an instance of a black rook or black queen in the line in front of the white king
                 if (twoTable[a][j].getPiece() instanceof RookB || twoTable[a][j].getPiece() instanceof QueenB) {
                     return true;
                 }
+                //Checks if there`s an instance of a black rook or black king in the line in front of the white king
                 if ((twoTable[a][j].getPiece() instanceof RookB) == false && (twoTable[a][j].getPiece() instanceof KingW) == false) {
                     break;
                 }
             }
         }
+        //Checks if there`s an instance of piecelabel in the line in front of the white king
         for (int j = b; j >= 0; j--) {
             if (twoTable[a][j] instanceof PieceLabel) {
                 if (twoTable[a][j].getPiece() instanceof RookB || twoTable[a][j].getPiece() instanceof QueenB) {
@@ -408,6 +451,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks if there`s an instance of piecelabel in the line to the right of the white king
         for (int j = a; j < 8; j++) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookB || twoTable[j][b].getPiece() instanceof QueenB) {
@@ -418,6 +462,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks if there`s an instance of piecelabel in the line to the left of the white king
         for (int j = a; j >= 0; j--) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookB || twoTable[j][b].getPiece() instanceof QueenB) {
@@ -431,6 +476,7 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the black bishops checks the white king
     public boolean checkBishopW(int i) {
         int a = 0;
         int b = 0;
@@ -443,23 +489,28 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
+        //Checking if there`s a piecelabel in top left corner line of the white king
         for (int j = 0; j < 8; j++) {
-
             if (twoTable[c][d] instanceof PieceLabel) {
+                //Checking if there`s a black bishop or black queen in top left corner line of the white king
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                     return true;
                 }
+                //Checking if there`s a black bishop or black king in top left corner line of the white king
                 if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
                     break;
                 }
             }
+            //Subtracting the counters for each walkthrough of the loop
             if (c > 0 && d > 0) {
                 c--;
                 d--;
             }
         }
+        // Resetting the counters
         c = a;
         d = b;
+        //Checking if there`s a piecelabel in bottom right corner line of the white king
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
@@ -476,6 +527,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checking if there`s a piecelabel in bottom left corner line of the white king
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
@@ -492,6 +544,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checking if there`s a piecelabel in top right corner line of the white king
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
@@ -508,9 +561,9 @@ public class ChessTable {
         }
         return false;
     }
-
+    
+    //Method for checking if one of the black king checks the white king
     public boolean checkKingW(int i) {
-        //
         int a = 0;
         int b = 0;
         if (i > 7) {
@@ -520,7 +573,7 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        //top left
+        //Checking if there`s a piecelabel in top left corner of the white king
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b - 1].getPiece() instanceof KingB) {
@@ -528,7 +581,7 @@ public class ChessTable {
                 }
             }
         }
-        //top right
+        //Checking if there`s a piecelabel in top right corner of the white king
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b + 1].getPiece() instanceof KingB) {
@@ -536,7 +589,7 @@ public class ChessTable {
                 }
             }
         }
-        //top
+        //Checking if there`s a piecelabel in top of the white king
         if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
             if (twoTable[a - 1][b] instanceof PieceLabel) {
                 if (twoTable[a - 1][b].getPiece() instanceof KingB) {
@@ -544,7 +597,7 @@ public class ChessTable {
                 }
             }
         }
-        //left
+        //Checking if there`s a piecelabel to the left of the white king
         if ((a <= 7 && a >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a][b - 1] instanceof PieceLabel) {
                 if (twoTable[a][b - 1].getPiece() instanceof KingB) {
@@ -552,7 +605,7 @@ public class ChessTable {
                 }
             }
         }
-        //right
+        //Checking if there`s a piecelabel to the right of the white king
         if ((a <= 7 && a >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a][b + 1] instanceof PieceLabel) {
                 if (twoTable[a][b + 1].getPiece() instanceof KingB) {
@@ -560,7 +613,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot left
+        //Checking if there`s a piecelabel in the bottom left corner of the white king
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b - 1].getPiece() instanceof KingB) {
@@ -568,7 +621,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot
+        //Checking if there`s a piecelabel in the bottom of the white king
         if ((a + 1 <= 7 && a + 1 >= 0) && (b <= 7 && b >= 0)) {
             if (twoTable[a + 1][b] instanceof PieceLabel) {
                 if (twoTable[a + 1][b].getPiece() instanceof KingB) {
@@ -576,7 +629,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot right
+        //Checking if there`s a piecelabel in the bottom right corner of the white king
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 1].getPiece() instanceof KingB) {
@@ -1059,6 +1112,7 @@ public class ChessTable {
             }
             if (!(twoTable[a + 1][b - 2] instanceof PieceLabel)) {
                 array.add((a + 1) * 8 + (b - 2));
+
             }
         }
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
@@ -1162,90 +1216,106 @@ public class ChessTable {
         }
         //top left
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b - 1)) == false)) {
+                if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
+                    if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a - 1) * 8 + (b - 1));
+                    }
+                }
+                if (!(twoTable[a - 1][b - 1] instanceof PieceLabel)) {
                     array.add((a - 1) * 8 + (b - 1));
                 }
-            }
-            if (!(twoTable[a - 1][b - 1] instanceof PieceLabel)) {
-                array.add((a - 1) * 8 + (b - 1));
             }
         }
         //top right
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b + 1)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b + 1)) == false)) {
+                if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
+                    if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a - 1) * 8 + (b + 1));
+                    }
+                }
+                if (!(twoTable[a - 1][b + 1] instanceof PieceLabel)) {
                     array.add((a - 1) * 8 + (b + 1));
                 }
-            }
-            if (!(twoTable[a - 1][b + 1] instanceof PieceLabel)) {
-                array.add((a - 1) * 8 + (b + 1));
             }
         }
         //top
         if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
-            if (twoTable[a - 1][b] instanceof PieceLabel) {
-                if (twoTable[a - 1][b].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b)) == false)) {
+                if (twoTable[a - 1][b] instanceof PieceLabel) {
+                    if (twoTable[a - 1][b].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a - 1) * 8 + (b));
+                    }
+                }
+                if (!(twoTable[a - 1][b] instanceof PieceLabel)) {
                     array.add((a - 1) * 8 + (b));
                 }
-            }
-            if (!(twoTable[a - 1][b] instanceof PieceLabel)) {
-                array.add((a - 1) * 8 + (b));
             }
         }
         //left
         if ((a <= 7 && a >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a][b - 1] instanceof PieceLabel) {
-                if (twoTable[a][b - 1].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a) * 8 + (b - 1)) == false)) {
+                if (twoTable[a][b - 1] instanceof PieceLabel) {
+                    if (twoTable[a][b - 1].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a) * 8 + (b - 1));
+                    }
+                }
+                if (!(twoTable[a][b - 1] instanceof PieceLabel)) {
                     array.add((a) * 8 + (b - 1));
                 }
-            }
-            if (!(twoTable[a][b - 1] instanceof PieceLabel)) {
-                array.add((a) * 8 + (b - 1));
             }
         }
         //right
         if ((a <= 7 && a >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a][b + 1] instanceof PieceLabel) {
-                if (twoTable[a][b + 1].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a) * 8 + (b + 1)) == false) || (p.getTeam() == 2 && checkB((a) * 8 + (b + 1)) == false)) {
+                if (twoTable[a][b + 1] instanceof PieceLabel) {
+                    if (twoTable[a][b + 1].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a) * 8 + (b + 1));
+                    }
+                }
+                if (!(twoTable[a][b + 1] instanceof PieceLabel)) {
                     array.add((a) * 8 + (b + 1));
                 }
-            }
-            if (!(twoTable[a][b + 1] instanceof PieceLabel)) {
-                array.add((a) * 8 + (b + 1));
             }
         }
         //bot left
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
-                if (twoTable[a + 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b - 1)) == false)) {
+                if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
+                    if (twoTable[a + 1][b - 1].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a + 1) * 8 + (b - 1));
+                    }
+                }
+                if (!(twoTable[a + 1][b - 1] instanceof PieceLabel)) {
                     array.add((a + 1) * 8 + (b - 1));
                 }
-            }
-            if (!(twoTable[a + 1][b - 1] instanceof PieceLabel)) {
-                array.add((a + 1) * 8 + (b - 1));
             }
         }
         //bot
         if ((a + 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
-            if (twoTable[a + 1][b] instanceof PieceLabel) {
-                if (twoTable[a + 1][b].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b)) == false)) {
+                if (twoTable[a + 1][b] instanceof PieceLabel) {
+                    if (twoTable[a + 1][b].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a + 1) * 8 + (b));
+                    }
+                }
+                if (!(twoTable[a + 1][b] instanceof PieceLabel)) {
                     array.add((a + 1) * 8 + (b));
                 }
-            }
-            if (!(twoTable[a + 1][b] instanceof PieceLabel)) {
-                array.add((a + 1) * 8 + (b));
             }
         }
         //bot right
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
-                if (twoTable[a + 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+            if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b + 1)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b + 1)) == false)) {
+                if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
+                    if (twoTable[a + 1][b + 1].getPiece().getTeam() != p.getTeam()) {
+                        array.add((a + 1) * 8 + (b + 1));
+                    }
+                }
+                if (!(twoTable[a + 1][b + 1] instanceof PieceLabel)) {
                     array.add((a + 1) * 8 + (b + 1));
                 }
-            }
-            if (!(twoTable[a + 1][b + 1] instanceof PieceLabel)) {
-                array.add((a + 1) * 8 + (b + 1));
             }
         }
         int[] list = new int[array.size()];

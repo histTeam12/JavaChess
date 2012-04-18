@@ -556,7 +556,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public void fromTable() {
         for (int i = 0; i < 64; i++) {
-            Component c = chessTable.getTable(i);
+            Component c = chessTable.getComponent(i);
             if (c instanceof PieceLabel) {
                 JPanel panel = (JPanel) chessBoard.getComponent(i);
                 panel.add(c);
@@ -955,8 +955,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public boolean moveKingW(MouseEvent e, Component m) {
-        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+        if (!(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                (e.getY() + yAdjustment)) instanceof PieceLabel) && !(chessBoard.findComponentAt(((int) e.getX() + xAdjustment - 75), (int) (e.getY() + yAdjustment)) instanceof PieceLabel)) {
             if (kingW.move() == false && rookWright.move() == false) {
                 move(e);
                 if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(61) == false && chessTable.checkW(62) == false) {
@@ -967,12 +967,19 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                     kingW.setMove();
                     chessPiece.setVisible(true);
                     return true;
+
                 }
             }
         }
-        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel)
-                && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+        if (!(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment + 75), (int) (e.getY()
+                + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment - 75), (int) (e.getY()
+                + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment), (int) (e.getY()
+                + yAdjustment)) instanceof PieceLabel)) {
             if (kingW.move() == false && rookWleft.move() == false) {
                 move(e);
                 if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(59) == false && chessTable.checkW(58) == false) {
@@ -987,6 +994,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
         }
+
         if (kingW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
             kingW.setMove();
@@ -998,8 +1006,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public boolean moveKingB(MouseEvent e, Component m) {
-        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == 150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment + 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+        if (!(chessBoard.findComponentAt((e.getX() + xAdjustment),
+                (e.getY() + yAdjustment)) instanceof PieceLabel) && !(chessBoard.findComponentAt(((int) 
+                e.getX() + xAdjustment + 75), (int) (e.getY() + yAdjustment)) instanceof PieceLabel)) {
             if (kingB.move() == false && rookBleft.move() == false) {
                 move(e);
                 if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(3) == false && chessTable.checkB(2) == false) {
@@ -1014,9 +1023,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
         }
-        if ((e.getY() + yAdjustment == startPos.getY()) && (startPos.getX() - (e.getX() + xAdjustment)) == -150 && !(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                (e.getY() + yAdjustment)) instanceof PieceLabel && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 75), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel)
-                && !(chessBoard.findComponentAt(((int) startPos.getX() + xAdjustment - 225), (int) (startPos.getY() + yAdjustment)) instanceof PieceLabel))) {
+        if (!(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment + 75), (int) (e.getY()
+                + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment - 75), (int) (e.getY()
+                + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment), (int) (e.getY()
+                + yAdjustment)) instanceof PieceLabel)) {
             if (kingB.move() == false && rookBright.move() == false) {
                 move(e);
                 if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(5) == false && chessTable.checkB(6) == false) {
