@@ -57,6 +57,9 @@ public class GUI extends JFrame {
         //Settings for the frame and adding components.
         String[] options = {"Join Lan", "Host Lan", "Normal"};
         choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
+        if(choice == -1){
+            System.exit(0);
+        }
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle(title);
         contentPane.setLayout(layout);
