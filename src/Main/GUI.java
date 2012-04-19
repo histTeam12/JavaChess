@@ -57,7 +57,7 @@ public class GUI extends JFrame {
         //Settings for the frame and adding components.
         String[] options = {"Join Lan", "Host Lan", "Normal"};
         choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
-        if(choice == -1){
+        if (choice == -1) {
             System.exit(0);
         }
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -201,7 +201,6 @@ public class GUI extends JFrame {
         System.out.println("Choice: " + choice);
         lan(choice);
     }
-    
 
     //METHODS
     //Method for adding info to the lost pieces table.
@@ -676,12 +675,14 @@ public class GUI extends JFrame {
         }
         inn.close();
     }
+
     public void lan(int ch) {
         try {
             switch (ch) {
                 case 2:
                     return;
                 case 1:
+                    setSize(1090, 720);
                     s = (new ServerSocket(7777)).accept();
                     oops = new ObjectOutputStream(s.getOutputStream());
                     PieceLabel[] table = new PieceLabel[64];
@@ -695,6 +696,7 @@ public class GUI extends JFrame {
                     chessAction.ready = false;
                     break;
                 case 0:
+                    setSize(1090, 720);
                 default:
                     s = new Socket(showInputDialog("Host IP: "), 7777);
                     chessAction.ready = true;
@@ -702,7 +704,7 @@ public class GUI extends JFrame {
             while (true) {
                 oips = new ObjectInputStream(s.getInputStream());
                 SaveGame save = (SaveGame) (oips.readObject());
-                load(save);                
+                load(save);
                 chessAction.ready = true;
                 while (chessAction.ready) {
                     Thread.sleep(100);
@@ -722,5 +724,5 @@ public class GUI extends JFrame {
             System.out.println(e);
             System.exit(1);
         }
-    }    
+    }
 }
