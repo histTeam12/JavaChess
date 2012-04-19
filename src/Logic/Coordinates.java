@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class Coordinates {
 
-    private Point[] kords = {new Point(0, 0), new Point(75, 0), new Point(150, 0), new Point(225, 0), new Point(300, 0), new Point(375, 0), new Point(450, 0), new Point(525, 0),
+    private Point[] coords = {new Point(0, 0), new Point(75, 0), new Point(150, 0), new Point(225, 0), new Point(300, 0), new Point(375, 0), new Point(450, 0), new Point(525, 0),
         new Point(0, 75), new Point(75, 75), new Point(150, 75), new Point(225, 75), new Point(300, 75), new Point(375, 75), new Point(450, 75), new Point(525, 75),
         new Point(0, 150), new Point(75, 150), new Point(150, 150), new Point(225, 150), new Point(300, 150), new Point(375, 150), new Point(450, 150), new Point(525, 150),
         new Point(0, 225), new Point(75, 225), new Point(150, 225), new Point(225, 225), new Point(300, 225), new Point(375, 225), new Point(450, 225), new Point(525, 225),
@@ -13,7 +13,7 @@ public class Coordinates {
         new Point(0, 450), new Point(75, 450), new Point(150, 450), new Point(225, 450), new Point(300, 450), new Point(375, 450), new Point(450, 450), new Point(525, 450),
         new Point(0, 525), new Point(75, 525), new Point(150, 525), new Point(225, 525), new Point(300, 525), new Point(375, 525), new Point(450, 525), new Point(525, 525)};
 
-    private String[] bokstaver = {"A8", "B8", "C8", "D8", "E8","F8","G8","H8",
+    private String[] letters = {"A8", "B8", "C8", "D8", "E8","F8","G8","H8",
         "A7", "B7", "C7", "D7", "E7","F7","G7","H7",
         "A6", "B6", "C6", "D6", "E6","F6","G6","H6",
         "A5", "B5", "C5", "D5", "E5","F5","G5","H5",
@@ -22,29 +22,29 @@ public class Coordinates {
         "A2", "B2", "C2", "D2", "E2","F2","G2","H2",
         "A1", "B1", "C1", "D1", "E1","F1","G1","H1"};
 
-    public String getKoord(int x, int y) {
+    public String getCoord(int x, int y) {
         Point punkt = new Point(x, y);
         for (int i = 0; i < 64; i++) {
-            if (punkt.equals(kords[i])) {
-                return bokstaver[i];
+            if (punkt.equals(coords[i])) {
+                return letters[i];
             }
         }
-        return "ukjent";
+        return "unknown";
     }
-    public String getKoord(Point punkt) {
+    public String getCoord(Point point) {
         for (int i = 0; i < 64; i++) {
-            if (punkt.equals(kords[i])) {
-                return bokstaver[i];
+            if (point.equals(coords[i])) {
+                return letters[i];
             }
         }
-        return "ukjent";
+        return "unknown";
     }
-    public Point getPunkt(int a){
-        return kords[a];
+    public Point getPoint(int a){
+        return coords[a];
     }
     public int getIndex(Point point){
         for(int i=0;i<64;i++){
-            if (kords[i].equals(point)){
+            if (coords[i].equals(point)){
                 return i;
             }
         }

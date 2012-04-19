@@ -33,6 +33,4 @@ public class PieceLabel extends JLabel {
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
     }
-    
-    
 }

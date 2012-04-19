@@ -425,16 +425,16 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     public void turnChange(MouseEvent e) {
         if (chessPiece.getPiece().getTeam() == 1) {
             if (castling) {
-                whiteLog.leggTilLogg("Castling");
+                whiteLog.addToLog("Castling");
             } else {
-                whiteLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
+                whiteLog.addToLog(chessPiece.getPiece().getName() + " from " + kord.getCoord(startPos) + " to " + kord.getCoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
             }
         }
         if (chessPiece.getPiece().getTeam() == 2) {
             if (castling) {
-                blackLog.leggTilLogg("Castling");
+                blackLog.addToLog("Castling");
             } else {
-                blackLog.leggTilLogg(chessPiece.getPiece().getName() + " from " + kord.getKoord(startPos) + " to " + kord.getKoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
+                blackLog.addToLog(chessPiece.getPiece().getName() + " from " + kord.getCoord(startPos) + " to " + kord.getCoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
             }
         }
         fireChessEvent();
@@ -462,8 +462,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public int kingBpos() {
         for (int i = 0; i < 64; i++) {
-            if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
-                PieceLabel c = (PieceLabel) chessBoard.findComponentAt(kord.getPunkt(i));
+            if (chessBoard.findComponentAt(kord.getPoint(i)) instanceof PieceLabel) {
+                PieceLabel c = (PieceLabel) chessBoard.findComponentAt(kord.getPoint(i));
                 if (c.getPiece() instanceof KingB) {
                     return i;
                 }
@@ -474,8 +474,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public int kingWpos() {
         for (int i = 0; i < 64; i++) {
-            if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
-                PieceLabel c = (PieceLabel) chessBoard.findComponentAt(kord.getPunkt(i));
+            if (chessBoard.findComponentAt(kord.getPoint(i)) instanceof PieceLabel) {
+                PieceLabel c = (PieceLabel) chessBoard.findComponentAt(kord.getPoint(i));
                 if (c.getPiece() instanceof KingW) {
                     return i;
                 }
@@ -545,8 +545,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         refresh();
         chessTable.reset();
         for (int i = 0; i < 64; i++) {
-            if (chessBoard.findComponentAt(kord.getPunkt(i)) instanceof PieceLabel) {
-                chessTable.updateTable((PieceLabel) chessBoard.findComponentAt(kord.getPunkt(i)), i);
+            if (chessBoard.findComponentAt(kord.getPoint(i)) instanceof PieceLabel) {
+                chessTable.updateTable((PieceLabel) chessBoard.findComponentAt(kord.getPoint(i)), i);
             }
         }
         chessTable.updateLog(getWhiteLog(), 0);
@@ -562,11 +562,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 panel.add(c);
             }
         }
-        whiteLog.clearLogg();
-        blackLog.clearLogg();
+        whiteLog.clearLog();
+        blackLog.clearLog();
         if (turn != 2) {
-            whiteLog.leggTilLogg(chessTable.getLog(0));
-            blackLog.leggTilLogg(chessTable.getLog(1));
+            whiteLog.addToLog(chessTable.getLog(0));
+            blackLog.addToLog(chessTable.getLog(1));
         }
     }
 
@@ -1359,7 +1359,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     public Component getPiece(int index) {
-        return chessBoard.findComponentAt(kord.getPunkt(index));
+        return chessBoard.findComponentAt(kord.getPoint(index));
     }
 
     public Piece[] getPieceTable() {

@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class Log {
 
-    ArrayList logg = new ArrayList();
+    ArrayList log = new ArrayList();
 
-    public void leggTilLogg(String tekst) {
-        logg.add(tekst);
+    public void addToLog(String text) {
+        log.add(text);
     }
 
-    public void clearLogg() {
-        logg.removeAll(logg);
+    public void clearLog() {
+        log.removeAll(log);
     }
 
     @Override
     public String toString() {
         String res = "";
-        for (int i = 0; i < logg.size(); i++) {
-            if (i == logg.size() - 1) {
-                res += logg.get(i);
+        for (int i = 0; i < log.size(); i++) {
+            if (i == log.size() - 1) {
+                res += log.get(i);
             } else {
-                res += logg.get(i) + "\n";
+                res += log.get(i) + "\n";
             }
         }
         return res;

@@ -56,7 +56,7 @@ public class Timer extends JLabel {
     }
     //Helping method for the run() method.
 
-    public void setTekst(String text1) {
+    public void changeText(String text1) {
         text = text1;
     }
     //Pause
