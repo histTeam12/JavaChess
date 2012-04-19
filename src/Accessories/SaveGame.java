@@ -4,6 +4,7 @@ import Logic.PieceLabel;
 import java.awt.Component;
 import java.io.Serializable;
 import Pieces.Piece;
+import java.awt.Point;
 
 public class SaveGame implements Serializable {
 
@@ -17,8 +18,16 @@ public class SaveGame implements Serializable {
     private String logB;
     private PieceLabel[] table;
     Piece[] pieces;
+    boolean passanten;
+    int enPassantB;
+    int enPassantW;
+    Point enPassantPW;
+    Point enPassantPB;
+    boolean meme;
 
-    public SaveGame(String title, int turn, int[] timerW, int[] timerB, int[] counterW, int[] counterB, String logW, String logB, PieceLabel[] table, Piece[] pieces) {
+    public SaveGame(String title, int turn, int[] timerW, int[] timerB, int[] counterW, int[] counterB, String logW, String logB, PieceLabel[] table, Piece[] pieces,
+            boolean passanten, int enPassantB, int enPassantW, Point enPassantPW, Point enPassantPB, boolean meme) {
+        
         this.title = title;
         this.turn = turn;
         this.timerW = timerW;
@@ -31,16 +40,31 @@ public class SaveGame implements Serializable {
         this.logB = logB;
         this.table = table;
         this.pieces = pieces;
+        this.passanten = passanten;
+        this.enPassantB = enPassantB;
+        this.enPassantW = enPassantW;
+        this.enPassantPW = enPassantPW;
+        this.enPassantPB = enPassantPB;
+        this.meme = meme;
+
     }
-    public String getTitle(){
+
+    public SaveGame(int turn, PieceLabel[] table, Piece[] pieces) {
+        this.turn = turn;
+        this.table = table;
+        this.pieces = pieces;
+    }
+
+    public String getTitle() {
         return title;
     }
-    
-    public int getTurn(){
+
+    public int getTurn() {
         return turn;
     }
-    public void testTable(){
-        for(int i = 0; i<table.length;i++){
+
+    public void testTable() {
+        for (int i = 0; i < table.length; i++) {
             System.out.println(table[i]);
         }
     }
@@ -68,11 +92,34 @@ public class SaveGame implements Serializable {
     public int[] getTimerB() {
         return timerB;
     }
-    public Piece[] getPieces(){
-            return pieces;
+
+    public Piece[] getPieces() {
+        return pieces;
     }
+
     public int[] getTimerW() {
         return timerW;
     }
-    
+    public boolean getPassanten(){
+        return passanten;
+    }
+
+    public int getEnPassantB() {
+        return enPassantB;
+    }
+
+    public Point getEnPassantPB() {
+        return enPassantPB;
+    }
+
+    public Point getEnPassantPW() {
+        return enPassantPW;
+    }
+
+    public int getEnPassantW() {
+        return enPassantW;
+    }
+    public boolean getMeme(){
+        return meme;
+    }
 }

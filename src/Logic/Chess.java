@@ -65,8 +65,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private QueenW queenW = new Pieces.QueenW(new ImageIcon(getClass().getResource("/Pieces/Pictures/QueenW.png")));
     private KingB kingB = new Pieces.KingB(new ImageIcon(getClass().getResource("/Pieces/Pictures/KingB.png")));
     private KingW kingW = new Pieces.KingW(new ImageIcon(getClass().getResource("/Pieces/Pictures/KingW.png")));
+    public int c = turn % 2;
+    private int playerTeam;
 
-    public Chess() {
+    public Chess(int team) {
+
+        this.playerTeam = team;
+
         Dimension boardSize = new Dimension(600, 600);
 
         setVisible(true);
@@ -181,7 +186,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
             hjelpIkon = chessPiece.getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
             startPos = chessPiece.getLocation();
-            if (c instanceof PieceLabel) {
+            if ((c instanceof PieceLabel && playerTeam == turn % 2) || c instanceof PieceLabel && playerTeam == 2) {
                 PieceLabel d = (PieceLabel) c;
                 if (d.getPiece().getTeam() == 1 && turn % 2 == 0) {
                     colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookWleft.move(), rookWright.move(), kingW.move(), pawnB.getPassant(), kord.getIndex(enPassantPB)));
@@ -219,6 +224,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     //Slipper piecen tilbake på brettet
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (playerTeam != 2) {
+            if (playerTeam != turn % 2) {
+                if (chessPiece != null) {
+                    moveBack();
+                }
+                return;
+            }
+        }
         try {
             if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
                 piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
@@ -437,9 +450,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 blackLog.addToLog(chessPiece.getPiece().getName() + " from " + kord.getCoord(startPos) + " to " + kord.getCoord((e.getX() + xAdjustment), (e.getY() + yAdjustment)));
             }
         }
-        fireChessEvent();
         turn++;
         castling = false;
+        fireChessEvent();
+
     }
 
     public void moveBack() {
@@ -1007,8 +1021,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     public boolean moveKingB(MouseEvent e, Component m) {
         if (!(chessBoard.findComponentAt((e.getX() + xAdjustment),
-                (e.getY() + yAdjustment)) instanceof PieceLabel) && !(chessBoard.findComponentAt(((int) 
-                e.getX() + xAdjustment + 75), (int) (e.getY() + yAdjustment)) instanceof PieceLabel)) {
+                (e.getY() + yAdjustment)) instanceof PieceLabel) && !(chessBoard.findComponentAt(((int) e.getX() + xAdjustment + 75), (int) (e.getY() + yAdjustment)) instanceof PieceLabel)) {
             if (kingB.move() == false && rookBleft.move() == false) {
                 move(e);
                 if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(3) == false && chessTable.checkB(2) == false) {
@@ -1367,7 +1380,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return pieces;
     }
 
-    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces) {
+    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces, boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
         for (int i = 0; i < 64; i++) {
             JPanel panel = (JPanel) chessBoard.getComponent(i);
             panel.removeAll();
@@ -1401,6 +1414,13 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessTable.updateLog(logW, 0);
         chessTable.updateLog(logB, 1);
         turn = turn2;
+        passanten = passanten2;
+        enPassantB = enPassantB2;
+        enPassantW = enPassantW2;
+        enPassantPW = enPassantPW2;
+        enPassantPB = enPassantPB2;
+        meme = meme2;
+        
 
         fromTable();
 
@@ -1418,9 +1438,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         } else {
             blankSquare(colorSquareW);
         }
-
-        System.out.println(
-                "load");
     }
 
     public int getTurn() {
@@ -1477,44 +1494,50 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             c.setOpaque(false);
         }
     }
-    
-    public boolean getPassanten(){
+
+    public boolean getPassanten() {
         return passanten;
     }
-    
-    public void setPassanten(boolean passant){
+
+    public void setPassanten(boolean passant) {
         passanten = passant;
     }
-    
-    public int getEnPassantB(){
+
+    public int getEnPassantB() {
         return enPassantB;
     }
-    
-    public void setEnPassantB(int enPassant){
+
+    public void setEnPassantB(int enPassant) {
         enPassantB = enPassant;
     }
- 
-    public int getEnPassantW(){
+
+    public int getEnPassantW() {
         return enPassantW;
     }
-    
-    public void setEnPassantW(int enPassant){
+
+    public void setEnPassantW(int enPassant) {
         enPassantW = enPassant;
     }
-    
-    public Point getEnPassantPW(){
+
+    public Point getEnPassantPW() {
         return enPassantPW;
     }
-    
-    public void setEnPassantPW(Point enPassant){
+
+    public void setEnPassantPW(Point enPassant) {
         enPassantPB = enPassant;
     }
-    
-    public Point getEnPassantPB(){
+
+    public Point getEnPassantPB() {
         return enPassantPB;
     }
-    
-    public void setEnPassantPB(Point enPassant){
+
+    public void setEnPassantPB(Point enPassant) {
         enPassantPB = enPassant;
-    }   
+    }
+    public boolean getMeme(){
+        return meme;
+    }
+    public void setMeme(boolean meme2){
+        meme = meme2;
+    }
 }
