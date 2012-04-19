@@ -1,7 +1,5 @@
 package Main;
 
-import Accessories.SaveGame;
-import Accessories.Timer;
 import Accessories.Rules;
 import Accessories.SaveGame;
 import Accessories.Timer;
@@ -49,21 +47,23 @@ public class GUI extends JFrame {
     Socket s;
     ObjectOutputStream oops;
     ObjectInputStream oips;
+    int choice;
 
     //Constructor
     public GUI(String title) {
 
+
+
         //Settings for the frame and adding components.
         String[] options = {"Join Lan", "Host Lan", "Normal"};
-        int choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
-        System.out.println(choice);
+        choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle(title);
         contentPane.setLayout(layout);
         background.setPreferredSize(new Dimension(1084, 661));
         chess = new Chess(choice);
         chessAction = new ChessAction(chess);
-        chess.addChessListener(chessL);
+        chess.addChessListener(chessAction);
         timerS = new Timer();
         timerH = new Timer();
         scrollpane = new JScrollPane(textarea);
@@ -101,13 +101,41 @@ public class GUI extends JFrame {
         menuBar.setBorder(null);
 
         //Creating buttons for the menubar with icons and key bindings.
-        JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon(getClass().getResource("/Accessories/Pictures/newgame.png")));
-        Newgame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
+        if (choice == 2) {
+            JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon(getClass().getResource("/Accessories/Pictures/newgame.png")));
+            JMenuItem Save = new JMenuItem("Save game", new ImageIcon(getClass().getResource("/Accessories/Pictures/mac.png")));
+            JMenuItem Load = new JMenuItem("Open game", new ImageIcon(getClass().getResource("/Accessories/Pictures/LoadIcon.png")));
+            Newgame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.SHIFT_MASK));
+            Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+            Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+            file.add(Newgame);
+            file.add(Save);
+            file.add(Load);
+            Newgame.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    reset();
+                }
+            });
+            Save.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    saveGame();
+                }
+            });
+            Load.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        fromSerialized();
+                    } catch (IOException io) {
+                        System.out.println("ioExcepion" + io.getMessage());
+                    }
+                    loadGame();
+                }
+            });
+        }
         JMenuItem Exit = new JMenuItem("Exit", new ImageIcon(getClass().getResource("/Accessories/Pictures/Exit.png")));
-        JMenuItem Save = new JMenuItem("Save game", new ImageIcon(getClass().getResource("/Accessories/Pictures/mac.png")));
-        JMenuItem Load = new JMenuItem("Open game", new ImageIcon(getClass().getResource("/Accessories/Pictures/LoadIcon.png")));
-        Save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        Load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
         JMenuItem Meme = new JMenuItem("Meme pieces");
         JMenuItem Regular = new JMenuItem("Regular pieces");
         JMenuItem Rules = new JMenuItem("Rules");
@@ -120,9 +148,6 @@ public class GUI extends JFrame {
         //Adding the buttons to the different
         bg.add(Meme);
         bg.add(Regular);
-        file.add(Newgame);
-        file.add(Save);
-        file.add(Load);
         file.add(Exit);
         settings.add(Meme);
         settings.add(Regular);
@@ -131,12 +156,6 @@ public class GUI extends JFrame {
 
 
         //Listeners for the buttons in the menubar.
-        Newgame.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                reset();
-            }
-        });
         Exit.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -149,23 +168,7 @@ public class GUI extends JFrame {
                 developers();
             }
         });
-        Save.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
-                saveGame();
-            }
-        });
-        Load.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    fromSerialized();
-                } catch (IOException io) {
-                    System.out.println("ioExcepion" + io.getMessage());
-                }
-                loadGame();
-            }
-        });
         Meme.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -192,7 +195,10 @@ public class GUI extends JFrame {
         //Finishing the constructor by packing and setting visible.
         pack();
         setVisible(true);
+        System.out.println("Choice: " + choice);
+        lan(choice);
     }
+    
 
     //METHODS
     //Method for adding info to the lost pieces table.
@@ -363,6 +369,7 @@ public class GUI extends JFrame {
             whitegif.setVisible(false);
         }
     }
+
     public void load(SaveGame save) {               //boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
         chess.loadGame(save.getTable(), save.getTurn(), save.getLogW(), save.getLogB(), save.getPieces(), save.getPassanten(), save.getEnPassantB(), save.getEnPassantW(), save.getEnPassantPW(), save.getEnPassantPB(), save.getMeme());
         timerH.setTime(save.getTimerW());
@@ -666,33 +673,51 @@ public class GUI extends JFrame {
         }
         inn.close();
     }
-
-    public void hostLan() {
-        try{
-        s = (new ServerSocket(7777)).accept();
-        oops = new ObjectOutputStream(s.getOutputStream());
-        PieceLabel[] table = new PieceLabel[64];
-        for (int i = 0; i < table.length; i++) {
-            if (chess.getPiece(i) instanceof PieceLabel) {
-                table[i] = (PieceLabel) chess.getPiece(i);
-            }
-        }        
-        SaveGame save = new SaveGame("lan", chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
-        oops.writeObject(save);
-        chessAction.ready = false;
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    public void joinLan() {
+    public void lan(int ch) {
         try {
-        s = new Socket(showInputDialog("Host IP: "), 7777);
-        chessAction.ready = true;
+            switch (ch) {
+                case 2:
+                    return;
+                case 1:
+                    s = (new ServerSocket(7777)).accept();
+                    oops = new ObjectOutputStream(s.getOutputStream());
+                    PieceLabel[] table = new PieceLabel[64];
+                    for (int i = 0; i < table.length; i++) {
+                        if (chess.getPiece(i) instanceof PieceLabel) {
+                            table[i] = (PieceLabel) chess.getPiece(i);
+                        }
+                    }
+                    SaveGame save = new SaveGame("lan", chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
+                    oops.writeObject(save);
+                    chessAction.ready = false;
+                    break;
+                case 0:
+                default:
+                    s = new Socket(showInputDialog("Host IP: "), 7777);
+                    chessAction.ready = true;
+            }
+            while (true) {
+                oips = new ObjectInputStream(s.getInputStream());
+                SaveGame save = (SaveGame) (oips.readObject());
+                load(save);                
+                chessAction.ready = true;
+                while (chessAction.ready) {
+                    Thread.sleep(100);
+                }
+                oops = new ObjectOutputStream(s.getOutputStream());
+                PieceLabel[] table = new PieceLabel[64];
+                for (int i = 0; i < table.length; i++) {
+                    if (chess.getPiece(i) instanceof PieceLabel) {
+                        table[i] = (PieceLabel) chess.getPiece(i);
+                    }
+                }
+                save = new SaveGame("lan", chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
+                oops.writeObject(save);
+            }
+
         } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
-    }
+    }    
 }

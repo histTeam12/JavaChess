@@ -1,7 +1,10 @@
-package Logic;
+package Main;
 
 import Logic.Chess;
+import Logic.Chess;
 import Logic.ChessEvent;
+import Logic.ChessEvent;
+import Logic.ChessListener;
 import Logic.ChessListener;
 import java.awt.*;
 import java.awt.event.*;
