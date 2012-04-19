@@ -394,20 +394,20 @@ public class ChessTable {
             a = 0;
         }
 
-        //Checks if there`s a pawn in bottom left corner
-        if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
-            //Checks if there`s a piecelabel in bottom left corner
-            if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
-                //Checks if the piecelabel in bottom left corner is an instanceof of PawnB
-                if (twoTable[a - 1][b + 1].getPiece() instanceof PawnB) {
+        //Checks if there`s a pawn in top left corner
+        if (a - 1 < 8 && b - 1 < 8 && a - 1 >= 0 && b - 1 >= 0) {
+            //Checks if there`s a piecelabel in top left corner
+            if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
+                //Checks if the piecelabel in top left corner is an instanceof of PawnB
+                if (twoTable[a - 1][b - 1].getPiece() instanceof PawnB) {
                     return true;
                 }
             }
         }
-        //Checks if there`s a pawn in bottom right corner
-        if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
-            if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
-                if (twoTable[a - 1][b - 1].getPiece() instanceof PawnB) {
+        //Checks if there`s a pawn in top right corner
+        if (a - 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
+            if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
+                if (twoTable[a - 1][b + 1].getPiece() instanceof PawnB) {
                     return true;
                 }
             }
@@ -561,7 +561,7 @@ public class ChessTable {
         }
         return false;
     }
-    
+
     //Method for checking if one of the black king checks the white king
     public boolean checkKingW(int i) {
         int a = 0;
@@ -573,9 +573,11 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        //Checking if there`s a piecelabel in top left corner of the white king
+        //Controlling the indexes of the arrays so the check won`t get an exception
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            //Checking if there`s a piecelabel in top left corner of the white king
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
+                //Checking if there`s a black king in top left corner of the white king
                 if (twoTable[a - 1][b - 1].getPiece() instanceof KingB) {
                     return true;
                 }
@@ -641,6 +643,7 @@ public class ChessTable {
 
     }
 
+    //Method for checking if one of the white knights checks the black king
     public boolean checkKnightB(int i) {
         int a = 0;
         int b = 0;
@@ -651,13 +654,17 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+        //Controlling the indexes of the arrays so the check won`t get an exception
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
+            //Checking short left bottom corner if there`s an instance of a piecelabel
             if (twoTable[a + 1][b - 2] instanceof PieceLabel) {
+                //Checking short left bottom corner if there`s an instance of a white knight
                 if (twoTable[a + 1][b - 2].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
         }
+        //Checking short right bottom corner if there`s a white knight there
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
             if (twoTable[a + 1][b + 2] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 2].getPiece() instanceof KnightW) {
@@ -665,6 +672,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking long left bottom corner if there`s a white knight there
         if ((a + 2 <= 7 && a + 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a + 2][b - 1] instanceof PieceLabel) {
                 if (twoTable[a + 2][b - 1].getPiece() instanceof KnightW) {
@@ -672,6 +680,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking long right top corner if there`s a white knight there
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 2][b + 1].getPiece() instanceof KnightW) {
@@ -679,6 +688,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking long left top corner if there`s a white knight there
         if ((a - 2 <= 7 && a - 2 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a - 2][b - 1] instanceof PieceLabel) {
                 if (twoTable[a - 2][b - 1].getPiece() instanceof KnightW) {
@@ -686,6 +696,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking long right top corner if there`s a white knight there
         if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 2][b + 1].getPiece() instanceof KnightW) {
@@ -693,6 +704,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking short left top corner if there`s a white knight there
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
             if (twoTable[a - 1][b - 2] instanceof PieceLabel) {
                 if (twoTable[a - 1][b - 2].getPiece() instanceof KnightW) {
@@ -700,6 +712,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checking short right top corner if there`s a white knight there
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
             if (twoTable[a - 1][b + 2] instanceof PieceLabel) {
                 if (twoTable[a - 1][b + 2].getPiece() instanceof KnightW) {
@@ -720,13 +733,17 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+        //Checking indexes to the array so we dont get exceptions
         if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
+            //Checking left bottom corner if there`s a piecelabel there
             if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
+                //Checking left bottom corner if there`s a white pawn there
                 if (twoTable[a + 1][b - 1].getPiece() instanceof PawnW) {
                     return true;
                 }
             }
         }
+        //Checking right bottom corner if there`s a white pawn there
         if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 1].getPiece() instanceof PawnW) {
@@ -748,15 +765,19 @@ public class ChessTable {
             a = 0;
         }
         for (int j = b; j < 8; j++) {
+            //Checks if there`s an instance of piecelabel in the line to the right of the black king
             if (twoTable[a][j] instanceof PieceLabel) {
+                //Checks if there`s an instance of a white rook or white queen in the line to the right of the black king
                 if (twoTable[a][j].getPiece() instanceof RookW || twoTable[a][j].getPiece() instanceof QueenW) {
                     return true;
                 }
+                //Checks if there`s no instance of a white rook or white king in the line to the right of the black king
                 if ((twoTable[a][j].getPiece() instanceof RookW) == false && (twoTable[a][j].getPiece() instanceof KingB) == false) {
                     break;
                 }
             }
         }
+        //Checks if there`s an instance of a white rook in the line to the left of black king
         for (int j = b; j >= 0; j--) {
             if (twoTable[a][j] instanceof PieceLabel) {
                 if (twoTable[a][j].getPiece() instanceof RookW || twoTable[a][j].getPiece() instanceof QueenW) {
@@ -767,6 +788,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks if there`s an instance of piecelabel in the line under the white king
         for (int j = a; j < 8; j++) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookW || twoTable[j][b].getPiece() instanceof QueenW) {
@@ -777,6 +799,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks if there`s an instance of piecelabel in the line over the white king
         for (int j = a; j >= 0; j--) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookW || twoTable[j][b].getPiece() instanceof QueenW) {
@@ -970,7 +993,8 @@ public class ChessTable {
 
     public int[] colorSpecialMoves(int i, Piece p, boolean castlingL, boolean castlingR, boolean castlingK, boolean passant, int j) {
         int[] list = new int[0];
-        if (p instanceof KingW || p instanceof KingB) {
+        
+        if ((p instanceof KingW || p instanceof KingB) && castlingK == false) {
             list = colorCastling(i, castlingL, castlingR, castlingK);
         }
         if (p instanceof PawnW || p instanceof PawnB) {

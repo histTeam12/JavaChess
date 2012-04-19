@@ -1477,4 +1477,44 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             c.setOpaque(false);
         }
     }
+    
+    public boolean getPassanten(){
+        return passanten;
+    }
+    
+    public void setPassanten(boolean passant){
+        passanten = passant;
+    }
+    
+    public int getEnPassantB(){
+        return enPassantB;
+    }
+    
+    public void setEnPassantB(int enPassant){
+        enPassantB = enPassant;
+    }
+ 
+    public int getEnPassantW(){
+        return enPassantW;
+    }
+    
+    public void setEnPassantW(int enPassant){
+        enPassantW = enPassant;
+    }
+    
+    public Point getEnPassantPW(){
+        return enPassantPW;
+    }
+    
+    public void setEnPassantPW(Point enPassant){
+        enPassantPB = enPassant;
+    }
+    
+    public Point getEnPassantPB(){
+        return enPassantPB;
+    }
+    
+    public void setEnPassantPB(Point enPassant){
+        enPassantPB = enPassant;
+    }   
 }
