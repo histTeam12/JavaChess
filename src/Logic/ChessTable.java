@@ -1764,12 +1764,12 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
-        if (!(twoTable[c][d - 2] instanceof PieceLabel)) {
+        if (!(twoTable[c][d - 2] instanceof PieceLabel) && !(twoTable[c][d - 1] instanceof PieceLabel)) {
             if (!castlingL && !castlingK) {
                 array.add(c * 8 + (d - 2));
             }
         }
-        if (!(twoTable[c][d + 2] instanceof PieceLabel)) {
+        if (!(twoTable[c][d + 2] instanceof PieceLabel) && !(twoTable[c][d + 1] instanceof PieceLabel)) {
             if (!castlingR && !castlingK) {
                 array.add(c * 8 + (d + 2));
             }
