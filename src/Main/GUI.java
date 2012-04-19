@@ -198,7 +198,6 @@ public class GUI extends JFrame {
         //Finishing the constructor by packing and setting visible.
         pack();
         setVisible(true);
-        System.out.println("Choice: " + choice);
         lan(choice);
     }
 
