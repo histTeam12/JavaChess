@@ -723,6 +723,7 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the white pawns checks the black king
     public boolean checkPawnB(int i) {
         int a = 0;
         int b = 0;
@@ -754,6 +755,7 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the white rooks checks the black king
     public boolean checkRookB(int i) {
         int a = 0;
         int b = 0;
@@ -813,6 +815,7 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the white bishops checks the black king
     public boolean checkBishopB(int i) {
         int a = 0;
         int b = 0;
@@ -825,22 +828,29 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
+        //Checks if one of the white bishops checks the black king in the top left corner line
         for (int j = 0; j < 8; j++) {
+            //Checks if there`s a piecelabel in the top left corner
             if (twoTable[c][d] instanceof PieceLabel) {
+                //Checks if there`s a white bishop or a queen in the top left corner
                 if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
                     return true;
                 }
+                //Checks if there`s a no white bishop or queen in the top left corner and then breaks
                 if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
                     break;
                 }
             }
+            //Subtracting the counters
             if (c > 0 && d > 0) {
                 c--;
                 d--;
             }
         }
+        //Resetting the counters
         c = a;
         d = b;
+        //Checks if one of the white bishops checks the black king in the bottom right corner line
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
@@ -857,6 +867,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks if one of the white bishops checks the black king in the bottom left corner line
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
@@ -873,6 +884,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks if one of the white bishops checks the black king in the top right corner line
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
@@ -890,6 +902,7 @@ public class ChessTable {
         return false;
     }
 
+    //Method for checking if one of the white bishops checks the black king
     public boolean checkKingB(int i) {
         int a = 0;
         int b = 0;
@@ -900,15 +913,17 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        //top left
+        //Checks the top left index so we wont get exceptions
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            //Checks the index so for piecelabels
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
+                //Checks the index for a white king
                 if (twoTable[a - 1][b - 1].getPiece() instanceof KingW) {
                     return true;
                 }
             }
         }
-        //top right
+        //Checks the top right index of the black king for a white king
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b + 1].getPiece() instanceof KingW) {
@@ -916,7 +931,7 @@ public class ChessTable {
                 }
             }
         }
-        //top
+        //Checks the index in the top of the black king for a white king
         if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
             if (twoTable[a - 1][b] instanceof PieceLabel) {
                 if (twoTable[a - 1][b].getPiece() instanceof KingW) {
@@ -924,7 +939,7 @@ public class ChessTable {
                 }
             }
         }
-        //left
+        //Checks the index to the left of the black king for a white king
         if ((a <= 7 && a >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a][b - 1] instanceof PieceLabel) {
                 if (twoTable[a][b - 1].getPiece() instanceof KingW) {
@@ -932,7 +947,7 @@ public class ChessTable {
                 }
             }
         }
-        //right
+        //Checks the index to the right of the black king for a white king
         if ((a <= 7 && a >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a][b + 1] instanceof PieceLabel) {
                 if (twoTable[a][b + 1].getPiece() instanceof KingW) {
@@ -940,7 +955,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot left
+        //Checks the index in bottom left corner of the black king for a white king
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b - 1].getPiece() instanceof KingW) {
@@ -948,7 +963,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot
+        //Checks the index in the bottom of the black king for a white king
         if ((a + 1 <= 7 && a + 1 >= 0) && (b <= 7 && b >= 0)) {
             if (twoTable[a + 1][b] instanceof PieceLabel) {
                 if (twoTable[a + 1][b].getPiece() instanceof KingW) {
@@ -956,7 +971,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot right
+        //Checks the index to the bottom right of the black king for a white king
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 1].getPiece() instanceof KingW) {
@@ -968,6 +983,7 @@ public class ChessTable {
 
     }
 
+    //Method for checking which piece is moved and returns a table of integers with indexes of which panels who should be colored green
     public int[] colorMoves(int i, Piece p) {
         int[] list = new int[0];
         if (p instanceof KnightW || p instanceof KnightB) {
@@ -991,9 +1007,10 @@ public class ChessTable {
         return list;
     }
 
+    //Method for checking which piece is moved and returns a table of integers with indexes of which panels who should be colored blue
     public int[] colorSpecialMoves(int i, Piece p, boolean castlingL, boolean castlingR, boolean castlingK, boolean passant, int j) {
         int[] list = new int[0];
-        
+
         if ((p instanceof KingW || p instanceof KingB) && castlingK == false) {
             list = colorCastling(i, castlingL, castlingR, castlingK);
         }
@@ -1003,6 +1020,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the bishops legal moves
     public int[] colorBishop(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1016,21 +1034,28 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
+        //Checks the top left corner line from the bishop for legal moves
         for (int j = 0; j < 8; j++) {
+            //Checks the indexes so we won`t get exceptions
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
+                //Checks the indexes for piecelabels
                 if (twoTable[c][d] instanceof PieceLabel) {
+                    //Checks the team of the piece and compares it to the found piece at the end of the line
                     if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
                         array.add((c) * 8 + (d));
                     }
                 }
+                //Adding the panel to the array if no piecelabel is found
                 if (!(twoTable[c][d] instanceof PieceLabel)) {
                     array.add((c) * 8 + (d));
                 }
             }
+            //Subtracting the counters
             if (c > 0 && d > 0) {
                 c--;
                 d--;
             }
+            //Making a new check which is similar to the one over, but breaks if a hostile piece is found
             if (twoTable[c][d] instanceof PieceLabel) {
                 if (twoTable[c][d].getPiece().getTeam() != p.getTeam()) {
                     array.add((c) * 8 + (d));
@@ -1038,8 +1063,10 @@ public class ChessTable {
                 break;
             }
         }
+        //Resets the counters
         c = a;
         d = b;
+        //Checks the bottom right corner line from the bishop for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1064,6 +1091,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks the top right corner line from the bishop for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1088,6 +1116,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks the bottom left corner line from the bishop for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1117,6 +1146,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the knights legal moves
     public int[] colorKnight(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1128,17 +1158,24 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+        //Checks the indexes so we won`t get exceptions
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 2 <= 7 && b - 2 >= 0)) {
+            //Checks the indexes for piecelabels
             if (twoTable[a + 1][b - 2] instanceof PieceLabel) {
+                //Checks the team of the piece and compares it to the found piece at the end of the line
                 if (twoTable[a + 1][b - 2].getPiece().getTeam() != p.getTeam()) {
                     array.add((a + 1) * 8 + (b - 2));
                 }
             }
+            //Checks the team of the piece and compares it to the found piece at the end of the line
             if (!(twoTable[a + 1][b - 2] instanceof PieceLabel)) {
                 array.add((a + 1) * 8 + (b - 2));
 
             }
         }
+        /*
+         * Checks the different legal moves of the horse if they should be colored
+         */
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 2 <= 7 && b + 2 >= 0)) {
             if (twoTable[a + 1][b + 2] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 2].getPiece().getTeam() != p.getTeam()) {
@@ -1227,6 +1264,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the kings legal moves
     public int[] colorKing(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1238,7 +1276,7 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        //top left
+        //Checks top left corner
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b - 1)) == false)) {
                 if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
@@ -1251,7 +1289,7 @@ public class ChessTable {
                 }
             }
         }
-        //top right
+        //Checks top right corner
         if ((a - 1 <= 7 && a - 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b + 1)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b + 1)) == false)) {
                 if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
@@ -1264,7 +1302,7 @@ public class ChessTable {
                 }
             }
         }
-        //top
+        //Checks the top
         if ((a - 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
             if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b)) == false)) {
                 if (twoTable[a - 1][b] instanceof PieceLabel) {
@@ -1277,7 +1315,7 @@ public class ChessTable {
                 }
             }
         }
-        //left
+        //Checks left
         if ((a <= 7 && a >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if ((p.getTeam() == 1 && checkW((a) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a) * 8 + (b - 1)) == false)) {
                 if (twoTable[a][b - 1] instanceof PieceLabel) {
@@ -1290,7 +1328,7 @@ public class ChessTable {
                 }
             }
         }
-        //right
+        //Checks right
         if ((a <= 7 && a >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if ((p.getTeam() == 1 && checkW((a) * 8 + (b + 1)) == false) || (p.getTeam() == 2 && checkB((a) * 8 + (b + 1)) == false)) {
                 if (twoTable[a][b + 1] instanceof PieceLabel) {
@@ -1303,7 +1341,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot left
+        //Checks bottom left
         if ((a + 1 <= 7 && a + 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
             if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b - 1)) == false)) {
                 if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
@@ -1316,7 +1354,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot
+        //Checks bottom
         if ((a + 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
             if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b)) == false)) {
                 if (twoTable[a + 1][b] instanceof PieceLabel) {
@@ -1329,7 +1367,7 @@ public class ChessTable {
                 }
             }
         }
-        //bot right
+        //Checks bottom right
         if ((a + 1 <= 7 && a + 1 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
             if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b + 1)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b + 1)) == false)) {
                 if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
@@ -1342,6 +1380,7 @@ public class ChessTable {
                 }
             }
         }
+        //Return the array
         int[] list = new int[array.size()];
         for (int y = 0; y < array.size(); y++) {
             list[y] = array.get(y);
@@ -1349,6 +1388,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the pawns legal moves
     public int[] colorPawn(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1360,6 +1400,7 @@ public class ChessTable {
             b = i;
             a = 0;
         }
+        //Checks top right corner
         if (a - 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b + 1].getPiece().getTeam() != p.getTeam()) {
@@ -1369,6 +1410,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks top left
         if (a - 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
@@ -1378,6 +1420,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks bottom right
         if (a + 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a + 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b + 1].getPiece().getTeam() != p.getTeam()) {
@@ -1387,6 +1430,7 @@ public class ChessTable {
                 }
             }
         }
+        //Checks bottom left
         if (a + 1 < 8 && b - 1 < 8 && a + 1 >= 0 && b - 1 >= 0) {
             if (twoTable[a + 1][b - 1] instanceof PieceLabel) {
                 if (twoTable[a + 1][b - 1].getPiece().getTeam() != p.getTeam()) {
@@ -1396,6 +1440,9 @@ public class ChessTable {
                 }
             }
         }
+        /*
+         * Checks the team of the pawns
+         */
         if (p.getTeam() == 1) {
             if (a - 1 < 8 && b < 8 && a + 1 >= 0 && b >= 0) {
                 if (!(twoTable[a - 1][b] instanceof PieceLabel)) {
@@ -1426,6 +1473,7 @@ public class ChessTable {
                 }
             }
         }
+        //Transforms the arraylist into a table of integers
         int[] list = new int[array.size()];
         for (int y = 0; y < array.size(); y++) {
             list[y] = array.get(y);
@@ -1433,6 +1481,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the rooks legal moves
     public int[] colorRook(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1446,6 +1495,7 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
+        //Checks bottom line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1469,6 +1519,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks top line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1492,6 +1543,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks right side line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1515,6 +1567,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks left side for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1538,6 +1591,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Transforms the arraylist to table of integers and returning it
         int[] list = new int[array.size()];
         for (int y = 0; y < array.size(); y++) {
             list[y] = array.get(y);
@@ -1545,6 +1599,7 @@ public class ChessTable {
         return list;
     }
 
+    //Coloring the queens legal moves
     public int[] colorQueen(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1558,6 +1613,7 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
+        //Checks bottom line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1581,6 +1637,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks top line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1604,6 +1661,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks right side line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1627,6 +1685,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks left side line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1650,6 +1709,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks top left line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1674,6 +1734,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks bottom right line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1698,6 +1759,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks top right line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1722,6 +1784,7 @@ public class ChessTable {
         }
         c = a;
         d = b;
+        //Checks bottom left line for legal moves
         for (int j = 0; j < 8; j++) {
             if ((c <= 7 && c >= 0) && (d <= 7 && d >= 0)) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1751,6 +1814,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the castling if its legal
     public int[] colorCastling(int i, boolean castlingL, boolean castlingR, boolean castlingK) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1764,11 +1828,14 @@ public class ChessTable {
         }
         int c = a;
         int d = b;
+        //Checks the left side of the king for piecelabels in the way
         if (!(twoTable[c][d - 2] instanceof PieceLabel) && !(twoTable[c][d - 1] instanceof PieceLabel)) {
+            //Checks if the king or rook has moved or not
             if (!castlingL && !castlingK) {
                 array.add(c * 8 + (d - 2));
             }
         }
+        //Checks the right side of the king for piecelabels in the way
         if (!(twoTable[c][d + 2] instanceof PieceLabel) && !(twoTable[c][d + 1] instanceof PieceLabel)) {
             if (!castlingR && !castlingK) {
                 array.add(c * 8 + (d + 2));
@@ -1781,6 +1848,7 @@ public class ChessTable {
         return list;
     }
 
+    //Method for coloring the en passant movement if legal
     public int[] colorPassant(int i, boolean passant, int j, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
         int a = 0;
@@ -1801,11 +1869,14 @@ public class ChessTable {
             c = j;
             d = 0;
         }
+        //Checks team of piece and if en passant is legal 
         if (p.getTeam() == 1 && passant) {
+            //Checks the indexes
             if ((a == (c + 1)) && ((b == d - 1) || (b == d + 1))) {
                 array.add(j);
             }
         }
+        //Checks team of piece and if en passant is legal 
         if (p.getTeam() == 2 && passant) {
             if ((a == c - 1) && (b == d - 1 || b == d + 1)) {
                 array.add(j);

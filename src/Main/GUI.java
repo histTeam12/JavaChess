@@ -51,9 +51,6 @@ public class GUI extends JFrame {
 
     //Constructor
     public GUI(String title) {
-
-
-
         //Settings for the frame and adding components.
         String[] options = {"Join Lan", "Host Lan", "Normal"};
         choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
