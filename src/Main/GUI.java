@@ -247,9 +247,6 @@ public class GUI extends JFrame {
      * A reset method for the "New Game"-option in the menu bar
      */
     public void reset() {
-        String[] options = {"Join Lan", "Host Lan", "Normal"};
-        int choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
-        System.out.println(choice);
         remove(chess);
         remove(scrollpane);
         remove(scrollpane2);
@@ -260,7 +257,7 @@ public class GUI extends JFrame {
         lostpieceTableB();
         textarea.setText("");
         textarea2.setText("");
-        chess = new Chess(choice);
+        chess = new Chess(2);
         timerS.reset();
         timerH.reset();
         scrollpane = new JScrollPane(textarea);
