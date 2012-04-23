@@ -71,6 +71,44 @@ public class SaveGame implements Serializable {
         this.meme = meme;
 
     }
+    /**
+     * 
+     * @param title
+     * @param turn
+     * @param counterW
+     * @param counterB
+     * @param logW
+     * @param logB
+     * @param table
+     * @param pieces
+     * @param passanten
+     * @param enPassantB
+     * @param enPassantW
+     * @param enPassantPW
+     * @param enPassantPB
+     * @param meme
+     */
+    public SaveGame(String title, int turn, int[] counterW, int[] counterB, String logW, String logB, PieceLabel[] table, Piece[] pieces,
+            boolean passanten, int enPassantB, int enPassantW, Point enPassantPW, Point enPassantPB, boolean meme) {
+        
+        this.title = title;
+        this.turn = turn;
+        int[] tab = {counterW[0], counterW[1], counterW[2], counterW[3], counterW[4], counterW[5]};
+        this.counterW = tab;
+        int[] tab2 = {counterB[0], counterB[1], counterB[2], counterB[3], counterB[4], counterB[5]};
+        this.counterB = tab2;
+        this.logW = logW;
+        this.logB = logB;
+        this.table = table;
+        this.pieces = pieces;
+        this.passanten = passanten;
+        this.enPassantB = enPassantB;
+        this.enPassantW = enPassantW;
+        this.enPassantPW = enPassantPW;
+        this.enPassantPB = enPassantPB;
+        this.meme = meme;
+
+    }
 
     //Constructor
     /**

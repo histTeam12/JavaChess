@@ -70,9 +70,25 @@ public class GUI extends JFrame {
         background.setPreferredSize(new Dimension(1084, 661));
         chess = new Chess(choice);
         chessAction = new ChessAction(chess);
-        chess.addChessListener(chessAction);
-        timerS = new Timer();
-        timerH = new Timer();
+        switch (choice) {
+            case 0:
+                chess.addChessListener(chessAction);
+                chess.addChessListener(chessL);
+                break;
+            case 1:
+                chess.addChessListener(chessAction);
+                chess.addChessListener(chessL);
+                break;
+            case 2:
+                chess.addChessListener(chessL);
+                timerS = new Timer();
+                timerH = new Timer();
+                add(timerS);
+                add(timerH);
+                break;
+        }
+
+
         scrollpane = new JScrollPane(textarea);
         scrollpane2 = new JScrollPane(textarea2);
         JMenuBar menuBar = new JMenuBar();
@@ -80,8 +96,7 @@ public class GUI extends JFrame {
         add(scrollpane);
         add(chess);
         add(scrollpane2);
-        add(timerS);
-        add(timerH);
+
         add(lostPieceWLabel);
         add(lostPieceBLabel);
         add(lostPieceB);
@@ -347,10 +362,12 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.WEST, scrollpane2, 920, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, chess, 840, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, chess, 30, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerS, 223, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerS, 102, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerH, 982, SpringLayout.WEST, contentPane);
+        if (choice == 2) {
+            layout.putConstraint(SpringLayout.NORTH, timerS, 223, SpringLayout.WEST, contentPane);
+            layout.putConstraint(SpringLayout.NORTH, timerH, 223, SpringLayout.WEST, contentPane);
+            layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerS, 102, SpringLayout.WEST, contentPane);
+            layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, timerH, 982, SpringLayout.WEST, contentPane);
+        }
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceW, 165, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, lostPieceW, 385, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lostPieceWLabel, 130, SpringLayout.WEST, contentPane);
@@ -415,17 +432,13 @@ public class GUI extends JFrame {
      */
     public void load(SaveGame save) {               //boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
         chess.loadGame(save.getTable(), save.getTurn(), save.getLogW(), save.getLogB(), save.getPieces(), save.getPassanten(), save.getEnPassantB(), save.getEnPassantW(), save.getEnPassantPW(), save.getEnPassantPB(), save.getMeme());
-        timerH.setTime(save.getTimerW());
-        timerS.setTime(save.getTimerB());
-        timerH.pause();
-        timerS.pause();
         counterH = save.getCounterW();
         counterS = save.getCounterB();
         lostpieceTableW();
         lostpieceTableB();
         textarea.setText(chess.getWhiteLog());
         textarea2.setText(chess.getBlackLog());
-        if (chess.getTurn() % 2 == 0) {
+        if (save.getTurn() % 2 == 0) {
             blackgif.setVisible(false);
             whitegif.setVisible(true);
         } else {
@@ -442,8 +455,10 @@ public class GUI extends JFrame {
                 if (event.piece() != -1) {
                     counterH[event.piece()]++;
                 }
+                if(choice == 2){
                 timerH.resume();
                 timerS.pause();
+                }
                 textarea.setText(chess.getWhiteLog());
                 lostpieceTableB();
                 whitegif.setVisible(false);
@@ -452,8 +467,10 @@ public class GUI extends JFrame {
                 if (event.piece() != -1) {
                     counterS[event.piece()]++;
                 }
+                if(choice == 2){
                 timerH.pause();
                 timerS.resume();
+                }
                 textarea2.setText(chess.getBlackLog());
                 lostpieceTableW();
                 blackgif.setVisible(false);
@@ -756,7 +773,7 @@ public class GUI extends JFrame {
                             table[i] = (PieceLabel) chess.getPiece(i);
                         }
                     }
-                    SaveGame save = new SaveGame("lan", chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
+                    SaveGame save = new SaveGame("lan", chess.getTurn(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
                     oops.writeObject(save);
                     chessAction.ready = false;
                     break;
@@ -765,6 +782,7 @@ public class GUI extends JFrame {
                 default:
                     s = new Socket(showInputDialog("Host IP: "), 7777);
                     chessAction.ready = true;
+                    break;
             }
             while (true) {
                 oips = new ObjectInputStream(s.getInputStream());
@@ -781,7 +799,7 @@ public class GUI extends JFrame {
                         table[i] = (PieceLabel) chess.getPiece(i);
                     }
                 }
-                save = new SaveGame("lan", chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
+                save = new SaveGame("lan", chess.getTurn(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
                 oops.writeObject(save);
             }
 

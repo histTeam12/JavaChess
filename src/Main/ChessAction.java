@@ -27,6 +27,7 @@ public class ChessAction implements ChessListener {
      */
     public ChessAction(Chess p) {
         ttp = p;
+        ready = ttp.getTurn()%2 == 0;
     }
     /**
      * 
