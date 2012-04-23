@@ -3,7 +3,7 @@ package Logic;
 import java.awt.Point;
 
 /**
- * 
+ * Calculates and organizes the points on the board
  * @author andreaskalstad
  */
 public class Coordinates {
@@ -27,10 +27,13 @@ public class Coordinates {
         "A1", "B1", "C1", "D1", "E1","F1","G1","H1"};
 
     /**
-     * 
+     * Returns a string with rank and file
      * @param x
+     * X-coordinate
      * @param y
-     * @return
+     * Y-coordinate
+     * @return 
+     * Rank and file, or null
      */
     public String getCoord(int x, int y) {
         Point punkt = new Point(x, y);
@@ -42,9 +45,11 @@ public class Coordinates {
         return null;
     }
     /**
-     * 
+     * Returns a string with rank and file
      * @param point
+     * Point object
      * @return
+     * Rank and file, or null
      */
     public String getCoord(Point point) {
         for (int i = 0; i < 64; i++) {
@@ -56,18 +61,22 @@ public class Coordinates {
     }
     
     /**
-     * 
+     * Returns the point object in given index
      * @param a
+     * An index in the table
      * @return
+     * Returns a point object
      */
     public Point getPoint(int a){
         return coords[a];
     }
     
     /**
-     * 
+     * Returns the index of the table where the given point object is found
      * @param point
+     * A point object
      * @return
+     * Returns an index
      */
     public int getIndex(Point point){
         for(int i=0;i<64;i++){

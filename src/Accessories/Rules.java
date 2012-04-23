@@ -157,9 +157,8 @@ public class Rules {
     + "time is controlled using a game clock that has two displays, one for \n   "
     + "each player's remaining time.";
     
-    //Constructor
     /**
-     * 
+     * Constructs a rules page
      */
     public Rules(){
         rules.setOpaque(false);
@@ -168,8 +167,9 @@ public class Rules {
     }
 
     /**
-     * 
+     * Returns a JTextArea object with text 
      * @return
+     * JTextArea
      */
     public JTextArea getRules(){
         return rules;
