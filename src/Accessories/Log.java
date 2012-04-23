@@ -3,7 +3,7 @@ package Accessories;
 import java.util.ArrayList;
 
 /**
- * 
+ * A log of which movements the players have done
  * @author andreaskalstad
  */
 public class Log {
@@ -12,8 +12,9 @@ public class Log {
 
     //Method for adding text to the log arraylist
     /**
-     * 
+     * Adds strings of text to the log array
      * @param text
+     * String of movements
      */
     public void addToLog(String text) {
         log.add(text);
@@ -21,16 +22,16 @@ public class Log {
 
     //Method for clearing the log arraylist
     /**
-     * 
+     * Clears out the log array
      */
     public void clearLog() {
         log.removeAll(log);
     }
 
-    //toString method so we get the text in the right format
     /**
-     * 
+     * Overrides the toString method so we get the text in the right format
      * @return
+     * Returns a string in right format
      */
     @Override
     public String toString() {

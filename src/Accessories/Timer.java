@@ -6,47 +6,22 @@ import java.util.TimerTask;
 import javax.swing.JLabel;
 
 /**
- * 
+ * Creates a timer which is able to run, pause, resume, reset
  * @author andreaskalstad
  */
 public class Timer extends JLabel {
     //Creating an object variable for every digit in the timer.
+    private int s;
+    private int m;
+    private int h;
+    private int s2;
+    private int m2;
+    private int h2;
+    private String text = "";
+    private boolean pause = true;
 
     /**
-     * 
-     */
-    public int s;
-    /**
-     * 
-     */
-    public int m;
-    /**
-     * 
-     */
-    public int h;
-    /**
-     * 
-     */
-    public int s2;
-    /**
-     * 
-     */
-    public int m2;
-    /**
-     * 
-     */
-    public int h2;
-    /**
-     * 
-     */
-    public String text = "";
-    /**
-     * 
-     */
-    public boolean pause = true;
-
-    /**
-     * 
+     * Constructs a timer which immediately starts
      */
     public Timer() {
         start();
@@ -55,8 +30,9 @@ public class Timer extends JLabel {
     }
 
     /**
-     * 
+     * Returns an integer array of 6 with the different digits
      * @return
+     * Integer array with digits
      */
     public int[] getTime() {
         int[] time = new int[6];
@@ -70,8 +46,9 @@ public class Timer extends JLabel {
         return time;
     }
     /**
-     * 
+     * Sets the timers digits
      * @param time
+     * Integer array with digits
      */
     public void setTime(int[] time){
         s = time[0];
@@ -82,9 +59,8 @@ public class Timer extends JLabel {
         h2 = time[5];
     }
     
-    //Method for resetting the timer.
     /**
-     * 
+     * Resets the timer
      */
     public void reset() {
         s = 0;
@@ -96,34 +72,31 @@ public class Timer extends JLabel {
         pause();
     }
     
-    //Helping method for the run() method.
     /**
-     * 
+     * Changes the text
      * @param text1
+     * a text string
      */
     public void changeText(String text1) {
         text = text1;
     }
-    
-    //Pause
+
     /**
-     * 
+     * Pauses the timer
      */
     public void pause() {
         pause = true;
     }
     
-    //Resume
     /**
-     * 
+     * Resumes the timer
      */
     public void resume() {
         pause = false;
     }
     
-    //Start with the run() method inside it.
     /**
-     * 
+     * Starts the timer
      */
     public void start() {
         reset();
