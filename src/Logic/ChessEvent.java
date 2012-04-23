@@ -25,10 +25,6 @@ public class ChessEvent extends EventObject {
     private int team;
     private Piece piece;
 
-    /*
-     * Constructors
-     */
-    
     /**
      * 
      * @param source
@@ -66,9 +62,8 @@ public class ChessEvent extends EventObject {
         passant = a;
     }
 
-    //Method for checking which piece who gets taken and returning integers as indication of which piece it is
     /**
-     * 
+     * Method for checking which piece who gets taken and returning integers as indication of which piece it is
      * @return
      */
     public int piece() {

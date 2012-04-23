@@ -21,21 +21,19 @@ import java.util.Iterator;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
 /**
- * 
+ * Provides the classes necessary to create the chessboard and moving the chess pieces around on it.<p>
+ * - It includes the special moves <br />
+ * - Updating of the log of which pieces that are taken <br />
+ * - Update of the who`s turn it is <br />
+ * - Mouse listeners methods <br />
+ * - Different methods for locating pieces <br />
+ * - Methods for coloring the chessboard and clearing the chessboard <br />
+ * - Method for changing the labels of the pieces <br />
+ * - Method for sending information to the chess table and getting information from the chess table <br />
+ * - Method for refreshing the chessboard <br />
  * @author andreaskalstad
- * Provides the classes necessary to create the chessboard and moving the chess pieces around on it. 
- * - It includes the special moves
- * - Updating of the log of which pieces that are taken
- * - Update of the who`s turn it is
- * - Mouse listeners methods
- * - Different methods for locating pieces
- * - Methods for coloring the chessboard and clearing the chessboard
- * - Method for changing the labels of the pieces
- * - Method for sending information to the chess table and getting information from the chess table
- * - Method for refreshing the chessboard
  */
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
-
     private int colorSquareW;
     private int colorSquareB;
     private boolean castling = false;
@@ -59,7 +57,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private PieceLabel chessPiece;
     private PieceLabel piece;
     private boolean meme = false;
-    private Icon hjelpIkon; //Hjelpevariabel for midlertidig ikon funksjon
+    private Icon hjelpIkon;
     private Icon lolW = new ImageIcon(getClass().getResource("/Pieces/Pictures/nyancat2.gif"));
     private Icon lolB = new ImageIcon(getClass().getResource("/Pieces/Pictures/nyancat3.gif"));
     private PawnB pawnB = new Pieces.PawnB(new ImageIcon(getClass().getResource("/Pieces/Pictures/PawnB.png")));
