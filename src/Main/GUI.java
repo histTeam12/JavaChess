@@ -157,14 +157,15 @@ public class GUI extends JFrame {
                 }
             });
         }
+        
         JMenuItem Exit = new JMenuItem("Exit", new ImageIcon(getClass().getResource("/Accessories/Pictures/Exit.png")));
-        JMenuItem Meme = new JMenuItem("Meme pieces");
-        JMenuItem Regular = new JMenuItem("Regular pieces");
-        JMenuItem Rules = new JMenuItem("Rules");
+        JMenuItem Meme = new JMenuItem("Meme pieces", new ImageIcon(getClass().getResource("/Accessories/Pictures/Meme.png")));
+        JMenuItem Regular = new JMenuItem("Regular pieces", new ImageIcon(getClass().getResource("/Accessories/Pictures/Normal.png")));
+        JMenuItem Rules = new JMenuItem("Rules", new ImageIcon(getClass().getResource("/Accessories/Pictures/Rules.png")));
+        JMenuItem Developers = new JMenuItem("Developers", new ImageIcon(getClass().getResource("/Accessories/Pictures/Dev.png")));
         Meme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
         Regular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.SHIFT_MASK));
         Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
-        JMenuItem Developers = new JMenuItem("Developers");
         ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
 
         //Adding the buttons to the different
