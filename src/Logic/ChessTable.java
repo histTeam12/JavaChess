@@ -56,19 +56,19 @@ public class ChessTable {
         this.twoTable = new PieceLabel[8][8];
     }
 
-    //Method for updating the one dimensional tabel
     /**
-     * 
+     * Method for updating the one dimensional tabel
      * @param piece
+     * The type of Piece
      * @param indeks
+     * Index in the table
      */
     public void updateTable(PieceLabel piece, int indeks) {
         table[indeks] = piece;
     }
 
-    //Method for creating a new dimensional tabel and setting it as object variabel
     /**
-     * 
+     * Method for creating a new dimensional tabel and setting it as object variabel
      * @param table2
      */
     public void newTable(PieceLabel[] table2) {
@@ -76,28 +76,28 @@ public class ChessTable {
         updateTwoTable();
     }
 
-    //Method for getting the table
     /**
-     * 
+     * Method for getting the table
      * @return
+     * Returns the table of pieces.
      */
     public PieceLabel[] getTable() {
         return table;
     }
 
-    //Method for getting a piece from a index in the table
     /**
-     * 
+     * Method for getting a piece from a index in the table
      * @param index
+     * Index to get the piece from
      * @return
+     * Returns the piece on the given index
      */
     public PieceLabel getPiece(int index) {
         return table[index];
     }
 
-    //Method for testing the two dimensional table
     /**
-     * 
+     * Method for testing the two dimensional table
      */
     public void testTwoTable() {
         for (int i = 0; i < 8; i++) {
@@ -109,9 +109,8 @@ public class ChessTable {
         }
     }
 
-    //Method for updating the two dimensional tabel
     /**
-     * 
+     * Method for updating the two dimensional tabel
      */
     public void updateTwoTable() {
         int a = 0;
@@ -123,32 +122,35 @@ public class ChessTable {
             }
         }
     }
-    //Method for updating the log
-
+   
     /**
-     * 
+     * Method for updating the log
      * @param log2
+     * The new log value
      * @param indeks
+     * Indicates wich teams log this is. 0 is white, 1 is black.
      */
     public void updateLog(String log2, int indeks) {
         log[indeks] = log2;
     }
 
-    //Method for getting the log
     /**
-     * 
+     * Method for getting the log
      * @param index
+     * value indicating the team, 0 is white, 1 is black.
      * @return
+     * Returns the log for the given team.
      */
     public String getLog(int index) {
         return log[index];
     }
 
-    //Method for getting a component at given index
     /**
-     * 
+     * Method for getting a component at given index
      * @param index
+     * Index indicating where in the table to check
      * @return
+     * Returns the component in the given index
      */
     public Component getComponent(int index) {
         if (table[index] instanceof PieceLabel) {
@@ -160,9 +162,8 @@ public class ChessTable {
         }
     }
 
-    //Method for resetting the one dimensional table and log
     /**
-     * 
+     * Method for resetting the one dimensional table and log
      */
     public void reset() {
         for (int i = 0; i < table.length; i++) {
@@ -172,10 +173,10 @@ public class ChessTable {
         log[1] = "";
     }
 
-    //Method for changing the interface layout of the board
     /**
-     * 
+     * Method for changing the interface layout of the board
      * @param a
+     * 1 is meme, 2 is normal.
      */
     public void changeUI(int a) {
         switch (a) {
@@ -290,10 +291,10 @@ public class ChessTable {
         }
     }
 
-    //Method for getting the white kings position
     /**
-     * 
+     * Method for getting the white kings position
      * @return
+     * returns the index of the white kings position
      */
     public int kingWpos() {
         for (int i = 0; i < table.length; i++) {
@@ -304,10 +305,10 @@ public class ChessTable {
         return -1;
     }
 
-    //Method for getting the black kings position
     /**
-     * 
+     * Method for getting the black kings position
      * @return
+     * returns the index of the white kings position
      */
     public int kingBpos() {
         for (int i = 0; i < table.length; i++) {
@@ -318,11 +319,12 @@ public class ChessTable {
         return -1;
     }
 
-    //Method for checking if the white king is in check. Takes in index of the white king.
     /**
-     * 
+     * Method for checking if the white king is in check. Takes in index of the white king.
      * @param i
+     * index position of the white king
      * @return
+     * returns true if the given index is in check from black.
      */
     public boolean checkW(int i) {
         if (checkBishopW(i)) {
@@ -343,11 +345,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if the black king is in check. Takes in index of the black king.
     /**
-     * 
+     * Method for checking if the white king is in check. Takes in index of the white king.
      * @param i
+     * index position of the white king
      * @return
+     * returns true if the given index is in check from black.
      */
     public boolean checkB(int i) {
         if (checkBishopB(i)) {
@@ -368,11 +371,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the black knights checks the white king
     /**
-     * 
+     * Method for checking if one of the black knights checks the white king
      * @param i
+     * the index indicating the white kings position
      * @return
+     * Returns true if a black knight has the white king in check
      */
     public boolean checkKnightW(int i) {
         //Takes the index i and transforms it into two dimensional indexes
@@ -461,11 +465,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the black pawns checks the white king
     /**
-     * 
+     * Method for checking if one of the black pawns checks the white king
      * @param i
+     * the index indicating the white kings position
      * @return
+     * Returns true if a black pawn has the white king in check
      */
     public boolean checkPawnW(int i) {
         //Takes the index i and transforms it into two dimensional indexes
@@ -500,11 +505,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the black rooks checks the white king
     /**
-     * 
+     * Method for checking if one of the black rooks checks the white king
      * @param i
+     * the index indicating the white kings position
      * @return
+     * Returns true if a black rook has the white king in check
      */
     public boolean checkRookW(int i) {
         //Takes the index i and transforms it into two dimensional indexes
@@ -566,11 +572,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the black bishops checks the white king
     /**
-     * 
+     * Method for checking if one of the black bishops checks the white king
      * @param i
+     * the index indicating the white kings position
      * @return
+     * Returns true if a black bishops has the white king in check
      */
     public boolean checkBishopW(int i) {
         int a = 0;
@@ -657,11 +664,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the black king checks the white king
     /**
-     * 
+     * Method for checking if the black king checks the white king
      * @param i
+     * the index indicating the white kings position
      * @return
+     * Returns true if a black king has the white king in check
      */
     public boolean checkKingW(int i) {
         int a = 0;
@@ -743,11 +751,12 @@ public class ChessTable {
 
     }
 
-    //Method for checking if one of the white knights checks the black king
     /**
-     * 
+     * Method for checking if one of the white knights checks the black king
      * @param i
+     * the index indicating the black kings position
      * @return
+     * Returns true if a white knight has the black king in check
      */
     public boolean checkKnightB(int i) {
         int a = 0;
@@ -828,11 +837,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the white pawns checks the black king
     /**
-     * 
+     * Method for checking if one of the white pawns checks the black king
      * @param i
+     * the index indicating the black kings position
      * @return
+     * Returns true if a white pawns has the black king in check
      */
     public boolean checkPawnB(int i) {
         int a = 0;
@@ -865,11 +875,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the white rooks checks the black king
     /**
-     * 
+     * Method for checking if one of the white rooks checks the black king
      * @param i
+     * the index indicating the black kings position
      * @return
+     * Returns true if a white rooks has the black king in check
      */
     public boolean checkRookB(int i) {
         int a = 0;
@@ -930,11 +941,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the white bishops checks the black king
     /**
-     * 
+     * Method for checking if one of the white bishops checks the black king
      * @param i
+     * the index indicating the black kings position
      * @return
+     * Returns true if a white bishops has the black king in check
      */
     public boolean checkBishopB(int i) {
         int a = 0;
@@ -1022,11 +1034,12 @@ public class ChessTable {
         return false;
     }
 
-    //Method for checking if one of the white bishops checks the black king
     /**
-     * 
+     * Method for checking if one of the white bishops checks the black king
      * @param i
+     * the index indicating the black kings position
      * @return
+     * Returns true if a white bishops has the black king in check
      */
     public boolean checkKingB(int i) {
         int a = 0;
@@ -1108,12 +1121,14 @@ public class ChessTable {
 
     }
 
-    //Method for checking which piece is moved and returns a table of integers with indexes of which panels who should be colored green
     /**
-     * 
+     * Method for checking which piece is moved and returns a table of integers with indexes of which panels who should be colored green
      * @param i
+     * index indicating the starting point
      * @param p
+     * The type of piece to be checked
      * @return
+     * Returns a table of indexes of wich to color.
      */
     public int[] colorMoves(int i, Piece p) {
         int[] list = new int[0];
@@ -1138,17 +1153,24 @@ public class ChessTable {
         return list;
     }
 
-    //Method for checking which piece is moved and returns a table of integers with indexes of which panels who should be colored blue
     /**
-     * 
+     * Method for checking which piece is moved and returns a table of integers with indexes of which panels who should be colored blue
      * @param i
+     * index indicating the starting position
      * @param p
+     * the piece to be checked
      * @param castlingL
+     * whether casting can be performed with the left rook
      * @param castlingR
+     * whether casting can be performed with the left rook
      * @param castlingK
+     * whether casting can be performed with the left rook
      * @param passant
+     * whether the en-passant move is allowed.
      * @param j
+     * Index indicating where the en-passant move is allowed
      * @return
+     * Returns a table of indexes of wich squares to color blue.
      */
     public int[] colorSpecialMoves(int i, Piece p, boolean castlingL, boolean castlingR, boolean castlingK, boolean passant, int j) {
         int[] list = new int[0];
@@ -1162,12 +1184,14 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the bishops legal moves
     /**
-     * 
+     * Method for coloring the bishops legal moves
      * @param i
+     * Starting position
      * @param p
+     * Piece to be moved
      * @return
+     * Table of indexes to be colored
      */
     public int[] colorBishop(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -1294,12 +1318,14 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the knights legal moves
     /**
-     * 
+     * Method for coloring the knights legal moves
      * @param i
+     * Starting position
      * @param p
+     * Piece to be moved
      * @return
+     * Table of indexes to be colored
      */
     public int[] colorKnight(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -1418,12 +1444,14 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the kings legal moves
     /**
-     * 
+     * Method for coloring the kings legal moves
      * @param i
+     * Starting position
      * @param p
+     * Piece to be moved
      * @return
+     * Table of indexes to be colored
      */
     public int[] colorKing(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -1548,12 +1576,14 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the pawns legal moves
     /**
-     * 
+     * Method for coloring the pawns legal moves
      * @param i
+     * Starting position
      * @param p
+     * Piece to be moved
      * @return
+     * Table of indexes to be colored
      */
     public int[] colorPawn(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -1647,12 +1677,14 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the rooks legal moves
     /**
-     * 
+     * Method for coloring the rooks legal moves
      * @param i
+     * Starting position
      * @param p
+     * Piece to be moved
      * @return
+     * Table of indexes to be colored
      */
     public int[] colorRook(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -1773,10 +1805,13 @@ public class ChessTable {
 
     //Coloring the queens legal moves
     /**
-     * 
+     * Method for coloring the queens legal moves
      * @param i
+     * Starting position
      * @param p
+     * Piece to be moved
      * @return
+     * Table of indexes to be colored
      */
     public int[] colorQueen(int i, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -1992,14 +2027,18 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the castling if its legal
     /**
-     * 
+     * Method for coloring the castling if its legal
      * @param i
+     * index indicating the starting position
      * @param castlingL
+     * whether the left rook is allowed to use castling
      * @param castlingR
+     * whether the right rook is allowed to use castling
      * @param castlingK
+     * whether the king is allowed to use castling
      * @return
+     * returns a table of indexes indicating where the castling is allowed
      */
     public int[] colorCastling(int i, boolean castlingL, boolean castlingR, boolean castlingK) {
         ArrayList<Integer> array = new ArrayList<Integer>();
@@ -2034,14 +2073,18 @@ public class ChessTable {
         return list;
     }
 
-    //Method for coloring the en passant movement if legal
     /**
-     * 
+     * Method for coloring the en passant movement if legal
      * @param i
+     * Index for the starting position
      * @param passant
+     * Whether the en-passant move is allowed
      * @param j
+     * The point where the en-passant move is allowed.
      * @param p
+     * the piece being moved.
      * @return
+     * Returns a table of indexes indicating where the en-passant move is allowed
      */
     public int[] colorPassant(int i, boolean passant, int j, Piece p) {
         ArrayList<Integer> array = new ArrayList<Integer>();
