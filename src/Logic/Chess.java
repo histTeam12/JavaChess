@@ -20,7 +20,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
-
+/**
+ * 
+ * @author andreaskalstad
+ * Provides the classes necessary to create the chessboard and moving the chess pieces around on it. 
+ * - It includes the special moves
+ * - Updating of the log of which pieces that are taken
+ * - Update of the who`s turn it is
+ * - Mouse listeners methods
+ * - Different methods for locating pieces
+ * - Methods for coloring the chessboard and clearing the chessboard
+ * - Method for changing the labels of the pieces
+ * - Method for sending information to the chess table and getting information from the chess table
+ * - Method for refreshing the chessboard
+ */
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
 
     private int colorSquareW;
@@ -65,9 +78,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private QueenW queenW = new Pieces.QueenW(new ImageIcon(getClass().getResource("/Pieces/Pictures/QueenW.png")));
     private KingB kingB = new Pieces.KingB(new ImageIcon(getClass().getResource("/Pieces/Pictures/KingB.png")));
     private KingW kingW = new Pieces.KingW(new ImageIcon(getClass().getResource("/Pieces/Pictures/KingW.png")));
-    public int c = turn % 2;
     private int playerTeam;
 
+    /**
+     * 
+     * @param team
+     */
     public Chess(int team) {
 
         this.playerTeam = team;
@@ -166,6 +182,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         toTable();
     }
 
+    /**
+     * 
+     * @param e
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         toTable();
@@ -204,6 +224,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     //moveer piecen rundt
+    /**
+     * 
+     * @param me
+     */
     @Override
     public void mouseDragged(MouseEvent me) {
         if (chessPiece == null) {
@@ -222,6 +246,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     //Slipper piecen tilbake på brettet
+    /**
+     * 
+     * @param e
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         if (playerTeam != 2) {
@@ -294,6 +322,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean movepiece(MouseEvent e, Component m) {
         boolean moved = false;
         try {
@@ -418,6 +452,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void move(MouseEvent e) {
         //Hvis det står en piece i ruten allerede blir denne erstattet av den som droppes, om det er en blank rute blir den bare addet til kontaineren i den ruten
         chessPiece.setVisible(false);
@@ -435,6 +473,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         toTable();
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void turnChange(MouseEvent e) {
         if (chessPiece.getPiece().getTeam() == 1) {
             if (castling) {
@@ -456,6 +498,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     }
 
+    /**
+     * 
+     */
     public void moveBack() {
         //flytter piecen tilbake dit den ble plukket opp
         chessPiece.setVisible(false);
@@ -474,6 +519,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         toTable();
     }
 
+    /**
+     * 
+     * @return
+     */
     public int kingBpos() {
         for (int i = 0; i < 64; i++) {
             if (chessBoard.findComponentAt(kord.getPoint(i)) instanceof PieceLabel) {
@@ -486,6 +535,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return -1;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int kingWpos() {
         for (int i = 0; i < 64; i++) {
             if (chessBoard.findComponentAt(kord.getPoint(i)) instanceof PieceLabel) {
@@ -498,6 +551,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return -1;
     }
 
+    /**
+     * 
+     * @param a
+     * @return
+     */
     public Piece pieceType(Point a) {
         Component c = chessBoard.findComponentAt(a);
         if (c instanceof PieceLabel) {
@@ -507,6 +565,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return null;
     }
 
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return
+     */
     public Piece pieceType(int x, int y) {
         Point a = new Point(x, y);
         Component c = chessBoard.findComponentAt(a);
@@ -517,6 +581,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return null;
     }
 
+    /**
+     * 
+     */
     public void refresh() {
         layeredPane.remove(chessBoard);
         layeredPane.add(chessBoard);
@@ -524,14 +591,27 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         layeredPane.repaint();
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getBlackLog() {
         return blackLog.toString();
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getWhiteLog() {
         return whiteLog.toString();
     }
 
+    /**
+     * 
+     * @param e
+     * @param p
+     */
     public void replacePiece(MouseEvent e, PieceLabel p) {
         chessPiece.setVisible(false);
         Container c = (JPanel) chessBoard.findComponentAt(e.getX(), e.getY());
@@ -539,22 +619,41 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessPiece.setVisible(true);
     }
 
+    /**
+     * 
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * 
+     * @param e
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
     }
 
+    /**
+     * 
+     * @param e
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+     * 
+     * @param e
+     */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * 
+     */
     public void toTable() {
         refresh();
         chessTable.reset();
@@ -568,6 +667,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessTable.updateTwoTable();
     }
 
+    /**
+     * 
+     */
     public void fromTable() {
         for (int i = 0; i < 64; i++) {
             Component c = chessTable.getComponent(i);
@@ -584,10 +686,18 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param l
+     */
     public synchronized void addChessListener(ChessListener l) {
         _listeners.add(l);
     }
 
+    /**
+     * 
+     * @param l
+     */
     public synchronized void removeChessListener(ChessListener l) {
         _listeners.remove(l);
     }
@@ -610,6 +720,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param i
+     */
     public void changeUI(int i) {
         if (i == 1) {
             meme = true;
@@ -624,6 +738,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         refresh();
     }
 
+    /**
+     * 
+     * @param lag
+     */
     public void optionDialog(int lag) {
         JButton button1 = new JButton(knightB.getIcon());
         JButton button2 = new JButton(knightW.getIcon());
@@ -695,6 +813,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean movePawnB(MouseEvent e, Component m) {
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
             enPassantPB = (new Point((int) startPos.getX(), (int) startPos.getY() + 75));
@@ -723,6 +847,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean movePawnW(MouseEvent e, Component m) {
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
             enPassantPW = (new Point((int) startPos.getX(), (int) startPos.getY() - 75));
@@ -751,6 +881,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveQueenW(MouseEvent e, Component m) {
         int ruter;
         if (queenW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
@@ -849,6 +985,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return false;
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveQueenB(MouseEvent e, Component m) {
         int ruter;
         if (queenB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
@@ -947,6 +1089,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return false;
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveKnightB(MouseEvent e, Component m) {
         if (knightB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
@@ -957,6 +1105,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveKnightW(MouseEvent e, Component m) {
         if (knightW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
             move(e);
@@ -968,6 +1122,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveKingW(MouseEvent e, Component m) {
         if (((int)startPos.getX() + e.getX() + xAdjustment == 750)
                && !(chessBoard.findComponentAt((e.getX() 
@@ -1025,6 +1185,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveKingB(MouseEvent e, Component m) {
                 if ((int)startPos.getX() + e.getX() + xAdjustment == 450
                 && !(chessBoard.findComponentAt(((int) e.getX()
@@ -1077,6 +1243,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveBishopW(MouseEvent e, Component m) {
         //Ned venstre
         int ruter;
@@ -1128,6 +1300,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveBishopB(MouseEvent e, Component m) {
         //Ned venstre
         int ruter;
@@ -1179,6 +1357,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveRookW(MouseEvent e, Component m) {
         int ruter;
         if (rookW.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
@@ -1228,6 +1412,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @param m
+     * @return
+     */
     public boolean moveRookB(MouseEvent e, Component m) {
         int ruter;
         if (rookB.legalMove((int) e.getY() + yAdjustment, (int) e.getX() + xAdjustment, startPos, m, team)) {
@@ -1277,6 +1467,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     */
     public void replacePawn() {
         chessPiece.setVisible(false);
         if (chessPiece.getPiece().getTeam() == 1) {
@@ -1290,6 +1483,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         chessPiece.setVisible(true);
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean enPassant() {
         if (chessPiece.getPiece().getTeam() == 1 && pawnB.getPassant() == true) {
             if (chessPiece.getPiece() == pawnW) {
@@ -1380,15 +1577,38 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         return false;
     }
 
+    /**
+     * 
+     * @param index
+     * @return
+     */
     public Component getPiece(int index) {
         return chessBoard.findComponentAt(kord.getPoint(index));
     }
 
+    /**
+     * 
+     * @return
+     */
     public Piece[] getPieceTable() {
         Piece[] pieces = {pawnB, pawnW, rookB, rookW, rookBright, rookBleft, rookWright, rookBright, knightB, knightW, bishopB, bishopW, queenB, queenW, kingB, kingW};
         return pieces;
     }
 
+    /**
+     * 
+     * @param table
+     * @param turn2
+     * @param logW
+     * @param logB
+     * @param pieces
+     * @param passanten2
+     * @param enPassantB2
+     * @param enPassantW2
+     * @param enPassantPW2
+     * @param enPassantPB2
+     * @param meme2
+     */
     public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces, boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
         for (int i = 0; i < 64; i++) {
             JPanel panel = (JPanel) chessBoard.getComponent(i);
@@ -1449,10 +1669,18 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getTurn() {
         return turn;
     }
 
+    /**
+     * 
+     * @param i
+     */
     public void colorSquare(int i) {
         Component c = chessBoard.getComponent(i);
         if (c instanceof PieceLabel) {
@@ -1466,6 +1694,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param i
+     */
     public void blankSquare(int i) {
         Component c = chessBoard.getComponent(i);
         if (c instanceof PieceLabel) {
@@ -1477,6 +1709,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param tab
+     */
     public void colorSquares(int[] tab) {
         for (int i = 0; i < tab.length; i++) {
             Component c = chessBoard.getComponent(tab[i]);
@@ -1489,6 +1725,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @param tab
+     */
     public void colorSpecialSquares(int[] tab) {
         for (int i = 0; i < tab.length; i++) {
             JPanel d = (JPanel) chessBoard.getComponent(tab[i]);
@@ -1497,6 +1737,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     */
     public void cleanBoardColor() {
         for (int i = 0; i < 64; i++) {
             JPanel c = (JPanel) chessBoard.getComponent(i);
@@ -1504,48 +1747,96 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean getPassanten() {
         return passanten;
     }
 
+    /**
+     * 
+     * @param passant
+     */
     public void setPassanten(boolean passant) {
         passanten = passant;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getEnPassantB() {
         return enPassantB;
     }
 
+    /**
+     * 
+     * @param enPassant
+     */
     public void setEnPassantB(int enPassant) {
         enPassantB = enPassant;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getEnPassantW() {
         return enPassantW;
     }
 
+    /**
+     * 
+     * @param enPassant
+     */
     public void setEnPassantW(int enPassant) {
         enPassantW = enPassant;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Point getEnPassantPW() {
         return enPassantPW;
     }
 
+    /**
+     * 
+     * @param enPassant
+     */
     public void setEnPassantPW(Point enPassant) {
         enPassantPB = enPassant;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Point getEnPassantPB() {
         return enPassantPB;
     }
 
+    /**
+     * 
+     * @param enPassant
+     */
     public void setEnPassantPB(Point enPassant) {
         enPassantPB = enPassant;
     }
+    /**
+     * 
+     * @return
+     */
     public boolean getMeme(){
         return meme;
     }
+    /**
+     * 
+     * @param meme2
+     */
     public void setMeme(boolean meme2){
         meme = meme2;
     }

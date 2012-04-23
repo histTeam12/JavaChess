@@ -5,25 +5,59 @@ import java.awt.Font;
 import java.util.TimerTask;
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class Timer extends JLabel {
     //Creating an object variable for every digit in the timer.
 
+    /**
+     * 
+     */
     public int s;
+    /**
+     * 
+     */
     public int m;
+    /**
+     * 
+     */
     public int h;
+    /**
+     * 
+     */
     public int s2;
+    /**
+     * 
+     */
     public int m2;
+    /**
+     * 
+     */
     public int h2;
+    /**
+     * 
+     */
     public String text = "";
+    /**
+     * 
+     */
     public boolean pause = true;
 
+    /**
+     * 
+     */
     public Timer() {
         start();
-        //Changing the font and color.
         setFont(new Font("SansSerif", 4, 20));
         setForeground(Color.white);
     }
 
+    /**
+     * 
+     * @return
+     */
     public int[] getTime() {
         int[] time = new int[6];
         time[0] = s;
@@ -35,6 +69,10 @@ public class Timer extends JLabel {
 
         return time;
     }
+    /**
+     * 
+     * @param time
+     */
     public void setTime(int[] time){
         s = time[0];
         m = time[1];
@@ -43,8 +81,11 @@ public class Timer extends JLabel {
         m2 = time[4];
         h2 = time[5];
     }
+    
     //Method for resetting the timer.
-
+    /**
+     * 
+     */
     public void reset() {
         s = 0;
         m = 0;
@@ -54,29 +95,41 @@ public class Timer extends JLabel {
         h2 = 0;
         pause();
     }
+    
     //Helping method for the run() method.
-
+    /**
+     * 
+     * @param text1
+     */
     public void changeText(String text1) {
         text = text1;
     }
+    
     //Pause
-
+    /**
+     * 
+     */
     public void pause() {
         pause = true;
     }
+    
     //Resume
-
+    /**
+     * 
+     */
     public void resume() {
         pause = false;
     }
+    
     //Start with the run() method inside it.
-
+    /**
+     * 
+     */
     public void start() {
         reset();
         java.util.Timer timer = new java.util.Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             //Method for manually adding to the variables.
-
             public void run() {
                 if (!pause) {
                     if (s <= 10) {

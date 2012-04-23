@@ -2,6 +2,10 @@ package Accessories;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class Rules {
     private JTextArea rules = new JTextArea();
     private String text = "   Setup\n   "
@@ -152,12 +156,21 @@ public class Rules {
     + "player, and bullet chess (under three minutes). In tournament play, \n   "
     + "time is controlled using a game clock that has two displays, one for \n   "
     + "each player's remaining time.";
+    
+    //Constructor
+    /**
+     * 
+     */
     public Rules(){
         rules.setOpaque(false);
         rules.setForeground(Color.white);
         rules.append(text);
     }
 
+    /**
+     * 
+     * @return
+     */
     public JTextArea getRules(){
         return rules;
    

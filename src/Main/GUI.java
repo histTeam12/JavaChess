@@ -21,9 +21,12 @@ import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import static javax.swing.JOptionPane.*;
 
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class GUI extends JFrame {
 
-    //OBJECT VARIABLES
     private JLabel background = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Background.png")));
     private Chess chess;
     private SaveGame[] savegames = new SaveGame[6];
@@ -50,8 +53,12 @@ public class GUI extends JFrame {
     int choice;
 
     //Constructor
+    /**
+     * 
+     * @param title
+     */
     public GUI(String title) {
-        //Settings for the frame and adding components.
+        //Settings for the frame and adding components to it.
         String[] options = {"Join Lan", "Host Lan", "Normal"};
         choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
         if (choice == -1) {
@@ -200,6 +207,9 @@ public class GUI extends JFrame {
 
     //METHODS
     //Method for adding info to the lost pieces table.
+    /**
+     * 
+     */
     public void lostpieceTableW() {
         String res = "";
         for (int i = 0; i < counterS.length; i++) {
@@ -208,6 +218,9 @@ public class GUI extends JFrame {
         lostPieceW.setText(res);
     }
 
+    /**
+     * 
+     */
     public void lostpieceTableB() {
         String res = "";
         for (int i = 0; i < counterH.length; i++) {
@@ -217,6 +230,9 @@ public class GUI extends JFrame {
     }
     //A reset method for the 'New Game' option in the menubar.
 
+    /**
+     * 
+     */
     public void reset() {
         String[] options = {"Join Lan", "Host Lan", "Normal"};
         int choice = showOptionDialog(null, "Choose Gametype", null, OK_OPTION, QUESTION_MESSAGE, null, options, null);
@@ -249,6 +265,10 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
+    //Method for creating the developer frame
+    /**
+     * 
+     */
     public void developers() {
         JLabel devpicture = new JLabel(new ImageIcon(getClass().getResource("/Accessories/Pictures/Developers.png")));
         JFrame devlabel = new JFrame();
@@ -256,8 +276,11 @@ public class GUI extends JFrame {
         devlabel.pack();
         devlabel.setVisible(true);
     }
+    
     //Method for creating the rules page.
-
+    /**
+     * 
+     */
     public void rules() {
         Rules rules = new Rules();
         JFrame helplabel = new JFrame();
@@ -282,8 +305,11 @@ public class GUI extends JFrame {
         helplabel.setResizable(true);
         helplabel.setVisible(true);
     }
+    
     //Settings for the log and lost pieces table.
-
+    /**
+     * 
+     */
     public void settings() {
         textarea.setEditable(false);
         textarea2.setEditable(false);
@@ -309,8 +335,11 @@ public class GUI extends JFrame {
         lostPieceB.setForeground(Color.white);
         blackgif.setVisible(false);
     }
+    
     //Adding constraints to the different components, determining their positions.
-
+    /**
+     * 
+     */
     public void setConstraints() {
         layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, scrollpane, 20, SpringLayout.NORTH, contentPane);
@@ -336,6 +365,12 @@ public class GUI extends JFrame {
         layout.putConstraint(SpringLayout.WEST, blackgif, 881, SpringLayout.WEST, contentPane);
     }
 
+    //Method for saving a game
+    /**
+     * 
+     * @param title
+     * @param index
+     */
     public void save(String title, int index) {
         PieceLabel[] table = new PieceLabel[64];
         for (int i = 0; i < table.length; i++) {
@@ -347,6 +382,11 @@ public class GUI extends JFrame {
         savegames[index] = save;
     }
 
+    //Method for loading a saved game in the normal game
+    /**
+     * 
+     * @param index
+     */
     public void load(int index) {
         chess.loadGame(savegames[index].getTable(), savegames[index].getTurn(), savegames[index].getLogW(), savegames[index].getLogB(), savegames[index].getPieces(), savegames[index].getPassanten(), savegames[index].getEnPassantB(), savegames[index].getEnPassantW(), savegames[index].getEnPassantPW(), savegames[index].getEnPassantPB(), savegames[index].getMeme());
         timerH.setTime(savegames[index].getTimerW());
@@ -368,6 +408,11 @@ public class GUI extends JFrame {
         }
     }
 
+    //Method for loading a saved game. Takes in different parameters from the one above. Used for lan function.
+    /**
+     * 
+     * @param save
+     */
     public void load(SaveGame save) {               //boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
         chess.loadGame(save.getTable(), save.getTurn(), save.getLogW(), save.getLogB(), save.getPieces(), save.getPassanten(), save.getEnPassantB(), save.getEnPassantW(), save.getEnPassantPW(), save.getEnPassantPB(), save.getMeme());
         timerH.setTime(save.getTimerW());
@@ -388,6 +433,7 @@ public class GUI extends JFrame {
             whitegif.setVisible(false);
         }
     }
+    
     //A method that changes the GUI based on movement.
     ChessListener chessL = new ChessListener() {
 
@@ -416,6 +462,10 @@ public class GUI extends JFrame {
         }
     };
 
+    //Method for making a button group for the save game option
+    /**
+     * 
+     */
     public void saveGame() {
         JButton button1 = new JButton("blank");
         try {
@@ -549,6 +599,10 @@ public class GUI extends JFrame {
         showConfirmDialog(null, group, "Save", DEFAULT_OPTION, PLAIN_MESSAGE);
     }
 
+    //Method for making a button group for the load game option
+    /**
+     * 
+     */
     public void loadGame() {
         JButton button1 = new JButton("blank");
         try {
@@ -648,6 +702,11 @@ public class GUI extends JFrame {
         showConfirmDialog(null, group, "Load", DEFAULT_OPTION, PLAIN_MESSAGE);
     }
 
+    //Method for serializing the saved games
+    /**
+     * 
+     * @throws IOException
+     */
     public void serialize() throws IOException {
         try {
             FileOutputStream utstrøm = new FileOutputStream("save.ser");
@@ -658,6 +717,11 @@ public class GUI extends JFrame {
         }
     }
 
+    //Method for reading the serialized files
+    /**
+     * 
+     * @throws IOException
+     */
     public void fromSerialized() throws IOException {
         FileInputStream innstrøm = new FileInputStream("save.ser");
         ObjectInputStream inn = new ObjectInputStream(innstrøm);
@@ -672,6 +736,11 @@ public class GUI extends JFrame {
         inn.close();
     }
 
+    //Method for lan function
+    /**
+     * 
+     * @param ch
+     */
     public void lan(int ch) {
         try {
             switch (ch) {

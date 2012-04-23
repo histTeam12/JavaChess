@@ -15,30 +15,62 @@ import Pieces.BishopB;
 import Pieces.BishopW;
 import java.util.EventObject;
 
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class ChessEvent extends EventObject {
 
     private boolean passant = false;
     private int team;
     private Piece piece;
 
+    /*
+     * Constructors
+     */
+    
+    /**
+     * 
+     * @param source
+     * @param team
+     * @param piece
+     */
     public ChessEvent(Object source, int team, Piece piece) {
         super(source);
         this.team = team;
         this.piece = piece;
     }
+    /**
+     * 
+     * @param source
+     * @param team
+     */
     public ChessEvent(Object source, int team) {
         super(source);
         this.team = team;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int team() {
         return team;
     }
     
+    /**
+     * 
+     * @param a
+     */
     public void setPassant(boolean a){
         passant = a;
     }
 
+    //Method for checking which piece who gets taken and returning integers as indication of which piece it is
+    /**
+     * 
+     * @return
+     */
     public int piece() {
         if (piece instanceof PawnW || piece instanceof PawnB || passant == true) {
             return 0;

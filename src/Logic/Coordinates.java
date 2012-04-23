@@ -2,6 +2,10 @@ package Logic;
 
 import java.awt.Point;
 
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class Coordinates {
 
     private Point[] coords = {new Point(0, 0), new Point(75, 0), new Point(150, 0), new Point(225, 0), new Point(300, 0), new Point(375, 0), new Point(450, 0), new Point(525, 0),
@@ -22,6 +26,12 @@ public class Coordinates {
         "A2", "B2", "C2", "D2", "E2","F2","G2","H2",
         "A1", "B1", "C1", "D1", "E1","F1","G1","H1"};
 
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return
+     */
     public String getCoord(int x, int y) {
         Point punkt = new Point(x, y);
         for (int i = 0; i < 64; i++) {
@@ -29,19 +39,36 @@ public class Coordinates {
                 return letters[i];
             }
         }
-        return "unknown";
+        return null;
     }
+    /**
+     * 
+     * @param point
+     * @return
+     */
     public String getCoord(Point point) {
         for (int i = 0; i < 64; i++) {
             if (point.equals(coords[i])) {
                 return letters[i];
             }
         }
-        return "unknown";
+        return null;
     }
+    
+    /**
+     * 
+     * @param a
+     * @return
+     */
     public Point getPoint(int a){
         return coords[a];
     }
+    
+    /**
+     * 
+     * @param point
+     * @return
+     */
     public int getIndex(Point point){
         for(int i=0;i<64;i++){
             if (coords[i].equals(point)){

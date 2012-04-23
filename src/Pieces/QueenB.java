@@ -4,10 +4,18 @@ import Pieces.Piece;
 import java.awt.Point;
 import javax.swing.Icon;
 
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class QueenB extends Piece {
 
     private final int slope = -75;
 
+    /**
+     * 
+     * @param ikon
+     */
     public QueenB(Icon ikon) {
         super(ikon);
         maxY = -75;
@@ -16,16 +24,33 @@ public class QueenB extends Piece {
         name = "Queen";
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public Icon getIcon() {
         return icon;
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public int getTeam() {
         return team;
     }
     //Setting the legal moves of the piece.
+    /**
+     * 
+     * @param y
+     * @param x
+     * @param start
+     * @param piece
+     * @param team2
+     * @return
+     */
     @Override
     public boolean legalMove(int y, int x, Point start, Object piece, int team2) {
         if (team2 == team) {

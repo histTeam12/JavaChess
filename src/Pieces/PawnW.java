@@ -4,10 +4,18 @@ import Logic.PieceLabel;
 import java.awt.Point;
 import javax.swing.Icon;
 
+/**
+ * 
+ * @author andreaskalstad
+ */
 public class PawnW extends Piece {
     private final int slope = -75;
     private boolean enPassant = false;
     
+    /**
+     * 
+     * @param ikon
+     */
     public PawnW(Icon ikon) {
         super(ikon);
         maxY = -75;
@@ -16,25 +24,50 @@ public class PawnW extends Piece {
         name = "Pawn";
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public Icon getIcon() {
         return icon;
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public int getTeam() {
         return team;
     }
     
+    /**
+     * 
+     * @return
+     */
     public boolean getPassant(){
         return enPassant;
     }
     
+    /**
+     * 
+     * @param b
+     */
     public void setPassant(boolean b){
         enPassant = b;
     }
     
     //Setting the legal moves of the piece.
+    /**
+     * 
+     * @param y
+     * @param x
+     * @param start
+     * @param piece
+     * @param lag2
+     * @return
+     */
     @Override
     public boolean legalMove(int y, int x, Point start, Object piece, int lag2) {
         if (lag2 == team) return false;
