@@ -122,7 +122,7 @@ public class GUI extends JFrame {
         menuBar.add(help);
         menuBar.setBorder(null);
 
-        //Creating buttons for the menubar with icons and key bindings.
+        //Creates save/load menubuttons if the normal game option is chosen
         if (choice == 2) {
             JMenuItem Newgame = new JMenuItem("New Game", new ImageIcon(getClass().getResource("/Accessories/Pictures/newgame.png")));
             JMenuItem Save = new JMenuItem("Save game", new ImageIcon(getClass().getResource("/Accessories/Pictures/mac.png")));
@@ -157,7 +157,7 @@ public class GUI extends JFrame {
                 }
             });
         }
-        
+        //Creating buttons for the menubar with icons and key bindings.
         JMenuItem Exit = new JMenuItem("Exit", new ImageIcon(getClass().getResource("/Accessories/Pictures/Exit.png")));
         JMenuItem Meme = new JMenuItem("Meme pieces", new ImageIcon(getClass().getResource("/Accessories/Pictures/Meme.png")));
         JMenuItem Regular = new JMenuItem("Regular pieces", new ImageIcon(getClass().getResource("/Accessories/Pictures/Normal.png")));

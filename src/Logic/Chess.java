@@ -181,38 +181,40 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        toTable();
-        try {
-            chessPiece = null;
-            Component c = chessBoard.findComponentAt(e.getX(), e.getY());
+        if (e.getButton() == 1) {
+            toTable();
+            try {
+                chessPiece = null;
+                Component c = chessBoard.findComponentAt(e.getX(), e.getY());
 
-            if (c instanceof JPanel) {
-                return;
-            }
+                if (c instanceof JPanel) {
+                    return;
+                }
 
-            Point parentLocation = c.getParent().getLocation();
-            xAdjustment = parentLocation.x - e.getX();
-            yAdjustment = parentLocation.y - e.getY();
-            chessPiece = (PieceLabel) c;
-            chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-            chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-            layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
-            hjelpIkon = chessPiece.getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
-            startPos = chessPiece.getLocation();
-            if ((c instanceof PieceLabel && playerTeam == turn % 2) || c instanceof PieceLabel && playerTeam == 2) {
-                PieceLabel d = (PieceLabel) c;
-                if (d.getPiece().getTeam() == 1 && turn % 2 == 0) {
-                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookWleft.move(), rookWright.move(), kingW.move(), pawnB.getPassant(), kord.getIndex(enPassantPB)));
-                    colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
+                Point parentLocation = c.getParent().getLocation();
+                xAdjustment = parentLocation.x - e.getX();
+                yAdjustment = parentLocation.y - e.getY();
+                chessPiece = (PieceLabel) c;
+                chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+                chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+                layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+                hjelpIkon = chessPiece.getIcon(); //Hjelpevariabel for midlertidig ikon funksjon
+                startPos = chessPiece.getLocation();
+                if ((c instanceof PieceLabel && playerTeam == turn % 2) || c instanceof PieceLabel && playerTeam == 2) {
+                    PieceLabel d = (PieceLabel) c;
+                    if (d.getPiece().getTeam() == 1 && turn % 2 == 0) {
+                        colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookWleft.move(), rookWright.move(), kingW.move(), pawnB.getPassant(), kord.getIndex(enPassantPB)));
+                        colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
+                    }
+                    if (d.getPiece().getTeam() == 2 && turn % 2 == 1) {
+                        colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookBleft.move(), rookBright.move(), kingB.move(), pawnW.getPassant(), kord.getIndex(enPassantPW)));
+                        colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
+                    }
                 }
-                if (d.getPiece().getTeam() == 2 && turn % 2 == 1) {
-                    colorSpecialSquares(chessTable.colorSpecialMoves(kord.getIndex(startPos), chessPiece.getPiece(), rookBleft.move(), rookBright.move(), kingB.move(), pawnW.getPassant(), kord.getIndex(enPassantPW)));
-                    colorSquares(chessTable.colorMoves(kord.getIndex(startPos), chessPiece.getPiece()));
-                }
+                repaint();
+            } catch (NullPointerException npe) {
+                System.out.println("Nullpointer Mousepressed");
             }
-            repaint();
-        } catch (NullPointerException npe) {
-            System.out.println("Nullpointer Mousepressed");
         }
     }
 
@@ -245,73 +247,76 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (playerTeam != 2) {
-            if (playerTeam != turn % 2) {
-                if (chessPiece != null) {
-                    moveBack();
+        if (e.getButton() == 1) {
+            if (playerTeam != 2) {
+                if (playerTeam != turn % 2) {
+                    if (chessPiece != null) {
+                        moveBack();
+                    }
+                    return;
                 }
-                return;
             }
-        }
-        try {
-            if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
-                piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
-            } else {
-                piece = null;
-            }
-            if (chessPiece == null) {
-                return;
-            }
-            //checks white or black turn.
-            if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
-                moveBack();
-                return;
-            }
-            if (meme) {
-                chessPiece.setIcon(hjelpIkon); //sets icon back to original after moving
-            }
-            Component m = chessBoard.findComponentAt(e.getX(), e.getY());
-            Point b;
-            if (m instanceof JPanel) {
-                b = m.getLocation();
-            } else {
-                b = m.getParent().getLocation();
-            }
-            if (m instanceof PieceLabel) {
-                piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
-            }
-            xAdjustment = b.x - e.getX();
-            yAdjustment = b.y - e.getY();
-            //checks if the piece is dropped on a blank square or another piece and what team that piece belongs to.
-            if (m instanceof PieceLabel) {
-                team = piece.getPiece().getTeam();
-            }
-            if (m instanceof JPanel) {
-                team = 0;
-            }
-            if (movepiece(e, m)) {
-                turnChange(e);
-            }
-            cleanBoardColor();
-            if (chessTable.checkB(kingBpos())) {
-                colorSquare(kingBpos());
-                colorSquareB = kingBpos();
-            } else {
-                blankSquare(colorSquareB);
-            }
-            if (chessTable.checkW(kingWpos())) {
-                colorSquare(kingWpos());
-                colorSquareW = kingWpos();
-            } else {
-                blankSquare(colorSquareW);
-            }
-            refresh();
-            toTable();
-            passanten = false;
+            try {
+                if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
+                    piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+                } else {
+                    piece = null;
+                }
+                if (chessPiece == null) {
+                    return;
+                }
+                //checks white or black turn.
+                if ((chessPiece.getPiece().getTeam() == 2 && turn % 2 == 0) || (chessPiece.getPiece().getTeam() == 1 && turn % 2 == 1)) {
+                    moveBack();
+                    return;
+                }
+                if (meme) {
+                    chessPiece.setIcon(hjelpIkon); //sets icon back to original after moving
+                }
+                Component m = chessBoard.findComponentAt(e.getX(), e.getY());
+                Point b;
+                if (m instanceof JPanel) {
+                    b = m.getLocation();
+                } else {
+                    b = m.getParent().getLocation();
+                }
+                if (m instanceof PieceLabel) {
+                    piece = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+                }
+                xAdjustment = b.x - e.getX();
+                yAdjustment = b.y - e.getY();
+                //checks if the piece is dropped on a blank square or another piece and what team that piece belongs to.
+                if (m instanceof PieceLabel) {
+                    team = piece.getPiece().getTeam();
+                }
+                if (m instanceof JPanel) {
+                    team = 0;
+                }
+                if (movepiece(e, m)) {
+                    turnChange(e);
+                }
+                cleanBoardColor();
+                if (chessTable.checkB(kingBpos())) {
+                    colorSquare(kingBpos());
+                    colorSquareB = kingBpos();
+                } else {
+                    blankSquare(colorSquareB);
+                }
+                if (chessTable.checkW(kingWpos())) {
+                    colorSquare(kingWpos());
+                    colorSquareW = kingWpos();
+                } else {
+                    blankSquare(colorSquareW);
+                }
+                refresh();
+                toTable();
+                passanten = false;
 
-        } catch (NullPointerException npe) {
-            System.out.println("Nullpointer MouseReleased");
-            moveBack();
+            } catch (NullPointerException npe) {
+                System.out.println("Nullpointer MouseReleased");
+                moveBack();
+                cleanMoveColors();
+            }
         }
     }
 
@@ -1798,6 +1803,18 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             JPanel d = (JPanel) chessBoard.getComponent(tab[i]);
             d.setOpaque(true);
             d.setBackground(Color.blue);
+        }
+    }
+
+    /**
+     * Removes all coloring except red from the board.
+     */
+    public void cleanMoveColors() {
+        for (int i = 0; i < 64; i++) {
+            JPanel c = (JPanel) chessBoard.getComponent(i);
+            if (!c.getBackground().equals(Color.red)) {
+                c.setOpaque(false);
+            }
         }
     }
 
