@@ -5,15 +5,13 @@ import Accessories.SaveGame;
 import Accessories.Timer;
 import Logic.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.ButtonGroup;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,7 +20,9 @@ import javax.swing.JLabel;
 import static javax.swing.JOptionPane.*;
 
 /**
- * Creates a graphic user interface of the chess game which extends the JFrame class
+ * Creates a graphic user interface of the chess game which extends the JFrame
+ * class
+ *
  * @author andreaskalstad
  */
 public class GUI extends JFrame {
@@ -54,8 +54,8 @@ public class GUI extends JFrame {
 
     /**
      * Constructs a graphic user interface
-     * @param title
-     * String - sets title of the frame
+     *
+     * @param title String - sets title of the frame
      */
     public GUI(String title) {
         //Settings for the frame and adding components to it.
@@ -64,7 +64,7 @@ public class GUI extends JFrame {
         if (choice == -1) {
             System.exit(0);
         }
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle(title);
         contentPane.setLayout(layout);
         background.setPreferredSize(new Dimension(1084, 661));
@@ -168,7 +168,7 @@ public class GUI extends JFrame {
         Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.SHIFT_MASK));
         ButtonGroup bg = new ButtonGroup(); //Creating a button group for the two radiobuttons.
 
-        //Adding the buttons to the different
+        //Adding the buttons to the different menus.
         bg.add(Meme);
         bg.add(Regular);
         file.add(Exit);
@@ -182,7 +182,7 @@ public class GUI extends JFrame {
         Exit.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                confirmExit();
             }
         });
         Developers.addActionListener(new ActionListener() {
@@ -214,6 +214,11 @@ public class GUI extends JFrame {
                 rules();
             }
         });
+        addWindowListener(new WindowAdapter(){
+        public void windowClosing(WindowEvent w){
+            confirmExit();
+        }
+        });
 
         //Finishing the constructor by packing and setting visible.
         pack();
@@ -222,7 +227,7 @@ public class GUI extends JFrame {
     }
 
     /**
-     * Method for adding info to the white lost pieces table 
+     * Method for adding info to the white lost pieces table
      */
     public void lostpieceTableW() {
         String res = "";
@@ -233,7 +238,7 @@ public class GUI extends JFrame {
     }
 
     /**
-     * Method for adding info to the black lost pieces table 
+     * Method for adding info to the black lost pieces table
      */
     public void lostpieceTableB() {
         String res = "";
@@ -242,7 +247,7 @@ public class GUI extends JFrame {
         }
         lostPieceB.setText(res);
     }
-    
+
     /**
      * A reset method for the "New Game"-option in the menu bar
      */
@@ -274,7 +279,7 @@ public class GUI extends JFrame {
         repaint();
         setVisible(true);
     }
-    
+
     /**
      * Method for creating the developer frame
      */
@@ -285,7 +290,7 @@ public class GUI extends JFrame {
         devlabel.pack();
         devlabel.setVisible(true);
     }
-    
+
     /**
      * Method for creating the rules frame
      */
@@ -313,10 +318,27 @@ public class GUI extends JFrame {
         helplabel.setResizable(true);
         helplabel.setVisible(true);
     }
-    
+
     /**
      * Layout settings for the log and lost pieces table
      */
+    public void confirmExit() {
+        int answer;
+        answer = showOptionDialog(null, "Do you want to save the game before quitting?", null, YES_NO_CANCEL_OPTION, QUESTION_MESSAGE, null, null, null);
+        if (answer == 0) {
+            saveGame();
+            try {
+                serialize();
+            } catch (Exception e) {
+            }
+            System.exit(0);
+        }
+        if (answer == 1) {
+            System.exit(0);
+        }
+        
+    }
+
     public void settings() {
         textarea.setEditable(false);
         textarea2.setEditable(false);
@@ -342,9 +364,10 @@ public class GUI extends JFrame {
         lostPieceB.setForeground(Color.white);
         blackgif.setVisible(false);
     }
-    
+
     /**
-     * Adding constraints to the different components, determining their positions
+     * Adding constraints to the different components, determining their
+     * positions
      */
     public void setConstraints() {
         layout.putConstraint(SpringLayout.WEST, scrollpane, 35, SpringLayout.WEST, contentPane);
@@ -375,10 +398,9 @@ public class GUI extends JFrame {
 
     /**
      * Method for saving a game
-     * @param title
-     * String - title of the save
-     * @param index
-     * Integer - index to the save game
+     *
+     * @param title String - title of the save
+     * @param index Integer - index to the save game
      */
     public void save(String title, int index) {
         PieceLabel[] table = new PieceLabel[64];
@@ -387,14 +409,14 @@ public class GUI extends JFrame {
                 table[i] = (PieceLabel) chess.getPiece(i);
             }
         }
-        SaveGame save = new SaveGame("lan", chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
+        SaveGame save = new SaveGame(title, chess.getTurn(), timerH.getTime(), timerS.getTime(), counterH, counterS, chess.getWhiteLog(), chess.getBlackLog(), table, chess.getPieceTable(), chess.getPassanten(), chess.getEnPassantB(), chess.getEnPassantW(), chess.getEnPassantPW(), chess.getEnPassantPB(), chess.getMeme());
         savegames[index] = save;
     }
-    
+
     /**
      * Method for loading a saved game in the normal game
-     * @param index
-     * Integer - index to the load game
+     *
+     * @param index Integer - index to the load game
      */
     public void load(int index) {
         chess.loadGame(savegames[index].getTable(), savegames[index].getTurn(), savegames[index].getLogW(), savegames[index].getLogB(), savegames[index].getPieces(), savegames[index].getPassanten(), savegames[index].getEnPassantB(), savegames[index].getEnPassantW(), savegames[index].getEnPassantPW(), savegames[index].getEnPassantPB(), savegames[index].getMeme());
@@ -419,8 +441,8 @@ public class GUI extends JFrame {
 
     /**
      * Method for loading a saved game. Used for lan function.
-     * @param save
-     * SaveGame object
+     *
+     * @param save SaveGame object
      */
     public void load(SaveGame save) {               //boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
         chess.loadGame(save.getTable(), save.getTurn(), save.getLogW(), save.getLogB(), save.getPieces(), save.getPassanten(), save.getEnPassantB(), save.getEnPassantW(), save.getEnPassantPW(), save.getEnPassantPB(), save.getMeme());
@@ -438,7 +460,6 @@ public class GUI extends JFrame {
             whitegif.setVisible(false);
         }
     }
-    
     //A method that changes the GUI based on movement.
     ChessListener chessL = new ChessListener() {
 
@@ -447,9 +468,9 @@ public class GUI extends JFrame {
                 if (event.piece() != -1) {
                     counterH[event.piece()]++;
                 }
-                if(choice == 2){
-                timerH.resume();
-                timerS.pause();
+                if (choice == 2) {
+                    timerH.resume();
+                    timerS.pause();
                 }
                 textarea.setText(chess.getWhiteLog());
                 lostpieceTableB();
@@ -459,9 +480,9 @@ public class GUI extends JFrame {
                 if (event.piece() != -1) {
                     counterS[event.piece()]++;
                 }
-                if(choice == 2){
-                timerH.pause();
-                timerS.resume();
+                if (choice == 2) {
+                    timerH.pause();
+                    timerS.resume();
                 }
                 textarea2.setText(chess.getBlackLog());
                 lostpieceTableW();
@@ -472,7 +493,8 @@ public class GUI extends JFrame {
     };
 
     /**
-     * Method for making a button group for the save game option and making listeners to them
+     * Method for making a button group for the save game option and making
+     * listeners to them
      */
     public void saveGame() {
         JButton button1 = new JButton("blank");
@@ -608,7 +630,8 @@ public class GUI extends JFrame {
     }
 
     /**
-     * Method for making a button group for the load game option and making listeners to them
+     * Method for making a button group for the load game option and making
+     * listeners to them
      */
     public void loadGame() {
         JButton button1 = new JButton("blank");
@@ -711,7 +734,7 @@ public class GUI extends JFrame {
 
     //Method for serializing the saved games
     /**
-     * 
+     *
      * @throws IOException
      */
     public void serialize() throws IOException {
@@ -726,8 +749,9 @@ public class GUI extends JFrame {
 
     /**
      * Method for reading the serialized files
-     * @throws IOException
-     * Throws an exception if an I/O error occurs while reading stream header
+     *
+     * @throws IOException Throws an exception if an I/O error occurs while
+     * reading stream header
      */
     public void fromSerialized() throws IOException {
         FileInputStream innstrøm = new FileInputStream("save.ser");
@@ -745,6 +769,7 @@ public class GUI extends JFrame {
 
     /**
      * Method for LAN function
+     *
      * @param ch
      */
     public void lan(int ch) {
