@@ -58,24 +58,24 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private PieceLabel piece;
     private boolean meme = false;
     private Icon hjelpIkon;
-    private Icon lolW = new ImageIcon(getClass().getResource("/Pieces/Pictures/nyancat2.gif"));
-    private Icon lolB = new ImageIcon(getClass().getResource("/Pieces/Pictures/nyancat3.gif"));
-    private PawnB pawnB = new Pieces.PawnB(new ImageIcon(getClass().getResource("/Pieces/Pictures/PawnB.png")));
-    private PawnW pawnW = new Pieces.PawnW(new ImageIcon(getClass().getResource("/Pieces/Pictures/PawnW.png")));
-    private RookB rookB = new Pieces.RookB(new ImageIcon(getClass().getResource("/Pieces/Pictures/RookB.png")));
-    private RookW rookW = new Pieces.RookW(new ImageIcon(getClass().getResource("/Pieces/Pictures/RookW.png")));
+    private Icon lolW = new ImageIcon(getClass().getResource("/Logic/Pictures/nyancat2.gif"));
+    private Icon lolB = new ImageIcon(getClass().getResource("/Logic/Pictures/nyancat3.gif"));
+    private PawnB pawnB = new Pieces.PawnB(new ImageIcon(getClass().getResource("/Logic/Pictures/PawnB.png")));
+    private PawnW pawnW = new Pieces.PawnW(new ImageIcon(getClass().getResource("/Logic/Pictures/PawnW.png")));
+    private RookB rookB = new Pieces.RookB(new ImageIcon(getClass().getResource("/Logic/Pictures/RookB.png")));
+    private RookW rookW = new Pieces.RookW(new ImageIcon(getClass().getResource("/Logic/Pictures/RookW.png")));
     private RookB rookBright = rookB;
     private RookB rookBleft = rookB;
     private RookW rookWleft = rookW;
     private RookW rookWright = rookW;
-    private KnightB knightB = new Pieces.KnightB(new ImageIcon(getClass().getResource("/Pieces/Pictures/KnightB.png")));
-    private KnightW knightW = new Pieces.KnightW(new ImageIcon(getClass().getResource("/Pieces/Pictures/KnightW.png")));
-    private BishopB bishopB = new Pieces.BishopB(new ImageIcon(getClass().getResource("/Pieces/Pictures/BishopB.png")));
-    private BishopW bishopW = new Pieces.BishopW(new ImageIcon(getClass().getResource("/Pieces/Pictures/BishopW.png")));
-    private QueenB queenB = new Pieces.QueenB(new ImageIcon(getClass().getResource("/Pieces/Pictures/QueenB.png")));
-    private QueenW queenW = new Pieces.QueenW(new ImageIcon(getClass().getResource("/Pieces/Pictures/QueenW.png")));
-    private KingB kingB = new Pieces.KingB(new ImageIcon(getClass().getResource("/Pieces/Pictures/KingB.png")));
-    private KingW kingW = new Pieces.KingW(new ImageIcon(getClass().getResource("/Pieces/Pictures/KingW.png")));
+    private KnightB knightB = new Pieces.KnightB(new ImageIcon(getClass().getResource("/Logic/Pictures/KnightB.png")));
+    private KnightW knightW = new Pieces.KnightW(new ImageIcon(getClass().getResource("/Logic/Pictures/KnightW.png")));
+    private BishopB bishopB = new Pieces.BishopB(new ImageIcon(getClass().getResource("/Logic/Pictures/BishopB.png")));
+    private BishopW bishopW = new Pieces.BishopW(new ImageIcon(getClass().getResource("/Logic/Pictures/BishopW.png")));
+    private QueenB queenB = new Pieces.QueenB(new ImageIcon(getClass().getResource("/Logic/Pictures/QueenB.png")));
+    private QueenW queenW = new Pieces.QueenW(new ImageIcon(getClass().getResource("/Logic/Pictures/QueenW.png")));
+    private KingB kingB = new Pieces.KingB(new ImageIcon(getClass().getResource("/Logic/Pictures/KingB.png")));
+    private KingW kingW = new Pieces.KingW(new ImageIcon(getClass().getResource("/Logic/Pictures/KingW.png")));
     private int playerTeam;
 
     /**
