@@ -437,10 +437,10 @@ public class ChessTable {
             }
         }
 
-        //Checking if there`s a black knight in the long top right corner
-        if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
-                if (twoTable[a - 2][b + 1].getPiece() instanceof KnightB) {
+        //Checking if there`s a black knight in the long bottom right corner
+        if ((a + 2 <= 7 && a + 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a + 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a + 2][b + 1].getPiece() instanceof KnightB) {
                     return true;
                 }
             }
@@ -811,10 +811,10 @@ public class ChessTable {
                 }
             }
         }
-        //Checking long right top corner if there`s a white knight there
-        if ((a - 2 <= 7 && a - 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
-            if (twoTable[a - 2][b + 1] instanceof PieceLabel) {
-                if (twoTable[a - 2][b + 1].getPiece() instanceof KnightW) {
+        //Checking long right bottom corner if there`s a white knight there
+        if ((a + 2 <= 7 && a + 2 >= 0) && (b + 1 <= 7 && b + 1 >= 0)) {
+            if (twoTable[a + 2][b + 1] instanceof PieceLabel) {
+                if (twoTable[a + 2][b + 1].getPiece() instanceof KnightW) {
                     return true;
                 }
             }
