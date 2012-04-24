@@ -1,19 +1,7 @@
 package Logic;
 
 import Accessories.Log;
-import Pieces.QueenW;
-import Pieces.RookB;
-import Pieces.RookW;
-import Pieces.QueenB;
-import Pieces.Piece;
-import Pieces.PawnB;
-import Pieces.PawnW;
-import Pieces.KingW;
-import Pieces.KnightW;
-import Pieces.KnightB;
-import Pieces.KingB;
-import Pieces.BishopB;
-import Pieces.BishopW;
+import Pieces.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
