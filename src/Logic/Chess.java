@@ -181,6 +181,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     @Override
     public void mousePressed(MouseEvent e) {
+        if(e.getButton() == 3){
+            chessPiece = null;
+        }
         if (e.getButton() == 1) {
             toTable();
             try {
@@ -228,6 +231,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         if (chessPiece == null) {
             return;
         }
+                 
         chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
 //        temporary meme icon while moving.
         if (meme) {
