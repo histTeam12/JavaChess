@@ -9,7 +9,7 @@ import javax.swing.Icon;
  * @author andreaskalstad
  */
 public class PawnB extends Piece {
-    private final int slope = 75;
+    
     private boolean enPassant = false;
     
     /**
@@ -28,23 +28,6 @@ public class PawnB extends Piece {
      * 
      * @return
      */
-    @Override
-    public Icon getIcon() {
-        return icon;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    @Override
-    public int getTeam() {
-        return team;
-    }
-    /**
-     * 
-     * @return
-     */
     public boolean getPassant(){
         return enPassant;
     }
@@ -59,13 +42,19 @@ public class PawnB extends Piece {
     
     //Setting the legal moves of the piece.
     /**
-     * 
+     * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y
+     * distance moved on the y axis in pixels
      * @param x
+     * distance moved on the x axis in pixels
      * @param start
+     * the pieces starting point
      * @param piece
+     * the piece being moved
      * @param team2
+     * the team this piece belongs to
      * @return
+     * true if legal move, else false
      */
     @Override
     public boolean legalMove(int y, int x, Point start, Object piece, int team2) {
@@ -80,7 +69,7 @@ public class PawnB extends Piece {
             return true;
         }
         if (piece instanceof PieceLabel) {
-            if (y == (int) start.getY() + maxY && x == (int) start.getX() + slope || y == (int) start.getY() + maxY && x == (int) start.getX() - slope ) {
+            if (y == (int) start.getY() + maxY && x == (int) start.getX() + 75 || y == (int) start.getY() + maxY && x == (int) start.getX() - 75 ) {
                 return true;
             }
         }

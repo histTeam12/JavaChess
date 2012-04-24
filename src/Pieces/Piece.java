@@ -47,6 +47,22 @@ abstract public class Piece implements Serializable {
     public void setIcon(Icon icon){
         this.icon = icon;
     }
+    /**
+     * Returns the int value indicating wich team the piece belongs to
+     * @return
+     * the value of this pieces team
+     */
+    public int getTeam(){
+        return team;
+    }
+     /**
+     * Grabs the icon representing this piece
+     * @return
+     * Icon for this piece
+     */
+    public Icon getIcon(){
+        return icon;
+    }
 
     
     /**
@@ -66,17 +82,7 @@ abstract public class Piece implements Serializable {
      */
     public abstract boolean legalMove(int y, int x, Point start, Object piece, int team2);
     
-    /**
-     * Grabs the icon representing this piece
-     * @return
-     * Icon for this piece
-     */
-    public abstract Icon getIcon();
+   
     
-    /**
-     * Returns the int value indicating wich team the piece belongs to
-     * @return
-     * the value of this pieces team
-     */
-    public abstract int getTeam();
+    
 }
