@@ -11,26 +11,15 @@ import javax.swing.Icon;
  */
 abstract public class Piece implements Serializable {
 
-    /**
-     * 
-     */
-    public Icon icon;
-    /**
-     * 
-     */
-    public int maxX;
-    /**
-     * 
-     */
-    public int maxY;
-    /**
-     * 
-     */
-    public int team;
-    /**
-     * 
-     */
-    public String name;
+    Icon icon;
+    
+    int maxX;
+    
+    int maxY;
+    
+    int team;
+    
+    String name;
 
     
     /**
