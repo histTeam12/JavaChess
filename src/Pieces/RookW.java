@@ -5,15 +5,16 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a white rook
  * @author andreaskalstad
  */
 public class RookW extends Piece {
     private boolean move = false;
 
     /**
-     * 
+     * Constructs a white rook
      * @param icon
+     * Sets icon as label
      */
     public RookW(Icon icon) {
         super(icon);
@@ -21,19 +22,19 @@ public class RookW extends Piece {
         name = "Rook";
     }
     /**
-     * 
+     * Registers if the rook has moved for the castling
      * @return
+     * if the rook has moved
      */
     public boolean move(){
         return move;
     }
     /**
-     * 
+     * Sets if the rook has moved
      */
     public void setMove(){
         move = true;
     }
-    //Setting the legal moves of the piece.
     /**
      * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y

@@ -4,15 +4,16 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a white king
  * @author andreaskalstad
  */
 public class KingW extends Piece {
     private boolean move = false;
 
     /**
-     * 
+     * Constructs a white king
      * @param icon
+     * Sets icon as label
      */
     public KingW(Icon icon) {
         super(icon);
@@ -23,15 +24,16 @@ public class KingW extends Piece {
     }
 
     /**
-     * 
+     * Returns if the king has moved for the castling method
      * @return
+     * Boolean
      */
     public boolean move() {
         return move;
     }
 
     /**
-     * 
+     * Sets if the king has moved for the castling method
      */
     public void setMove() {
         move = true;

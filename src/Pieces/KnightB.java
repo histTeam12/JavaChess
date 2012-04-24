@@ -4,14 +4,15 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a black knight
  * @author andreaskalstad
  */
 public class KnightB extends Piece {
 
     /**
-     * 
+     * Constructs a black knight
      * @param icon
+     * Sets icon as label
      */
     public KnightB(Icon icon) {
         super(icon);
@@ -20,7 +21,6 @@ public class KnightB extends Piece {
         team = 2;
         name = "Knight";
     }
-    //Setting the legal moves of the piece.
     /**
      * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y

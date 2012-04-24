@@ -4,14 +4,15 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a black bishop
  * @author andreaskalstad
  */
 public class BishopB extends Piece {
 
     /**
-     * 
+     * Constructs a black bishop
      * @param icon
+     * Sets icon as label
      */
     public BishopB(Icon icon) {
         super(icon);
@@ -20,7 +21,6 @@ public class BishopB extends Piece {
         team = 2;
         name = "Bishop";
     }
-    //Setting the legal moves of the piece.
     /**
      * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y
