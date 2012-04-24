@@ -1160,8 +1160,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      * false.
      */
     public boolean moveKingW(MouseEvent e, Component m) {
-        if (((int) startPos.getX() + e.getX() + xAdjustment == 750)
-                && (int) startPos.getY() + e.getY() + yAdjustment == 0
+        if ((e.getX() + xAdjustment == 450)
+                && e.getY() + yAdjustment == 525
                 && !(chessBoard.findComponentAt((e.getX()
                 + xAdjustment), (e.getY()
                 + yAdjustment)) instanceof PieceLabel)
@@ -1182,8 +1182,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
         }
-        if (((int) startPos.getX() + e.getX() + xAdjustment == 450)
-                && (int) startPos.getY() + e.getY() + yAdjustment == 0
+        if ((e.getX() + xAdjustment == 150)
+                && e.getY() + yAdjustment == 525
                 && !(chessBoard.findComponentAt(((int) e.getX()
                 + xAdjustment + 75), (int) (e.getY()
                 + yAdjustment)) instanceof PieceLabel)
@@ -1227,8 +1227,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      * false.
      */
     public boolean moveKingB(MouseEvent e, Component m) {
-        if ((int) startPos.getX() + e.getX() + xAdjustment == 450
-                && (int) startPos.getY() + e.getY() + yAdjustment == 0
+        if (e.getX() + xAdjustment == 150
+                && e.getY() + yAdjustment == 0
                 && !(chessBoard.findComponentAt(((int) e.getX()
                 + xAdjustment + 75), (int) (e.getY()
                 + yAdjustment)) instanceof PieceLabel)
@@ -1251,8 +1251,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
         }
-        if ((int) startPos.getX() + e.getX() + xAdjustment == 750
-                &&(int)startPos.getY() + e.getY() + xAdjustment == 0
+        if (e.getX() + xAdjustment == 450
+                && e.getY() + yAdjustment == 0
                 && !(chessBoard.findComponentAt((e.getX()
                 + xAdjustment), (e.getY() + yAdjustment)) instanceof PieceLabel)
                 && !(chessBoard.findComponentAt(((int) e.getX()
