@@ -181,9 +181,6 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getButton() == 3){
-            chessPiece = null;
-        }
         if (e.getButton() == 1) {
             toTable();
             try {
