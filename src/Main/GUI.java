@@ -497,34 +497,38 @@ public class GUI extends JFrame {
      * listeners to them
      */
     public void saveGame() {
-        JButton button1 = new JButton("blank");
+        try{
+        fromSerialized();
+        }catch(Exception e){
+        }
+        JButton button1 = new JButton("Empty Savegame");
         try {
-            button1 = new JButton(savegames[0].getTitle());
+            button1.setText(savegames[0].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button2 = new JButton("blank");
+        JButton button2 = new JButton("Empty Savegame");
         try {
-            button2 = new JButton(savegames[1].getTitle());
+            button2.setText(savegames[1].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button3 = new JButton("blank");
+        JButton button3 = new JButton("Empty Savegame");
         try {
-            button3 = new JButton(savegames[2].getTitle());
+            button3.setText(savegames[2].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button4 = new JButton("blank");
+        JButton button4 = new JButton("Empty Savegame");
         try {
-            button4 = new JButton(savegames[3].getTitle());
+            button4.setText(savegames[3].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button5 = new JButton("blank");
+        JButton button5 = new JButton("Empty Savegame");
         try {
-            button5 = new JButton(savegames[4].getTitle());
+            button5.setText(savegames[4].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button6 = new JButton("blank");
+        JButton button6 = new JButton("Empty Savegame");
         try {
-            button6 = new JButton(savegames[5].getTitle());
+            button6.setText(savegames[5].getTitle());
         } catch (NullPointerException npe) {
         }
 
@@ -634,34 +638,34 @@ public class GUI extends JFrame {
      * listeners to them
      */
     public void loadGame() {
-        JButton button1 = new JButton("blank");
+        JButton button1 = new JButton("Empty Savegame");
         try {
-            button1 = new JButton(savegames[0].getTitle());
+            button1.setText(savegames[0].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button2 = new JButton("blank");
+        JButton button2 = new JButton("Empty Savegame");
         try {
-            button2 = new JButton(savegames[1].getTitle());
+            button2.setText(savegames[1].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button3 = new JButton("blank");
+        JButton button3 = new JButton("Empty Savegame");
         try {
-            button3 = new JButton(savegames[2].getTitle());
+            button3.setText(savegames[2].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button4 = new JButton("blank");
+        JButton button4 = new JButton("Empty Savegame");
         try {
-            button4 = new JButton(savegames[3].getTitle());
+            button4.setText(savegames[3].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button5 = new JButton("blank");
+        JButton button5 = new JButton("Empty Savegame");
         try {
-            button5 = new JButton(savegames[4].getTitle());
+            button5.setText(savegames[4].getTitle());
         } catch (NullPointerException npe) {
         }
-        JButton button6 = new JButton("blank");
+        JButton button6 = new JButton("Empty Savegame");
         try {
-            button6 = new JButton(savegames[5].getTitle());
+            button6.setText(savegames[5].getTitle());
         } catch (NullPointerException npe) {
         }
 
