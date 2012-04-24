@@ -16,8 +16,8 @@ public class QueenW extends Piece {
      * @param icon
      * Sets icon as label
      */
-    public QueenW(Icon ikon) {
-        super(ikon);
+    public QueenW(Icon icon) {
+        super(icon);
         maxY = -75;
         maxX = 0;
         team = 1;

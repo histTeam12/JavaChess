@@ -26,16 +26,18 @@ public class PawnB extends Piece {
     }
 
     /**
-     * 
+     * Returns if the pawn can be the victim of a en passant 
      * @return
+     * Boolean
      */
     public boolean getPassant(){
         return enPassant;
     }
     
     /**
-     * 
+     * Sets if the pawn can be the victim of a en passant 
      * @param b
+     * Boolean
      */
     public void setPassant(boolean b){
         enPassant = b;

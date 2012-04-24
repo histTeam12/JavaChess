@@ -17,8 +17,8 @@ public class PawnW extends Piece {
      * @param icon
      * Sets icon as label
      */
-    public PawnW(Icon ikon) {
-        super(ikon);
+    public PawnW(Icon icon) {
+        super(icon);
         maxY = -75;
         maxX = 0;
         team = 1;
@@ -58,8 +58,8 @@ public class PawnW extends Piece {
      * true if legal move, else false
      */
     @Override
-    public boolean legalMove(int y, int x, Point start, Object piece, int lag2) {
-        if (lag2 == team) return false;
+    public boolean legalMove(int y, int x, Point start, Object piece, int team2) {
+        if (team2 == team) return false;
         if (start.getY() == 450) {if (y == (int) start.getY() + maxY * 2 && x == (int) start.getX()) {
                 enPassant = true;
                 setPassant(true);
