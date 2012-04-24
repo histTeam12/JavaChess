@@ -70,7 +70,7 @@ public class PawnW extends Piece {
             return true;
         }
         if (piece instanceof PieceLabel) {
-            if (y == (int) start.getY() + maxY && x == (int) start.getX() -75 || y == (int) start.getY() + maxY && x == (int) start.getX() -75 ) {
+            if (y == (int) start.getY() + maxY && x == (int) start.getX() -75 || y == (int) start.getY() + maxY && x == (int) start.getX() +75 ) {
                 return true;
             }
         }
