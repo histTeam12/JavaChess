@@ -428,14 +428,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
             chessPiece.setVisible(true);
-            if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true) {
+            if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true && chessPiece.getPiece() instanceof KingW == false) {
                 if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 1) {
                     replacePiece(e, piece);
                 }
                 moveBack();
                 return false;
             }
-            if (chessPiece.getPiece().getTeam() == 2 && chessTable.checkB(kingBpos()) == true) {
+            if (chessPiece.getPiece().getTeam() == 2 && chessTable.checkB(kingBpos()) == true && chessPiece.getPiece() instanceof KingB == false) {
                 if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 2) {
                     replacePiece(e, piece);
                 }
