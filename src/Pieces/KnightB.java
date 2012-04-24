@@ -37,8 +37,8 @@ public class KnightB extends Piece {
      * true if legal move, else false
      */
     @Override
-    public boolean legalMove(int y, int x, Point start, Object piece, int lag2) {
-        if (lag2 == team) {
+    public boolean legalMove(int y, int x, Point start, Object piece, int team2) {
+        if (team2 == team) {
             return false;
         }
         if ((Math.abs(y-start.getY())== maxY*2 && Math.abs(x-start.getX())== maxX)||(Math.abs(x-start.getX())== maxX*2 && Math.abs(y-start.getY())== maxY)){
