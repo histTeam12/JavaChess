@@ -20,24 +20,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
+
 /**
- * Provides the classes necessary to create the chessboard and moving the chess pieces around on it. It`s more or
- * less the heart of the chess game.<p>
- * - It includes the special moves <br />
- * - Updating of the log of which pieces that are taken <br />
- * - Update of the who`s turn it is <br />
- * - Mouse listeners methods <br />
- * - Different methods for locating pieces <br />
- * - Methods for coloring the chessboard and clearing the chessboard <br />
- * - Method for changing the labels of the pieces <br />
- * - Method for sending information to the chess table and getting information from the chess table <br />
- * - Method for refreshing the chessboard <br />
- * - Method for changing turn between players <br />
- * - Method for the special chess moves <br />
- * - The class includes a lot of instance variables, which means it also includes a lot of get and set-methods
+ * Provides the classes necessary to create the chessboard and moving the chess
+ * pieces around on it. It`s more or less the heart of the chess game.<p> - It
+ * includes the special moves <br /> - Updating of the log of which pieces that
+ * are taken <br /> - Update of the who`s turn it is <br /> - Mouse listeners
+ * methods <br /> - Different methods for locating pieces <br /> - Methods for
+ * coloring the chessboard and clearing the chessboard <br /> - Method for
+ * changing the labels of the pieces <br /> - Method for sending information to
+ * the chess table and getting information from the chess table <br /> - Method
+ * for refreshing the chessboard <br /> - Method for changing turn between
+ * players <br /> - Method for the special chess moves <br /> - The class
+ * includes a lot of instance variables, which means it also includes a lot of
+ * get and set-methods
+ *
  * @author andreaskalstad
  */
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {
+
     private int colorSquareW;
     private int colorSquareB;
     private boolean castling = false;
@@ -83,9 +84,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     private int playerTeam;
 
     /**
-     * 
-     * @param team
-     * The player controlled team, 0 for white, 1 for black, 2 for both.
+     *
+     * @param team The player controlled team, 0 for white, 1 for black, 2 for
+     * both.
      */
     public Chess(int team) {
 
@@ -187,8 +188,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Checks if theres a piece on the clicked position on the chessboard.
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     @Override
     public void mousePressed(MouseEvent e) {
@@ -227,11 +228,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
     }
 
-    
     /**
      * Moves the Piece around
-     * @param me
-     * MouseEvent
+     *
+     * @param me MouseEvent
      */
     @Override
     public void mouseDragged(MouseEvent me) {
@@ -252,8 +252,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Drops the piece back on the board if a legal move.
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -328,13 +328,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Checks what type of piece that is being moved around and whether or not it is dropped on a legal square.
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component, in this case a PieceLabel
-     * @return 
-     * True if a legal move, false if not
+     * Checks what type of piece that is being moved around and whether or not
+     * it is dropped on a legal square.
+     *
+     * @param e MouseEvent
+     * @param m Component, in this case a PieceLabel
+     * @return True if a legal move, false if not
      */
     public boolean movepiece(MouseEvent e, Component m) {
         boolean moved = false;
@@ -461,8 +460,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the current piece to the square indicated by the mouse.
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     public void move(MouseEvent e) {
         chessPiece.setVisible(false);
@@ -482,8 +481,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Updates the log and turn indicators in addition to firing a chess event.
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     public void turnChange(MouseEvent e) {
         if (chessPiece.getPiece().getTeam() == 1) {
@@ -529,8 +528,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Finds the index value of the Black king.
-     * @return
-     * index position of the black king.
+     *
+     * @return index position of the black king.
      */
     public int kingBpos() {
         for (int i = 0; i < 64; i++) {
@@ -546,8 +545,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Finds the index value of the white king.
-     * @return
-     * index position of the white king.
+     *
+     * @return index position of the white king.
      */
     public int kingWpos() {
         for (int i = 0; i < 64; i++) {
@@ -563,10 +562,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Identifies the piece at a given point.
-     * @param a
-     * Point
-     * @return
-     * Returns a Piece if the given point contains a piece, returns null if a blank square.
+     *
+     * @param a Point
+     * @return Returns a Piece if the given point contains a piece, returns null
+     * if a blank square.
      */
     public Piece pieceType(Point a) {
         Component c = chessBoard.findComponentAt(a);
@@ -579,12 +578,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Identifies the piece at a given point.
-     * @param x
-     * Number of pixels on the x axis.
-     * @param y
-     * Number of pixels on the y axis.
-     * @return
-     * Returns a Piece if the given point contains a piece, returns null if a blank square.
+     *
+     * @param x Number of pixels on the x axis.
+     * @param y Number of pixels on the y axis.
+     * @return Returns a Piece if the given point contains a piece, returns null
+     * if a blank square.
      */
     public Piece pieceType(int x, int y) {
         Point a = new Point(x, y);
@@ -608,8 +606,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Returns the log of black moves
-     * @return
-     * Returns the black log as a string value.
+     *
+     * @return Returns the black log as a string value.
      */
     public String getBlackLog() {
         return blackLog.toString();
@@ -617,8 +615,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Returns the log of white moves
-     * @return
-     * Returns the white log as a string value.
+     *
+     * @return Returns the white log as a string value.
      */
     public String getWhiteLog() {
         return whiteLog.toString();
@@ -626,10 +624,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Places the given piece into the given point.
-     * @param e
-     * MouseEvent
-     * @param p
-     * Point
+     *
+     * @param e MouseEvent
+     * @param p Point
      */
     public void replacePiece(MouseEvent e, PieceLabel p) {
         chessPiece.setVisible(false);
@@ -640,8 +637,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Not used
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -649,8 +646,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Not used
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -658,8 +655,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Not used
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -667,15 +664,16 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Not used
-     * @param e
-     * MouseEvent
+     *
+     * @param e MouseEvent
      */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
     /**
-     * Turns the current chessboard into a table and sends it to the ChessTable class for further use.
+     * Turns the current chessboard into a table and sends it to the ChessTable
+     * class for further use.
      */
     public void toTable() {
         refresh();
@@ -711,8 +709,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Adds a chessListener.
-     * @param l
-     * ChessListener
+     *
+     * @param l ChessListener
      */
     public synchronized void addChessListener(ChessListener l) {
         _listeners.add(l);
@@ -720,8 +718,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Removes the chessListener.
-     * @param l
-     * chessListener
+     *
+     * @param l chessListener
      */
     public synchronized void removeChessListener(ChessListener l) {
         _listeners.remove(l);
@@ -750,8 +748,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Changes the look of the board and pieces based on the input value.
-     * @param i
-     * Integer, 1 for meme, 2 for normal.
+     *
+     * @param i Integer, 1 for meme, 2 for normal.
      */
     public void changeUI(int i) {
         if (i == 1) {
@@ -768,9 +766,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Opens a dialogbox that allows you to choose the piece the pawn turns into when it crosses the board.
-     * @param lag
-     * The int value of the current team.
+     * Opens a dialogbox that allows you to choose the piece the pawn turns into
+     * when it crosses the board.
+     *
+     * @param lag The int value of the current team.
      */
     public void optionDialog(int lag) {
         JButton button1 = new JButton(knightB.getIcon());
@@ -845,12 +844,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the pawn
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the pawn completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the pawn completes a legal move, else returns
+     * false.
      */
     public boolean movePawnB(MouseEvent e, Component m) {
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
@@ -882,12 +880,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the pawn
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the pawn completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the pawn completes a legal move, else returns
+     * false.
      */
     public boolean movePawnW(MouseEvent e, Component m) {
         if (e.getY() + yAdjustment == startPos.getY() + 150 || e.getY() + yAdjustment == startPos.getY() - 150) {
@@ -919,12 +916,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the queen
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the queen completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the queen completes a legal move, else returns
+     * false.
      */
     public boolean moveQueenW(MouseEvent e, Component m) {
         int ruter;
@@ -1026,12 +1022,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the queen
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the queen completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the queen completes a legal move, else returns
+     * false.
      */
     public boolean moveQueenB(MouseEvent e, Component m) {
         int ruter;
@@ -1133,12 +1128,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the knight
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the knight completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the knight completes a legal move, else returns
+     * false.
      */
     public boolean moveKnightB(MouseEvent e, Component m) {
         if (knightB.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
@@ -1152,12 +1146,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the knight
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the knight completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the knight completes a legal move, else returns
+     * false.
      */
     public boolean moveKnightW(MouseEvent e, Component m) {
         if (knightW.legalMove(e.getY() + yAdjustment, e.getX() + xAdjustment, startPos, m, team)) {
@@ -1172,20 +1165,20 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the king
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the king completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the king completes a legal move, else returns
+     * false.
      */
     public boolean moveKingW(MouseEvent e, Component m) {
-        if (((int)startPos.getX() + e.getX() + xAdjustment == 750)
-               && !(chessBoard.findComponentAt((e.getX() 
-                + xAdjustment),(e.getY() 
+        if (((int) startPos.getX() + e.getX() + xAdjustment == 750)
+                && (int) startPos.getY() + e.getY() + yAdjustment == 0
+                && !(chessBoard.findComponentAt((e.getX()
+                + xAdjustment), (e.getY()
                 + yAdjustment)) instanceof PieceLabel)
-                && !(chessBoard.findComponentAt(((int) e.getX() 
-                + xAdjustment - 75), (int) (e.getY() 
+                && !(chessBoard.findComponentAt(((int) e.getX()
+                + xAdjustment - 75), (int) (e.getY()
                 + yAdjustment)) instanceof PieceLabel)) {
             if (kingW.move() == false && rookWright.move() == false) {
                 move(e);
@@ -1201,7 +1194,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
         }
-        if (((int)startPos.getX() + e.getX() + xAdjustment == 450) 
+        if (((int) startPos.getX() + e.getX() + xAdjustment == 450)
+                && (int) startPos.getY() + e.getY() + yAdjustment == 0
                 && !(chessBoard.findComponentAt(((int) e.getX()
                 + xAdjustment + 75), (int) (e.getY()
                 + yAdjustment)) instanceof PieceLabel)
@@ -1238,15 +1232,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the king
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the king completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the king completes a legal move, else returns
+     * false.
      */
     public boolean moveKingB(MouseEvent e, Component m) {
-                if ((int)startPos.getX() + e.getX() + xAdjustment == 450
+        if ((int) startPos.getX() + e.getX() + xAdjustment == 450
+                && (int) startPos.getY() + e.getY() + yAdjustment == 0
                 && !(chessBoard.findComponentAt(((int) e.getX()
                 + xAdjustment + 75), (int) (e.getY()
                 + yAdjustment)) instanceof PieceLabel)
@@ -1269,10 +1263,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
         }
-        if ((int)startPos.getX() + e.getX() + xAdjustment == 750
-                && !(chessBoard.findComponentAt((e.getX() 
-                + xAdjustment),(e.getY() + yAdjustment)) instanceof PieceLabel) 
-                && !(chessBoard.findComponentAt(((int) e.getX() 
+        if ((int) startPos.getX() + e.getX() + xAdjustment == 750
+                &&(int)startPos.getY() + e.getY() + xAdjustment == 0
+                && !(chessBoard.findComponentAt((e.getX()
+                + xAdjustment), (e.getY() + yAdjustment)) instanceof PieceLabel)
+                && !(chessBoard.findComponentAt(((int) e.getX()
                 + xAdjustment - 75), (int) (e.getY() + yAdjustment)) instanceof PieceLabel)) {
             if (kingB.move() == false && rookBright.move() == false) {
                 move(e);
@@ -1299,12 +1294,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the bishop
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the bishop completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the bishop completes a legal move, else returns
+     * false.
      */
     public boolean moveBishopW(MouseEvent e, Component m) {
         //Ned venstre
@@ -1359,12 +1353,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the bishop
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the bishop completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the bishop completes a legal move, else returns
+     * false.
      */
     public boolean moveBishopB(MouseEvent e, Component m) {
         //Ned venstre
@@ -1419,12 +1412,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the rook
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the rook completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the rook completes a legal move, else returns
+     * false.
      */
     public boolean moveRookW(MouseEvent e, Component m) {
         int ruter;
@@ -1477,12 +1469,11 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Moves the rook
-     * @param e
-     * MouseEvent
-     * @param m
-     * Component
-     * @return
-     * Returns true of the rook completes a legal move, else returns false.
+     *
+     * @param e MouseEvent
+     * @param m Component
+     * @return Returns true of the rook completes a legal move, else returns
+     * false.
      */
     public boolean moveRookB(MouseEvent e, Component m) {
         int ruter;
@@ -1534,7 +1525,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Part of the en-passant methods, replaces the pawn that was lost in a illegal en-passant
+     * Part of the en-passant methods, replaces the pawn that was lost in a
+     * illegal en-passant
      */
     public void replacePawn() {
         chessPiece.setVisible(false);
@@ -1551,8 +1543,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Returns whether or not the en-passant move is currently allowed
-     * @return
-     * Returns if the en-passant move is currently allowed.
+     *
+     * @return Returns if the en-passant move is currently allowed.
      */
     public boolean enPassant() {
         if (chessPiece.getPiece().getTeam() == 1 && pawnB.getPassant() == true) {
@@ -1646,19 +1638,19 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Finds the component/piece at the selected index.
-     * @param index
-     * Value of the board index.
-     * @return
-     * Returns the cmponent at given index.
+     *
+     * @param index Value of the board index.
+     * @return Returns the cmponent at given index.
      */
     public Component getPiece(int index) {
         return chessBoard.findComponentAt(kord.getPoint(index));
     }
 
     /**
-     * Turns the values of the pieces into a table to be used for network communication or serializing savegames.
-     * @return
-     * Returns a table with the usable Pieces.
+     * Turns the values of the pieces into a table to be used for network
+     * communication or serializing savegames.
+     *
+     * @return Returns a table with the usable Pieces.
      */
     public Piece[] getPieceTable() {
         Piece[] pieces = {pawnB, pawnW, rookB, rookW, rookBright, rookBleft, rookWright, rookBright, knightB, knightW, bishopB, bishopW, queenB, queenW, kingB, kingW};
@@ -1666,31 +1658,27 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Creates a chessboard from the given info allowing to continue a previous game.
-     * @param table
-     * A table of piecelabels.
-     * @param turn2
-     * Integer value of number of moves already done.
-     * @param logW
-     * String value of the white log.
-     * @param logB
-     * String value of the black log.
-     * @param pieces
-     * Table of Pieces with set variables.
-     * @param passanten2
-     * The boolean variable for the en-passant move.
-     * @param enPassantB2
-     * The int value indicating how long the en-passant move is allowed for the black team.
-     * @param enPassantW2
-     * The int value indicating how long the en-passant move is allowed for the white team.
-     * @param enPassantPW2
-     * The point indicating where the en-passant move is possible for the white team.
-     * @param enPassantPB2
-     * The point indicating where the en-passant move is possible for the black team.
-     * @param meme2
-     * Boolean value indicating whether or not meme pieces is selected.
+     * Creates a chessboard from the given info allowing to continue a previous
+     * game.
+     *
+     * @param table A table of piecelabels.
+     * @param turn2 Integer value of number of moves already done.
+     * @param logW String value of the white log.
+     * @param logB String value of the black log.
+     * @param pieces Table of Pieces with set variables.
+     * @param passanten2 The boolean variable for the en-passant move.
+     * @param enPassantB2 The int value indicating how long the en-passant move
+     * is allowed for the black team.
+     * @param enPassantW2 The int value indicating how long the en-passant move
+     * is allowed for the white team.
+     * @param enPassantPW2 The point indicating where the en-passant move is
+     * possible for the white team.
+     * @param enPassantPB2 The point indicating where the en-passant move is
+     * possible for the black team.
+     * @param meme2 Boolean value indicating whether or not meme pieces is
+     * selected.
      */
-    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces, boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2){
+    public void loadGame(PieceLabel[] table, int turn2, String logW, String logB, Piece[] pieces, boolean passanten2, int enPassantB2, int enPassantW2, Point enPassantPW2, Point enPassantPB2, boolean meme2) {
         for (int i = 0; i < 64; i++) {
             JPanel panel = (JPanel) chessBoard.getComponent(i);
             panel.removeAll();
@@ -1730,7 +1718,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         enPassantPW = enPassantPW2;
         enPassantPB = enPassantPB2;
         meme = meme2;
-        
+
 
         fromTable();
 
@@ -1752,8 +1740,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Returns the number of turns already done
-     * @return
-     * Int value indicating the number of turns.
+     *
+     * @return Int value indicating the number of turns.
      */
     public int getTurn() {
         return turn;
@@ -1761,8 +1749,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Colors the square indicated by the given index.
-     * @param i
-     * the index value for the square to be colored.
+     *
+     * @param i the index value for the square to be colored.
      */
     public void colorSquare(int i) {
         Component c = chessBoard.getComponent(i);
@@ -1779,8 +1767,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Removes any coloring on the selected square.
-     * @param i
-     * the index value for the square the be blanked.
+     *
+     * @param i the index value for the square the be blanked.
      */
     public void blankSquare(int i) {
         Component c = chessBoard.getComponent(i);
@@ -1794,9 +1782,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Colors several squares based on the table indicating where the piece is allowed to move.
-     * @param tab
-     * int table containing the squares to color.
+     * Colors several squares based on the table indicating where the piece is
+     * allowed to move.
+     *
+     * @param tab int table containing the squares to color.
      */
     public void colorSquares(int[] tab) {
         for (int i = 0; i < tab.length; i++) {
@@ -1811,9 +1800,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Colors several squares based on the table indicating possible special moves.
-     * @param tab
-     * int table containing the squares to color.
+     * Colors several squares based on the table indicating possible special
+     * moves.
+     *
+     * @param tab int table containing the squares to color.
      */
     public void colorSpecialSquares(int[] tab) {
         for (int i = 0; i < tab.length; i++) {
@@ -1834,9 +1824,10 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
     }
 
     /**
-     * Returns the value indicating whether or not the en-passant move is allowed.
-     * @return
-     * Returns the value showing if the en-passant move is allowed.
+     * Returns the value indicating whether or not the en-passant move is
+     * allowed.
+     *
+     * @return Returns the value showing if the en-passant move is allowed.
      */
     public boolean getPassanten() {
         return passanten;
@@ -1844,8 +1835,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Changes the value of the passant variable.
-     * @param passant
-     * the new value for the passant variable.
+     *
+     * @param passant the new value for the passant variable.
      */
     public void setPassanten(boolean passant) {
         passanten = passant;
@@ -1853,8 +1844,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Checks if the en-passant move is allowed for the white team.
-     * @return
-     * Returns whether or not the en-passant move is allowed.
+     *
+     * @return Returns whether or not the en-passant move is allowed.
      */
     public int getEnPassantB() {
         return enPassantB;
@@ -1862,8 +1853,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Changes the value of the en-passant for the black team.
-     * @param enPassant
-     * the new value for the en-passant.
+     *
+     * @param enPassant the new value for the en-passant.
      */
     public void setEnPassantB(int enPassant) {
         enPassantB = enPassant;
@@ -1871,8 +1862,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Checks if the en-passant move is allowed for the white team.
-     * @return
-     * Returns whether or not the en-passant move is allowed.
+     *
+     * @return Returns whether or not the en-passant move is allowed.
      */
     public int getEnPassantW() {
         return enPassantW;
@@ -1880,8 +1871,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Changes the value of the en-passant for the white team.
-     * @param enPassant
-     * the new value for the en-passant.
+     *
+     * @param enPassant the new value for the en-passant.
      */
     public void setEnPassantW(int enPassant) {
         enPassantW = enPassant;
@@ -1889,8 +1880,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Returns the point indicating where the en-passant move is allowed.
-     * @return
-     * Returns the point where the en-passant move is allowed.
+     *
+     * @return Returns the point where the en-passant move is allowed.
      */
     public Point getEnPassantPW() {
         return enPassantPW;
@@ -1898,8 +1889,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Sets the point where the en-passant move is allowed.
-     * @param enPassant
-     * The new point for en-passant on white team
+     *
+     * @param enPassant The new point for en-passant on white team
      */
     public void setEnPassantPW(Point enPassant) {
         enPassantPB = enPassant;
@@ -1907,8 +1898,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Returns the point indicating where the en-passant move is allowed.
-     * @return
-     * Returns the point where the en-passant move is allowed.
+     *
+     * @return Returns the point where the en-passant move is allowed.
      */
     public Point getEnPassantPB() {
         return enPassantPB;
@@ -1916,26 +1907,29 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
 
     /**
      * Sets the point where the en-passant move is allowed.
-     * @param enPassant
-     * The new point for en-passant on black team
+     *
+     * @param enPassant The new point for en-passant on black team
      */
     public void setEnPassantPB(Point enPassant) {
         enPassantPB = enPassant;
     }
+
     /**
      * Returns the value indicating if the meme layout option has been checked.
-     * @return
-     * Returns a value indicating if meme has been selected.
+     *
+     * @return Returns a value indicating if meme has been selected.
      */
-    public boolean getMeme(){
+    public boolean getMeme() {
         return meme;
     }
+
     /**
      * Changes the meme variable allowing the change in layout.
-     * @param meme2
-     * the new value for the meme option, true if meme is chosen, false if regular pieces.
+     *
+     * @param meme2 the new value for the meme option, true if meme is chosen,
+     * false if regular pieces.
      */
-    public void setMeme(boolean meme2){
+    public void setMeme(boolean meme2) {
         meme = meme2;
     }
 }
