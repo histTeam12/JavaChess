@@ -21,7 +21,8 @@ import java.util.Iterator;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
 /**
- * Provides the classes necessary to create the chessboard and moving the chess pieces around on it.<p>
+ * Provides the classes necessary to create the chessboard and moving the chess pieces around on it. It`s more or
+ * less the heart of the chess game.<p>
  * - It includes the special moves <br />
  * - Updating of the log of which pieces that are taken <br />
  * - Update of the who`s turn it is <br />
@@ -31,6 +32,9 @@ import static javax.swing.JOptionPane.*;
  * - Method for changing the labels of the pieces <br />
  * - Method for sending information to the chess table and getting information from the chess table <br />
  * - Method for refreshing the chessboard <br />
+ * - Method for changing turn between players <br />
+ * - Method for the special chess moves <br />
+ * - The class includes a lot of instance variables, which means it also includes a lot of get and set-methods
  * @author andreaskalstad
  */
 public class Chess extends JInternalFrame implements MouseListener, MouseMotionListener {

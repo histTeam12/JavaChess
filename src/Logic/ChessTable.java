@@ -21,7 +21,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- * 
+ * A logic class which has a table of the piece labels always updated. <p>
+ * It takes care if the king is checked, coloring of the legal moves of the pieces changing the icons of the pieces.
  * @author andreaskalstad
  */
 public class ChessTable {
