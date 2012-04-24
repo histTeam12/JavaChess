@@ -1,18 +1,6 @@
 package Logic;
 
-import Pieces.QueenW;
-import Pieces.RookB;
-import Pieces.RookW;
-import Pieces.QueenB;
-import Pieces.Piece;
-import Pieces.PawnW;
-import Pieces.PawnB;
-import Pieces.KingW;
-import Pieces.KnightW;
-import Pieces.KnightB;
-import Pieces.KingB;
-import Pieces.BishopB;
-import Pieces.BishopW;
+import Pieces.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -21,7 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- * 
+ * A logic class which has a table of the piece labels always updated. <p>
+ * It takes care if the king is checked, coloring of the legal moves of the pieces changing the icons of the pieces.
  * @author andreaskalstad
  */
 public class ChessTable {
@@ -30,19 +19,17 @@ public class ChessTable {
     private String[] log;
     private PieceLabel[][] twoTable;
 
-    //Constructor 1
     /**
-     * 
+     * Constructs a one dimensional table, two dimensional table and a log string
      */
     public ChessTable() {
         this.table = new PieceLabel[64];
         this.log = new String[2];
         this.twoTable = new PieceLabel[8][8];
     }
-    //Constructor 2
 
     /**
-     * 
+     * Constructs a one dimensional table and sets it equals an argument component table, two dimensional table and a log string
      * @param table2
      */
     public ChessTable(Component[] table2) {
@@ -57,7 +44,7 @@ public class ChessTable {
     }
 
     /**
-     * Method for updating the one dimensional tabel
+     * Method for updating the one dimensional table
      * @param piece
      * The type of Piece
      * @param indeks

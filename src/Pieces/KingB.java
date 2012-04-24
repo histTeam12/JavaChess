@@ -4,7 +4,7 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a black king
  * @author andreaskalstad
  */
 public class KingB extends Piece {
@@ -12,8 +12,9 @@ public class KingB extends Piece {
     private boolean move = false;
 
     /**
-     * 
+     * Constructs a black king
      * @param icon
+     * Sets icon as label
      */
     public KingB(Icon icon) {
         super(icon);
@@ -25,15 +26,16 @@ public class KingB extends Piece {
 
 
     /**
-     * 
+     * Returns if the king has moved for the castling method
      * @return
+     * Boolean
      */
     public boolean move() {
         return move;
     }
 
     /**
-     * 
+     * Sets if the king has moved for the castling method
      */
     public void setMove() {
         move = true;

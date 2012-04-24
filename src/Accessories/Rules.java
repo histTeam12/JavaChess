@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 /**
- * 
+ * This class is more or less a text file pasted on a JTextarea for the purpose of getting a rules page
  * @author andreaskalstad
  */
 public class Rules {

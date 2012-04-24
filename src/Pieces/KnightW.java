@@ -4,14 +4,15 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a white knight
  * @author andreaskalstad
  */
 public class KnightW extends Piece {
 
     /**
-     * 
+     * Constructs a white knight
      * @param icon
+     * Sets icon as label
      */
     public KnightW(Icon icon) {
         super(icon);
@@ -20,8 +21,6 @@ public class KnightW extends Piece {
         team = 1;
         name = "Knight";
     }
-
-    //Setting the legal moves of the piece.
     /**
      * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y

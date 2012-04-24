@@ -5,7 +5,7 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a black rook
  * @author andreaskalstad
  */
 public class RookB extends Piece {
@@ -13,8 +13,9 @@ public class RookB extends Piece {
     
 
     /**
-     * 
+     * Constructs a black rook
      * @param icon
+     * Sets icon as label
      */
     public RookB(Icon icon) {
         super(icon);
@@ -22,15 +23,16 @@ public class RookB extends Piece {
         name = "Rook";
     }
     /**
-     * 
+     * Registers if the rook has moved for the castling
      * @return
+     * if the rook has moved
      */
     public boolean move() {
         return move;
     }
 
     /**
-     * 
+     * Sets if the rook has moved
      */
     public void setMove() {
         move = true;

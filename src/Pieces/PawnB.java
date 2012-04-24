@@ -5,7 +5,7 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a black pawn
  * @author andreaskalstad
  */
 public class PawnB extends Piece {
@@ -13,8 +13,9 @@ public class PawnB extends Piece {
     private boolean enPassant = false;
     
     /**
-     * 
+     * Constructs a black pawn
      * @param icon
+     * Sets icon as label
      */
     public PawnB(Icon icon) {
         super(icon);
@@ -39,8 +40,6 @@ public class PawnB extends Piece {
     public void setPassant(boolean b){
         enPassant = b;
     }
-    
-    //Setting the legal moves of the piece.
     /**
      * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y

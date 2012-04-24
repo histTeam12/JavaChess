@@ -5,15 +5,16 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a white queen
  * @author andreaskalstad
  */
 public class QueenW extends Piece {
 
 
     /**
-     * 
-     * @param ikon
+     * Constructs a white queen
+     * @param icon
+     * Sets icon as label
      */
     public QueenW(Icon ikon) {
         super(ikon);
@@ -22,8 +23,6 @@ public class QueenW extends Piece {
         team = 1;
         name = "Queen";
     }
-
-    //Setting the legal moves of the piece.
     /**
      * Method for checking the legal moves of a piece which is taken in as parameter
      * @param y

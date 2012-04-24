@@ -5,7 +5,7 @@ import java.awt.Point;
 import javax.swing.Icon;
 
 /**
- * 
+ * Specifies the piece as a white pawn
  * @author andreaskalstad
  */
 public class PawnW extends Piece {
@@ -13,8 +13,9 @@ public class PawnW extends Piece {
     private boolean enPassant = false;
     
     /**
-     * 
-     * @param ikon
+     * Constructs a white pawn
+     * @param icon
+     * Sets icon as label
      */
     public PawnW(Icon ikon) {
         super(ikon);
@@ -23,27 +24,19 @@ public class PawnW extends Piece {
         team = 1;
         name = "Pawn";
     }
-
     /**
-     * 
+     * Returns if the pawn can be the victim of a en passant 
      * @return
-     */
-    @Override
-    public Icon getIcon() {
-        return icon;
-    }
-    
-    /**
-     * 
-     * @return
+     * Boolean
      */
     public boolean getPassant(){
         return enPassant;
     }
     
     /**
-     * 
+     * Sets if the pawn can be the victim of a en passant 
      * @param b
+     * Boolean
      */
     public void setPassant(boolean b){
         enPassant = b;
