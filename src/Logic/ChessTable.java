@@ -1449,7 +1449,6 @@ public class ChessTable {
         }
         //Checks top left corner
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
-            System.out.println(checkW((a - 1) * 8 + (b - 1)));
             if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b - 1)) == false)) {
                 if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
                     if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
