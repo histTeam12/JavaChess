@@ -577,14 +577,14 @@ public class ChessTable {
         int c = a - 1;
         int d = b - 1;
         //Checking if there`s a piecelabel in top left corner line of the white king
-        if (c > 0 && d > 0) {
+        if (c >= 0 && d >= 0) {
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
                     //Checking if there`s a black bishop or black queen in top left corner line of the white king
                     if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
                         return true;
                     }
-                    //Checking if there`s a black bishop or black king in top left corner line of the white king
+//                    Checking if there`s a black bishop or black king in top left corner line of the white king
                     if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
                         break;
                     }
@@ -600,7 +600,7 @@ public class ChessTable {
         c = a + 1;
         d = b + 1;
         //Checking if there`s a piecelabel in bottom right corner line of the white king
-        if (c < 7 && d < 7) {
+        if (c <= 7 && d <= 7) {
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
                     if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
@@ -619,7 +619,7 @@ public class ChessTable {
         c = a + 1;
         d = b - 1;
         //Checking if there`s a piecelabel in bottom left corner line of the white king
-        if (c < 7 && d > 0) {
+        if (c <= 7 && d >= 0) {
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
                     if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
@@ -638,7 +638,7 @@ public class ChessTable {
         c = a - 1;
         d = b + 1;
         //Checking if there`s a piecelabel in top right corner line of the white king
-        if (c > 0 && d < 7) {
+        if (c >= 0 && d <= 7) {
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
                     if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
@@ -948,7 +948,7 @@ public class ChessTable {
         }
         int c = a - 1;
         int d = b - 1;
-        if (c > 0 && d > 0) {
+        if (c >= 0 && d >= 0) {
             //Checks if one of the white bishops checks the black king in the top left corner line        
             for (int j = 0; j < 8; j++) {
                 //Checks if there`s a piecelabel in the top left corner
@@ -972,7 +972,7 @@ public class ChessTable {
         //Resetting the counters
         c = a + 1;
         d = b + 1;
-        if (c < 7 && d < 7) {
+        if (c <= 7 && d <= 7) {
             //Checks if one of the white bishops checks the black king in the bottom right corner line
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -991,7 +991,7 @@ public class ChessTable {
         }
         c = a + 1;
         d = b - 1;
-        if (c < 7 && d > 0) {
+        if (c <= 7 && d >= 0) {
             //Checks if one of the white bishops checks the black king in the bottom left corner line
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
@@ -1010,7 +1010,7 @@ public class ChessTable {
         }
         c = a - 1;
         d = b + 1;
-        if (c > 0 && d < 7) {
+        if (c >= 0 && d <= 7) {
             //Checks if one of the white bishops checks the black king in the top right corner line
             for (int j = 0; j < 8; j++) {
                 if (twoTable[c][d] instanceof PieceLabel) {
