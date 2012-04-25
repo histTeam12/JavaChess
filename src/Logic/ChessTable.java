@@ -946,78 +946,85 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        int c = a;
-        int d = b;
-        //Checks if one of the white bishops checks the black king in the top left corner line        
-        for (int j = 0; j < 8; j++) {
-            //Checks if there`s a piecelabel in the top left corner
-            if (twoTable[c][d] instanceof PieceLabel) {
-                //Checks if there`s a white bishop or a queen in the top left corner
-                if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
-                    return true;
+        int c = a - 1;
+        int d = b - 1;
+        if (c > 0 && d > 0) {
+            //Checks if one of the white bishops checks the black king in the top left corner line        
+            for (int j = 0; j < 8; j++) {
+                //Checks if there`s a piecelabel in the top left corner
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    //Checks if there`s a white bishop or a queen in the top left corner
+                    if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
+                        return true;
+                    }
+                    //Checks if there`s a no white bishop or queen in the top left corner and then breaks
+                    if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
+                        break;
+                    }
                 }
-                //Checks if there`s a no white bishop or queen in the top left corner and then breaks
-                if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
-                    break;
+                //Subtracting the counters
+                if (c > 0 && d > 0) {
+                    c--;
+                    d--;
                 }
             }
-            //Subtracting the counters
-            if (c > 0 && d > 0) {
-                c--;
-                d--;
-            }
-
         }
         //Resetting the counters
-        c = a;
-        d = b;
-        //Checks if one of the white bishops checks the black king in the bottom right corner line
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
-                    return true;
+        c = a + 1;
+        d = b + 1;
+        if (c < 7 && d < 7) {
+            //Checks if one of the white bishops checks the black king in the bottom right corner line
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
+                        return true;
+                    }
+                    if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
+                        break;
+                    }
                 }
-                if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
-                    break;
+                if (c < 7 && d < 7) {
+                    c++;
+                    d++;
                 }
-            }
-            if (c < 7 && d < 7) {
-                c++;
-                d++;
             }
         }
-        c = a;
-        d = b;
-        //Checks if one of the white bishops checks the black king in the bottom left corner line
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
-                    return true;
+        c = a + 1;
+        d = b - 1;
+        if (c < 7 && d > 0) {
+            //Checks if one of the white bishops checks the black king in the bottom left corner line
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
+                        return true;
+                    }
+                    if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
+                        break;
+                    }
                 }
-                if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
-                    break;
+                if (c < 7 && d > 0) {
+                    c++;
+                    d--;
                 }
-            }
-            if (c < 7 && d > 0) {
-                c++;
-                d--;
             }
         }
-        c = a;
-        d = b;
-        //Checks if one of the white bishops checks the black king in the top right corner line
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
-                    return true;
+        c = a - 1;
+        d = b + 1;
+        if (c > 0 && d < 7) {
+            //Checks if one of the white bishops checks the black king in the top right corner line
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece() instanceof BishopW || twoTable[c][d].getPiece() instanceof QueenW) {
+                        return true;
+                    }
+                    if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
+                        break;
+                    }
                 }
-                if ((twoTable[c][d].getPiece() instanceof BishopW) == false && (twoTable[c][d].getPiece() instanceof KingB) == false) {
-                    break;
+                if (c > 0 && d < 7) {
+                    c--;
+                    d++;
                 }
-            }
-            if (c > 0 && d < 7) {
-                c--;
-                d++;
             }
         }
         return false;
