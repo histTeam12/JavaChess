@@ -510,7 +510,7 @@ public class ChessTable {
             a = 0;
         }
         //Checks if there`s an instance of piecelabel in the line behind the white king
-        for (int j = b; j < 8; j++) {
+        for (int j = b+1; j < 8; j++) {
             if (twoTable[a][j] instanceof PieceLabel) {
                 //Checks if there`s an instance of a black rook or black queen in the line in front of the white king
                 if (twoTable[a][j].getPiece() instanceof RookB || twoTable[a][j].getPiece() instanceof QueenB) {
@@ -523,7 +523,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s an instance of piecelabel in the line in front of the white king
-        for (int j = b; j >= 0; j--) {
+        for (int j = b-1; j >= 0; j--) {
             if (twoTable[a][j] instanceof PieceLabel) {
                 if (twoTable[a][j].getPiece() instanceof RookB || twoTable[a][j].getPiece() instanceof QueenB) {
                     return true;
@@ -534,7 +534,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s an instance of piecelabel in the line to the right of the white king
-        for (int j = a; j < 8; j++) {
+        for (int j = a+1; j < 8; j++) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookB || twoTable[j][b].getPiece() instanceof QueenB) {
                     return true;
@@ -545,7 +545,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s an instance of piecelabel in the line to the left of the white king
-        for (int j = a; j >= 0; j--) {
+        for (int j = a-1; j >= 0; j--) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookB || twoTable[j][b].getPiece() instanceof QueenB) {
                     return true;
@@ -881,7 +881,7 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        for (int j = b; j < 8; j++) {
+        for (int j = b+1; j < 8; j++) {
             //Checks if there`s an instance of piecelabel in the line to the right of the black king
             if (twoTable[a][j] instanceof PieceLabel) {
                 //Checks if there`s an instance of a white rook or white queen in the line to the right of the black king
@@ -895,7 +895,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s an instance of a white rook in the line to the left of black king
-        for (int j = b; j >= 0; j--) {
+        for (int j = b-1; j >= 0; j--) {
             if (twoTable[a][j] instanceof PieceLabel) {
                 if (twoTable[a][j].getPiece() instanceof RookW || twoTable[a][j].getPiece() instanceof QueenW) {
                     return true;
@@ -906,7 +906,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s an instance of piecelabel in the line under the white king
-        for (int j = a; j < 8; j++) {
+        for (int j = a+1; j < 8; j++) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookW || twoTable[j][b].getPiece() instanceof QueenW) {
                     return true;
@@ -917,7 +917,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s an instance of piecelabel in the line over the white king
-        for (int j = a; j >= 0; j--) {
+        for (int j = a-1; j >= 0; j--) {
             if (twoTable[j][b] instanceof PieceLabel) {
                 if (twoTable[j][b].getPiece() instanceof RookW || twoTable[j][b].getPiece() instanceof QueenW) {
                     return true;
