@@ -225,18 +225,21 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     @Override
     public void mouseDragged(MouseEvent me) {
-        if (chessPiece == null) {
-            return;
-        }
-                 
-        chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
-//        temporary meme icon while moving.
-        if (meme) {
-            if (chessPiece.getPiece().getTeam() == 1) {
-                chessPiece.setIcon(lolW);
+        if (me.getModifiers() == 16 || me.getModifiers() == 20) {
+
+            if (chessPiece == null) {
+                return;
             }
-            if (chessPiece.getPiece().getTeam() == 2) {
-                chessPiece.setIcon(lolB);
+
+            chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
+//        temporary meme icon while moving.
+            if (meme) {
+                if (chessPiece.getPiece().getTeam() == 1) {
+                    chessPiece.setIcon(lolW);
+                }
+                if (chessPiece.getPiece().getTeam() == 2) {
+                    chessPiece.setIcon(lolB);
+                }
             }
         }
     }
@@ -248,6 +251,9 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == 3) {
+            refresh();
+        }
         if (e.getButton() == 1) {
             if (playerTeam != 2) {
                 if (playerTeam != turn % 2) {
@@ -425,7 +431,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 }
             }
             chessPiece.setVisible(true);
-            if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true ) {
+            if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true) {
                 if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 1 && chessPiece.getPiece() instanceof KingW == false) {
                     replacePiece(e, piece);
                 }
@@ -433,7 +439,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 return false;
             }
             if (chessPiece.getPiece().getTeam() == 2 && chessTable.checkB(kingBpos()) == true) {
-                if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 2  && chessPiece.getPiece() instanceof KingB == false) {
+                if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 2 && chessPiece.getPiece() instanceof KingB == false) {
                     replacePiece(e, piece);
                 }
                 moveBack();
