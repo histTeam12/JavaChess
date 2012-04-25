@@ -482,7 +482,7 @@ public class ChessTable {
             }
         }
         //Checks if there`s a pawn in top right corner
-        if (a - 1 < 8 && b + 1 < 8 && a + 1 >= 0 && b + 1 >= 0) {
+        if (a - 1 < 8 && b + 1 < 8 && a - 1 >= 0 && b + 1 >= 0) {
             if (twoTable[a - 1][b + 1] instanceof PieceLabel) {
                 if (twoTable[a - 1][b + 1].getPiece() instanceof PawnB) {
                     return true;
