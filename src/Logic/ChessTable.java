@@ -574,78 +574,84 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        int c = a-1;
-        int d = b-1;
+        int c = a - 1;
+        int d = b - 1;
         //Checking if there`s a piecelabel in top left corner line of the white king
         if (c > 0 && d > 0) {
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                //Checking if there`s a black bishop or black queen in top left corner line of the white king
-                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
-                    return true;
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    //Checking if there`s a black bishop or black queen in top left corner line of the white king
+                    if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                        return true;
+                    }
+                    //Checking if there`s a black bishop or black king in top left corner line of the white king
+                    if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                        break;
+                    }
                 }
-                //Checking if there`s a black bishop or black king in top left corner line of the white king
-                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
-                    break;
+                //Subtracting the counters for each walkthrough of the loop
+                if (c > 0 && d > 0) {
+                    c--;
+                    d--;
                 }
             }
-            //Subtracting the counters for each walkthrough of the loop
-            if (c > 0 && d > 0) {
-                c--;
-                d--;
-            }
-        }
         }
         // Resetting the counters
-        c = a;
-        d = b;
+        c = a + 1;
+        d = b + 1;
         //Checking if there`s a piecelabel in bottom right corner line of the white king
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
-                    return true;
+        if (c < 7 && d < 7) {
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                        return true;
+                    }
+                    if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                        break;
+                    }
                 }
-                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
-                    break;
+                if (c < 7 && d < 7) {
+                    c++;
+                    d++;
                 }
-            }
-            if (c < 7 && d < 7) {
-                c++;
-                d++;
             }
         }
-        c = a;
-        d = b;
+        c = a + 1;
+        d = b - 1;
         //Checking if there`s a piecelabel in bottom left corner line of the white king
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
-                    return true;
+        if (c < 7 && d > 0) {
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                        return true;
+                    }
+                    if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                        break;
+                    }
                 }
-                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
-                    break;
+                if (c < 7 && d > 0) {
+                    c++;
+                    d--;
                 }
-            }
-            if (c < 7 && d > 0) {
-                c++;
-                d--;
             }
         }
-        c = a;
-        d = b;
+        c = a - 1;
+        d = b + 1;
         //Checking if there`s a piecelabel in top right corner line of the white king
-        for (int j = 0; j < 8; j++) {
-            if (twoTable[c][d] instanceof PieceLabel) {
-                if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
-                    return true;
+        if (c > 0 && d < 7) {
+            for (int j = 0; j < 8; j++) {
+                if (twoTable[c][d] instanceof PieceLabel) {
+                    if (twoTable[c][d].getPiece() instanceof BishopB || twoTable[c][d].getPiece() instanceof QueenB) {
+                        return true;
+                    }
+                    if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
+                        break;
+                    }
                 }
-                if ((twoTable[c][d].getPiece() instanceof BishopB) == false && (twoTable[c][d].getPiece() instanceof KingW) == false) {
-                    break;
+                if (c > 0 && d < 7) {
+                    c--;
+                    d++;
                 }
-            }
-            if (c > 0 && d < 7) {
-                c--;
-                d++;
             }
         }
         return false;
@@ -1436,6 +1442,7 @@ public class ChessTable {
         }
         //Checks top left corner
         if ((a - 1 <= 7 && a - 1 >= 0) && (b - 1 <= 7 && b - 1 >= 0)) {
+            System.out.println(checkW((a - 1) * 8 + (b - 1)));
             if ((p.getTeam() == 1 && checkW((a - 1) * 8 + (b - 1)) == false) || (p.getTeam() == 2 && checkB((a - 1) * 8 + (b - 1)) == false)) {
                 if (twoTable[a - 1][b - 1] instanceof PieceLabel) {
                     if (twoTable[a - 1][b - 1].getPiece().getTeam() != p.getTeam()) {
