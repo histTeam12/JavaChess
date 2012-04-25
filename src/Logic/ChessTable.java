@@ -574,9 +574,10 @@ public class ChessTable {
             b = i;
             a = 0;
         }
-        int c = a;
-        int d = b;
+        int c = a-1;
+        int d = b-1;
         //Checking if there`s a piecelabel in top left corner line of the white king
+        if (c > 0 && d > 0) {
         for (int j = 0; j < 8; j++) {
             if (twoTable[c][d] instanceof PieceLabel) {
                 //Checking if there`s a black bishop or black queen in top left corner line of the white king
@@ -593,6 +594,7 @@ public class ChessTable {
                 c--;
                 d--;
             }
+        }
         }
         // Resetting the counters
         c = a;

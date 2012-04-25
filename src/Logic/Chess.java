@@ -432,14 +432,14 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
             }
             chessPiece.setVisible(true);
             if (chessPiece.getPiece().getTeam() == 1 && chessTable.checkW(kingWpos()) == true) {
-                if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 1 && chessPiece.getPiece() instanceof KingW == false) {
+                if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 1){
                     replacePiece(e, piece);
                 }
                 moveBack();
                 return false;
             }
             if (chessPiece.getPiece().getTeam() == 2 && chessTable.checkB(kingBpos()) == true) {
-                if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 2 && chessPiece.getPiece() instanceof KingB == false) {
+                if (piece instanceof PieceLabel && piece.getPiece().getTeam() != 2){
                     replacePiece(e, piece);
                 }
                 moveBack();
@@ -630,12 +630,12 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     public void replacePiece(MouseEvent e, PieceLabel p) {
         chessPiece.setVisible(false);
-        if(chessBoard.findComponentAt(e.getX(), e.getY()) instanceof JPanel){
-        Container c = (JPanel) chessBoard.findComponentAt(e.getX(), e.getY());
-        c.add(p);
+        if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof JPanel) {
+            Container c = (JPanel) chessBoard.findComponentAt(e.getX(), e.getY());
+            c.add(p);
         }
-        if(chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel){
-            Component d = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+        if (chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel) {
+            PieceLabel d = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
             Container c = (JPanel) d.getParent();
             c.add(p);
         }
