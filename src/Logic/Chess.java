@@ -630,8 +630,15 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
      */
     public void replacePiece(MouseEvent e, PieceLabel p) {
         chessPiece.setVisible(false);
+        if(chessBoard.findComponentAt(e.getX(), e.getY()) instanceof JPanel){
         Container c = (JPanel) chessBoard.findComponentAt(e.getX(), e.getY());
         c.add(p);
+        }
+        if(chessBoard.findComponentAt(e.getX(), e.getY()) instanceof PieceLabel){
+            Component d = (PieceLabel) chessBoard.findComponentAt(e.getX(), e.getY());
+            Container c = (JPanel) d.getParent();
+            c.add(p);
+        }
         chessPiece.setVisible(true);
     }
 
