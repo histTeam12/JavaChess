@@ -846,8 +846,8 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
         }
         if (chessPiece.getPiece().getTeam() == 2) {
             Object[] group = {button1, button3, button6, button8};
-            while (chessPiece.getPiece() instanceof PawnW){
-            showConfirmDialog(null, group, "Choose piece", DEFAULT_OPTION, QUESTION_MESSAGE, pawnW.getIcon());                
+            while (chessPiece.getPiece() instanceof PawnB){
+            showConfirmDialog(null, group, "Choose piece", DEFAULT_OPTION, QUESTION_MESSAGE, pawnB.getIcon());                
             }
         }
 
