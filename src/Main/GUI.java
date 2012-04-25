@@ -214,10 +214,11 @@ public class GUI extends JFrame {
                 rules();
             }
         });
-        addWindowListener(new WindowAdapter(){
-        public void windowClosing(WindowEvent w){
-            confirmExit();
-        }
+        addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent w) {
+                confirmExit();
+            }
         });
 
         //Finishing the constructor by packing and setting visible.
@@ -336,7 +337,7 @@ public class GUI extends JFrame {
         if (answer == 1) {
             System.exit(0);
         }
-        
+
     }
 
     public void settings() {
@@ -430,6 +431,10 @@ public class GUI extends JFrame {
         lostpieceTableB();
         textarea.setText(chess.getWhiteLog());
         textarea2.setText(chess.getBlackLog());
+        if (savegames[index].getMeme() == true) {
+            lostPieceWLabel.setIcon(new ImageIcon(getClass().getResource("/Accessories/Pictures/LostPieceWMeme.png")));
+            lostPieceBLabel.setIcon(new ImageIcon(getClass().getResource("/Accessories/Pictures/LostPieceBMeme.png")));
+        }
         if (chess.getTurn() % 2 == 0) {
             blackgif.setVisible(false);
             whitegif.setVisible(true);
@@ -497,9 +502,9 @@ public class GUI extends JFrame {
      * listeners to them
      */
     public void saveGame() {
-        try{
-        fromSerialized();
-        }catch(Exception e){
+        try {
+            fromSerialized();
+        } catch (Exception e) {
         }
         JButton button1 = new JButton("Empty Savegame");
         try {
