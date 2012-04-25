@@ -1511,7 +1511,7 @@ public class ChessTable {
             }
         }
         //Checks bottom
-        if ((a + 1 <= 7 && a - 1 >= 0) && (b <= 7 && b >= 0)) {
+        if ((a + 1 <= 7 && a + 1 >= 0) && (b <= 7 && b >= 0)) {
             if ((p.getTeam() == 1 && checkW((a + 1) * 8 + (b)) == false) || (p.getTeam() == 2 && checkB((a + 1) * 8 + (b)) == false)) {
                 if (twoTable[a + 1][b] instanceof PieceLabel) {
                     if (twoTable[a + 1][b].getPiece().getTeam() != p.getTeam()) {
