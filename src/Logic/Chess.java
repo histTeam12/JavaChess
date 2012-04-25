@@ -1189,7 +1189,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 + yAdjustment)) instanceof PieceLabel)) {
             if (kingW.move() == false && rookWright.move() == false) {
                 move(e);
-                if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(61) == false && chessTable.checkW(62) == false) {
+                if (chessTable.checkW(60) == false && chessTable.checkW(61) == false && chessTable.checkW(62) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(61);
@@ -1214,7 +1214,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 + yAdjustment)) instanceof PieceLabel)) {
             if (kingW.move() == false && rookWleft.move() == false) {
                 move(e);
-                if (chessTable.checkW(kingWpos()) == false && chessTable.checkW(59) == false && chessTable.checkW(58) == false) {
+                if (chessTable.checkW(60) == false && chessTable.checkW(59) == false && chessTable.checkW(58) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(59);
@@ -1259,7 +1259,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 + yAdjustment)) instanceof PieceLabel)) {
             if (kingB.move() == false && rookBleft.move() == false) {
                 move(e);
-                if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(3) == false && chessTable.checkB(2) == false) {
+                if (chessTable.checkB(4) == false && chessTable.checkB(3) == false && chessTable.checkB(2) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() - 300, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(3);
@@ -1278,7 +1278,7 @@ public class Chess extends JInternalFrame implements MouseListener, MouseMotionL
                 + xAdjustment - 75), (int) (e.getY() + yAdjustment)) instanceof PieceLabel)) {
             if (kingB.move() == false && rookBright.move() == false) {
                 move(e);
-                if (chessTable.checkB(kingBpos()) == false && chessTable.checkB(5) == false && chessTable.checkB(6) == false) {
+                if (chessTable.checkB(4) == false && chessTable.checkB(5) == false && chessTable.checkB(6) == false) {
                     castling = true;
                     Component c = chessBoard.findComponentAt((int) startPos.getX() + 225, (int) startPos.getY());
                     Container parent = (Container) chessBoard.getComponent(5);
